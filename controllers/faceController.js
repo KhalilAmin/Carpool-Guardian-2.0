@@ -17,33 +17,14 @@ module.exports = {
         })
         })
         .then(function (response) {
-            console.log("FACESET TOKEN", response.data.faceset_token);
+            res.send(response.data.faceset_token);
         })
         .catch(function (error) {
             console.log(error);
         });    
     },
 
-    // createFaceSet: function (display_name, outer_id) {
-    //     axios({
-    //     method: "post",
-    //     url: 'https://api-us.faceplusplus.com/facepp/v3/faceset/create', 
-    //     data: qs.stringify({
-    //         api_key: api_key,
-    //         api_secret: api_secret,
-    //         display_name: display_name,
-    //         outer_id: outer_id
-    //     })
-    //     })
-    //     .then(function (response) {
-    //         console.log("FACESET TOKEN", response.data.faceset_token);
-    //     })
-    //     .catch(function (error) {
-    //         console.log(error);
-    //     });    
-    // },
-
-    getFaceSet: function () {
+    getFaceSet: function (req, res) {
         axios({
         method: "post",
         url: 'https://api-us.faceplusplus.com/facepp/v3/faceset/getfacesets', 
@@ -54,9 +35,10 @@ module.exports = {
         })
         .then(function (response) {
             console.log(response.data.facesets);
+            res.send(response.data.facesets);
         })
         .catch(function (error) {
-            //console.log(error);
+            console.log(error);
         });    
     }
 }

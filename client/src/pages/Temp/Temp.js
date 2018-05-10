@@ -112,7 +112,8 @@ class Temp extends Component {
   state = {
     create_outer_id: "",
     create_display_name: "",
-    faceset_token: ""
+    faceset_token: "",
+    faceset_list: []
   };
 
   componentDidMount() {
@@ -138,28 +139,30 @@ class Temp extends Component {
     this.setState({
       [name]: value
     });
-
-    console.log(this.state.outer_id)
   };
 
-  handleFormSubmit = event => {
+  handleCreateFaceSet = event => {
     event.preventDefault();
 
     API.createFaceSet({
       outer_id: this.state.create_outer_id,
       display_name: this.state.create_display_name
     })
-      .then(res => this.state.faceset_token = res.data.faceset_token)
+      .then(res => {
+        this.setState({ faceset_token: res.data});
+    });
 
-    // if (this.state.title && this.state.author) {
-    //   API.saveBook({
-    //     title: this.state.title,
-    //     author: this.state.author,
-    //     synopsis: this.state.synopsis
-    //   })
-    //     .then(res => this.loadBooks())
-    //     .catch(err => console.log(err));
-    // }
+  };
+
+  handleGetFaceSet = event => {
+    event.preventDefault();
+
+    API.getFaceSet({
+    })
+      .then(res => {
+        this.setState({ faceset_list: res.data});
+    });
+
   };
 
   render() {
@@ -172,27 +175,35 @@ class Temp extends Component {
                 <h3 className="panel-title">Create FaceSet</h3>
               </div>
               <div className="panel-body">
-                <div className="form-group">              
-                    <Input className="form-control"
-                    value={this.state.create_outer_id}
-                    onChange={this.handleInputChange}
-                    name="create_outer_id"
-                    placeholder="Enter outer_id"
-                  />
-                  <small className="form-text text-muted">The outer_id would probably be our school pkid.</small>
-                  <Input className="form-control"
-                    value={this.state.create_display_name}
-                    onChange={this.handleInputChange}
-                    name="create_display_name"
-                    placeholder="Enter display_name"
-                  />
-                  <small className="form-text text-muted">The display_name is probably the school name.</small>
+                <div>
+                  {this.state.faceset_token ? (
+                    <h3>FaceSet Token: {this.state.faceset_token}</h3>
+                  ) : (
+                    <div>
+                      <div className="form-group">              
+                        <Input className="form-control"
+                        value={this.state.create_outer_id}
+                        onChange={this.handleInputChange}
+                        name="create_outer_id"
+                        placeholder="Enter outer_id"
+                        />
+                        <small className="form-text text-muted">The outer_id would probably be our school pkid.</small>
+                        <Input className="form-control"
+                          value={this.state.create_display_name}
+                          onChange={this.handleInputChange}
+                          name="create_display_name"
+                          placeholder="Enter display_name"
+                        />
+                        <small className="form-text text-muted">The display_name is probably the school name.</small>
+                      </div>
+                      <FormBtn
+                        onClick={this.handleCreateFaceSet}
+                      >
+                        Add FaceSet
+                      </FormBtn>
+                    </div>
+                  )}
                 </div>
-                <FormBtn
-                  onClick={this.handleFormSubmit}
-                >
-                Add FaceSet
-              </FormBtn>
               </div>
             </div>
           </Col>
@@ -202,14 +213,20 @@ class Temp extends Component {
                     <h3 className="panel-title">Get FaceSet</h3>
                 </div>
                 <div className="panel-body">
-                    <button type="submit" className="btn btn-primary" id="getFaceSet">Get FaceSet</button>
+                <div>
+                  {this.state.faceset_list.length > 0 ? (
+                    <h3>FaceSet List: {this.state.faceset_list}</h3>
+                  ) : (
+                      <FormBtn
+                        onClick={this.handleGetFaceSet}
+                      >
+                        Get FaceSet
+                      </FormBtn>
+                  )}
                 </div>
+              </div>
             </div>
-            {this.state.faceset_token ? (
-              <h3>FaceSet Token: {this.state.faceset_token}</h3>
-            ) : (
-              <h3>No FaceSet</h3>
-            )}
+
           </Col>
           <Col size="md-4">
             <div className="panel panel-default" style={{height:"250px"}}>

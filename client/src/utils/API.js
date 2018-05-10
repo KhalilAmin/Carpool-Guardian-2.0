@@ -1,11 +1,13 @@
 import axios from "axios";
 
 export default {
-  // Gets all books
   createFaceSet: function(data) {
-    console.log("API HAS THIS DATA", data)
     return axios.post("/api/face/createFaceSet/", data);
   },
+  getFaceSet: function(data) {
+    return axios.post("/api/face/getFaceSet")
+  },
+
   // Gets the book with the given id
   getBook: function(id) {
     return axios.get("/api/books/" + id);
