@@ -1,104 +1,3 @@
-// $(document).ready(function() {
-
-//     function readDemoFile(e) {
-
-//         database.ref("drivers").once("value").then(function(snapshot) {
-//             ///Kind of doing this backwards - should fix
-//             if (snapshot.exists) {
-//                 drivernumber = snapshot.numChildren() + 1;
-//             } else {
-//                 drivernumber = 1;
-//             }
-
-   
-        
-
-//             database.ref("cones").once("value").then(function(snapshot) {
-//                 if (snapshot.exists()) {
-
-//                     var data = snapshot.val();   
-//                     var keys = Object.keys(data);
-//                     var base64url;
-
-//                     //figure out the target cone
-//                     if (keys.includes("3")) {
-//                         if (drivernumber%conecount === 0) {
-//                             targetConeStr = "3";        
-//                         } else {
-//                             targetConeStr = (drivernumber%conecount).toString();
-//                         }
-//                         //also - if the target cone is empty currently - go ahead and move the driver to the cone
-//                         if (!keys.includes(targetConeStr)) {
-//                             destination = ("cones/" + targetConeStr)
-//                         } else {
-//                             destination = ("drivers/" + drivernumber)
-//                         }
-
-//                     } else if (keys.includes ("2")) {
-//                         targetConeStr = "3";
-//                         destination = ("cones/3")
-//                         //cone = 3;    
-//                     } else if (keys.includes ("1")) {
-//                         targetConeStr = "2";
-//                         destination = ("cones/2")
-//                         //cone = 2;
-//                     }
-//                 } else {
-//                     targetConeStr = "1";
-//                     destination = ("cones/1")
-//                     //cone = 1;
-//                 }
-
-//                 if(window.FileReader) {
-//                     var file  = e.target.files[0];
-//                     var reader = new FileReader();
-//                     if (file && file.type.match('image.*')) {
-//                         reader.readAsDataURL(file); //This is a magical spot where the image is converted to a base64 string
-
-//                     } else {
-
-//                     }
-//                     reader.onloadend = function (e) {
-//                         $("#newimage").attr("src", reader.result);
-//                         //the readAsDataURL function puts extra information in the string - slice it off
-//                         base64url = reader.result.slice(22);
-                        
-//                         //place the base64 image into the db and the desired destination and run faceDetect
-//                         database.ref(destination).update({
-//                             image64: base64url
-//                         }).then(faceDetect(base64url)); //the image has been processed - use the Face++ to detect
-//                         };
-//                 };
-
-
-//             });
-//         });
-//     };
-
-//     $(document).on("click", "#uploadbutton", function(){
-        
-//         $("#fileclick").trigger('click');                 
-//             return false;
-//     });
-//     //The image upload triggers processing
-//     $(document).on("change", "#fileclick", readDemoFile);
-
-
-//     $(document).on("click", "#createFaceSet", function(){
-//         event.preventDefault();
-
-//         var newFaceSet = {
-//             outer_id: $("#createFaceSet_outer_id").val().trim(),
-//             display_name: $("#createFaceSet_display_name").val().trim(),
-//         }
-
-//         $.post("/api/face/createFaceSet", newFaceSet)
-//             .then(function(data) {
-//                 console.log(data);
-//         })
-//     });
-// });
-
 import React, { Component } from "react";
 import DeleteBtn from "../../components/DeleteBtn";
 import Jumbotron from "../../components/Jumbotron";
@@ -106,33 +5,30 @@ import API from "../../utils/API";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
-import { Input, TextArea, FormBtn } from "../../components/Form";
+import { Input, TextArea, FormBtn, Upload } from "../../components/Form";
 
 class Temp extends Component {
   state = {
     create_outer_id: "",
     create_display_name: "",
     faceset_token: "",
-    faceset_list: []
+    faceset_list: [],
+    deleted_faceset_token: "",
+    delete_faceset_token: "",
+    image_base64: null,
+    filename: null,
+    upload_face_token: "",
+    add_faceset_token: "",
+    add_face_token: "",
+    face_added: 0,
+    search_faceset_token: "",
+    result_face_token: "",
+    result_confidence: 0
   };
 
   componentDidMount() {
-    console.log("TEMP MOUNTED!");
+    //If you're using this as an example for another page you could get DB stuff here
   }
-
-  // loadBooks = () => {
-  //   API.getBooks()
-  //     .then(res =>
-  //       this.setState({ books: res.data, title: "", author: "", synopsis: "" })
-  //     )
-  //     .catch(err => console.log(err));
-  // };
-
-  // deleteBook = id => {
-  //   API.deleteBook(id)
-  //     .then(res => this.loadBooks())
-  //     .catch(err => console.log(err));
-  // };
 
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -149,9 +45,9 @@ class Temp extends Component {
       display_name: this.state.create_display_name
     })
       .then(res => {
+        console.log(res.data);
         this.setState({ faceset_token: res.data});
     });
-
   };
 
   handleGetFaceSet = event => {
@@ -162,8 +58,78 @@ class Temp extends Component {
       .then(res => {
         this.setState({ faceset_list: res.data});
     });
-
   };
+
+  handleDeleteFaceSet = event => {
+    event.preventDefault();
+
+    API.deleteFaceSet({
+      faceset_token: this.state.delete_faceset_token
+    })
+      .then(res => {
+        this.setState({ deleted_faceset_token: res.data});
+        console.log(this.state.deleted_faceset_token);
+    });
+  };
+
+  handleFileSelection = event => {
+    event.preventDefault();
+    
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    this.setState({ filename: event.target.files[0].name})
+    
+    reader.readAsDataURL(file);
+
+    reader.onloadend = error => {
+      const image_base64 = reader.result.slice(22);
+
+      this.setState({ image_base64: image_base64})
+    }
+  };
+
+  handleFileUpload = event => {
+    event.preventDefault();
+
+    API.detectFace({
+      image_base64: this.state.image_base64
+    })
+      .then(res => {
+        this.setState({ upload_face_token: res.data})
+    })
+  };
+
+  handleAddFace = event => {
+    event.preventDefault();
+
+    API.addFace({
+      faceset_token: this.state.add_faceset_token,
+      face_token: this.state.add_face_token
+    })
+      .then(res => {
+
+        this.setState({ face_added: res.data.face_added })
+      })
+  }
+
+  handleSearchFace = event => {
+    event.preventDefault();
+
+    API.searchFace({
+      image_base64: this.state.image_base64,
+      faceset_token: this.state.search_faceset_token
+    })
+      .then(res => {
+        console.log(res.data.face_token);
+        console.log(res.data.confidence)
+
+        this.setState({ 
+          result_face_token: res.data.face_token,
+          result_confidence: res.data.confidence
+          });
+      })
+  }
 
   render() {
      return (
@@ -177,7 +143,7 @@ class Temp extends Component {
               <div className="panel-body">
                 <div>
                   {this.state.faceset_token ? (
-                    <h3>FaceSet Token: {this.state.faceset_token}</h3>
+                    <small>FaceSet Token: {this.state.faceset_token}</small>
                   ) : (
                     <div>
                       <div className="form-group">              
@@ -215,7 +181,13 @@ class Temp extends Component {
                 <div className="panel-body">
                 <div>
                   {this.state.faceset_list.length > 0 ? (
-                    <h3>FaceSet List: {this.state.faceset_list}</h3>
+                      <List>
+                        {this.state.faceset_list.map(face => (
+                          <ListItem key={face.faceset_token}>
+                            <small>{face.display_name}, {face.outer_id}, {face.faceset_token}</small>
+                          </ListItem>
+                        ))}
+                      </List>
                   ) : (
                       <FormBtn
                         onClick={this.handleGetFaceSet}
@@ -226,8 +198,39 @@ class Temp extends Component {
                 </div>
               </div>
             </div>
-
           </Col>
+          <Col size="md-4">
+            <div className="panel panel-default" style={{height:"250px"}}>
+              <div className="panel-heading">
+                <h3 className="panel-title">Delete FaceSet</h3>
+              </div>
+              <div className="panel-body">
+                <div>
+                  {this.state.deleted_faceset_token ? (
+                    <small>Deleted FaceSet Token: {this.state.deleted_faceset_token}</small>
+                  ) : (
+                    <div>
+                      <div className="form-group">              
+                        <Input className="form-control"
+                        value={this.state.delete_faceset_token}
+                        onChange={this.handleInputChange}
+                        name="delete_faceset_token"
+                        placeholder="Enter faceset token to be deleted"
+                        />
+                      </div>
+                      <FormBtn
+                        onClick={this.handleDeleteFaceSet}
+                      >
+                        Delete FaceSet
+                      </FormBtn>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </Col>
+        </Row>
+        <Row>
           <Col size="md-4">
             <div className="panel panel-default" style={{height:"250px"}}>
                 <div className="panel-heading">
@@ -235,112 +238,126 @@ class Temp extends Component {
                 </div>
                 <div className="panel-body">
                   <div className="form-group">
-                      <input className="btn btn-primary" id="uploadbutton" type="button" value="Upload Image"></input>
-                      <input className="btn btn-success" id="fileclick" type="file" style={{display:"none"}}></input>
+                    <input
+                      type="file"
+                      style={{display: 'none'}}
+                      onChange={this.handleFileSelection}
+                      ref={fileInput => this.fileInput = fileInput}
+                    />
                   </div>
+                  <FormBtn
+                    onClick ={() => this.fileInput.click()}
+                  >
+                    Select image
+                  </FormBtn>
+                  {this.state.filename ? (
+                    <small>Filename: {this.state.filename}</small>
+                  ) : (
+                    <small>Filename: </small>
+                  )}
+                  <FormBtn 
+                    onClick ={this.handleFileUpload}
+                  >
+                    Upload File
+                  </FormBtn>
+                  <br/>
+                  {this.state.upload_face_token ? (
+                    <small>Face Token: {this.state.upload_face_token}</small>
+                  ) : (
+                    <small>Face Token: </small>
+                  )}
                 </div>
             </div>
           </Col>
-        </Row>
-        <Row>
           <Col size="md-4">
             <div className="panel panel-default" style={{height:"250px"}}>
-              <div class="panel-heading">
-                <h3 class="panel-title">Add Face</h3>
+              <div className="panel-heading">
+                <h3 className="panel-title">Add Face</h3>
               </div>
-              <div class="panel-body">
-                <div class="form-group">
-                  <input type="text" class="form-control" id="addFace_faceset_token" placeholder="Enter faceset_token"></input>
-                  <small class="form-text text-muted">This is the token of the faceset that you created.</small>
-                  <br/>
-                  <input type="text" class="form-control" id="addFace_face_token" placeholder="Enter face_token"></input>
-                  <small class="form-text text-muted">This is the token of the face.</small>
+              <div className="panel-body">
+                <div>
+                  {this.state.face_added > 0 ? (
+                    <small>Faces Added: {this.state.face_added}</small>
+                  ) : (
+                    <div>
+                      <div className="form-group">              
+                        <Input className="form-control"
+                        value={this.state.add_faceset_token}
+                        onChange={this.handleInputChange}
+                        name="add_faceset_token"
+                        placeholder="Enter faceset_token"
+                        />
+                        <small className="form-text text-muted">This is the token of the faceset that you created.</small>
+                        <Input className="form-control"
+                          value={this.state.add_face_token}
+                          onChange={this.handleInputChange}
+                          name="add_face_token"
+                          placeholder="Enter face_token"
+                        />
+                        <small className="form-text text-muted">This is the token of the face.</small>
+                      </div>
+                      <FormBtn
+                        onClick={this.handleAddFace}
+                      >
+                        Add Face
+                      </FormBtn>
+                    </div>
+                  )}
                 </div>
-                <button type="submit" class="btn btn-primary" id="addFaceSet">Add Face</button>
               </div>
             </div>
           </Col>
           <Col size="md-4">
-            <div className="panel panel-default" style={{height:"250px"}}>  
-                <div class="panel-heading">
-                    <h3 class="panel-title">Search Face</h3>
+            <div className="panel panel-default" style={{height:"250px"}}>
+                <div className="panel-heading">
+                    <h3 className="panel-title">Search Face</h3>
                 </div>
-                <div class="panel-body">
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="search_face_token" placeholder="Enter faceset_token"></input>
-                        <small class="form-text text-muted">This is the token of the faceset that you created.</small>
-                        <br/>
-                        <input type="text" class="form-control" id="addFace_face_token" placeholder="Enter face_token"></input>
-                        <small class="form-text text-muted">This is the token of the face.</small>
-                    </div>
-                    <button type="submit" class="btn btn-primary" id="addFaceSet">Add Face</button>
+                <div className="panel-body">
+                  <div className="form-group">
+                    <input
+                      type="file"
+                      style={{display: 'none'}}
+                      onChange={this.handleFileSelection}
+                      ref={fileInput => this.fileInput = fileInput}
+                    />
+                  </div>
+                  <FormBtn
+                    onClick ={() => this.fileInput.click()}
+                  >
+                    Select image
+                  </FormBtn>
+                  {this.state.filename ? (
+                    <small>Filename: {this.state.filename}</small>
+                  ) : (
+                    <small>Filename: </small>
+                  )}
+                  <div className="form-group">              
+                    <Input className="form-control"
+                    value={this.state.search_faceset_token}
+                    onChange={this.handleInputChange}
+                    name="search_faceset_token"
+                    placeholder="Enter faceset_token"
+                    />
+                    <small className="form-text text-muted">This is the token of the faceset that you created.</small>
+                  </div>  
+                  <FormBtn 
+                    onClick ={this.handleSearchFace}
+                  >
+                    Start Search
+                  </FormBtn>
+                  <br/>
+                  {this.state.result_face_token ? (
+                    <small>Result Face Token: {this.state.result_face_token} Confidence: {this.state.result_confidence}</small>
+                  ) : (
+                    <small>Face Result Token: Confidence: </small>
+                  )}
                 </div>
             </div>
           </Col>
         </Row>
       </Container>
-
-      //   <Row>
-      //     <Col size="md-6">
-      //       <Jumbotron>
-      //         <h1>API Test... Temp-Not Intended For Deployment</h1>
-      //       </Jumbotron>
-      //       <form>
-      //         <Input
-      //           value={this.state.title}
-      //           onChange={this.handleInputChange}
-      //           name="title"
-      //           placeholder="Title (required)"
-      //         />
-      //         <Input
-      //           value={this.state.author}
-      //           onChange={this.handleInputChange}
-      //           name="author"
-      //           placeholder="Author (required)"
-      //         />
-      //         <TextArea
-      //           value={this.state.synopsis}
-      //           onChange={this.handleInputChange}
-      //           name="synopsis"
-      //           placeholder="Synopsis (Optional)"
-      //         />
-      //         <FormBtn
-      //           disabled={!(this.state.author && this.state.title)}
-      //           onClick={this.handleFormSubmit}
-      //         >
-      //           Submit Book
-      //         </FormBtn>
-      //       </form>
-      //     </Col>
-      //   </Row>
-      // </Container>
      );
     }
-//           <Col size="md-6 sm-12">
-//             <Jumbotron>
-//               <h1>Books On My List</h1>
-//             </Jumbotron>
-//             {this.state.books.length ? (
-//               <List>
-//                 {this.state.books.map(book => (
-//                   <ListItem key={book._id}>
-//                     <Link to={"/books/" + book._id}>
-//                       <strong>
-//                         {book.title} by {book.author}
-//                       </strong>
-//                     </Link>
-//                     <DeleteBtn onClick={() => this.deleteBook(book._id)} />
-//                   </ListItem>
-//                 ))}
-//               </List>
-//             ) : (
-//               <h3>No Results to Display</h3>
-//             )}
-//           </Col>
-//         </Row>
-//       </Container>
-    
-  
 }
 
 export default Temp;
