@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
-import { Redirect } from 'react-router-dom'
+import { Redirect, Route, Link } from 'react-router-dom'
+import axios from 'axios'
+import SignupForm from './components/Signup'
+import Nav from './components/Nav'
+import Home from './components/Home'
 
 class Login extends Component {
 	constructor() {
@@ -25,18 +29,81 @@ class Login extends Component {
 		console.log('handleSubmit')
 		this.props._login(this.state.username, this.state.password)
 		this.setState({
-			redirectTo: '/'
+			redirectTo: '/Temp'
+		})
+    }
+    // ===================MERGED APP.JSX Code HERE===============
+	constructor() {
+		super()
+		this.state = {
+			loggedIn: false,
+			user: null
+		}
+		this._logout = this._logout.bind(this)
+		this._login = this._login.bind(this)
+	}
+	componentDidMount() {
+		axios.get('/auth/user').then(response => {
+			console.log(response.data)
+			if (!!response.data.user) {
+				console.log('THERE IS A USER')
+				this.setState({
+					loggedIn: true,
+					user: response.data.user
+				})
+			} else {
+				this.setState({
+					loggedIn: false,
+					user: null
+				})
+			}
 		})
 	}
+
+	_logout(event) {
+		event.preventDefault()
+		console.log('logging out')
+		axios.post('/auth/logout').then(response => {
+			console.log(response.data)
+			if (response.status === 200) {
+				this.setState({
+					loggedIn: false,
+					user: null
+				})
+			}
+		})
+	}
+
+	_login(username, password) {
+		axios
+			.post('/auth/login', {
+				username,
+				password
+			})
+			.then(response => {
+				console.log(response)
+				if (response.status === 200) {
+					// update the state
+					this.setState({
+						loggedIn: true,
+						user: response.data.user
+					})
+				}
+			})
+	}
+    // ==========================================================
 
 	render() {
 		if (this.state.redirectTo) {
 			return <Redirect to={{ pathname: this.state.redirectTo }} />
 		} else {
 			return (
-				<div className="LoginForm">
-					<h1>Login form</h1>
-					<form>
+				<div className="Login">
+					<h1>Welcome To CarPool Guardian 2.0</h1>
+                    <Header user={this.state.user} />
+                    <Nav _logout={this._logout} loggedIn={this.state.loggedIn} />
+					<Route exact path="/" render={() => <Home user={this.state.user} />} />
+                    <form>
 						<label htmlFor="username">Username: </label>
 						<input
 							type="text"
