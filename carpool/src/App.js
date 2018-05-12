@@ -6,21 +6,21 @@ import FormWrapper from "./components/FormWrapper";
 class App extends Component {
   render() {
     return (
-      // <Container>
-      //   <Row>
-      //   <FormWrapper>
-      //     <GuardianForm>
-      //     </GuardianForm>
-      //   </FormWrapper>
-      // </Row>
+      <Container>
+        <Row>
+        <FormWrapper>
+          <GuardianForm>
+          </GuardianForm>
+        </FormWrapper>
+      </Row>
       
-      // <Row>
-      //   <FormWrapper>
-      //     <StudentForm>
-      //     </StudentForm>
-      //   </FormWrapper>
-      //   </Row>
-      // </Container>
+      <Row>
+        <FormWrapper>
+          <StudentForm>
+          </StudentForm>
+        </FormWrapper>
+        </Row>
+      </Container>
      
     );
   }
