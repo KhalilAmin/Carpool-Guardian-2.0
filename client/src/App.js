@@ -7,6 +7,7 @@ const App = () => (
   <Router>
     <div>
       <Switch>
+         {/* <Route exact path="/" component={Login} /> */}
         <Route exact path="/" component={Temp} />
       </Switch>
     </div>
