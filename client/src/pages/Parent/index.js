@@ -1,1 +1,1 @@
-export { default } from "./Temp.js";
+export { default } from "./Parent.js";
