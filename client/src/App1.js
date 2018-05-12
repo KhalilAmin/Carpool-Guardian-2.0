@@ -1,5 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Login from "./pages/Login"
+import Demo from "./pages/Demo"
+import Teacher from "./pages/Teacher"
+import Parent from "./pages/Parent"
 import Temp from "./pages/Temp";
 import Nav from "./components/Nav";
 
@@ -7,8 +11,12 @@ const App = () => (
   <Router>
     <div>
       <Switch>
-       <Route exact path="/" component={Temp} />
-        <Route exact path="/" component={Temp} />
+         {/* <Route exact path="/" component={Login} /> */}
+        <Route exact path="/" component={Login} />
+        <Route exact path="/Demo" component={Demo} />
+        <Route exact path="/Teacher" component={Teacher} />
+        <Route exact path="/Parent" component={Parent} />
+        <Route exact path="/Temp" component={Temp} />
       </Switch>
     </div>
   </Router>
