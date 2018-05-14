@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const familySchema = new Schema({
+const FamilySchema = new Schema({
   familyName: {
     type: String,
     required: true,
@@ -11,7 +11,7 @@ const familySchema = new Schema({
     minlength: 2,
     maxLength: 15
   },
-  guardian: [
+  guardians: [
     {
       // Store ObjectIds in the array
       type: Schema.Types.ObjectId,
@@ -19,7 +19,7 @@ const familySchema = new Schema({
       ref: "Guardian"
     }
   ],
-  temp: [
+  temps: [
     {
       // Store ObjectIds in the array
       type: Schema.Types.ObjectId,
@@ -27,7 +27,7 @@ const familySchema = new Schema({
       ref: "Temp"
     }
   ],
-  child: [
+  children: [
     {
       // Store ObjectIds in the array
       type: Schema.Types.ObjectId,
@@ -37,7 +37,7 @@ const familySchema = new Schema({
   ]
 });
 
-const guardSchema = new Schema({
+const GuardSchema = new Schema({
   fName: { type: String, required: true, trim: true },
   lName: { type: String, required: true, trim: true },
   password: {
@@ -78,7 +78,7 @@ const guardSchema = new Schema({
   }
 });
 
-const tempSchema = new Schema({
+const TempSchema = new Schema({
   fName: { type: String, required: true, trim: true },
   lName: { type: String, required: true, trim: true },
   password: {
@@ -92,8 +92,8 @@ const tempSchema = new Schema({
   date: { type: Date, default: Date.now },
   active: {
     type: Boolean,
-     default: false
-    },
+    default: false
+  },
   daysOpen: { type: Number, default: 1 },
   email: {
     type: String,
@@ -121,7 +121,7 @@ const tempSchema = new Schema({
   }
 });
 
-const childSchema = new Schema({
+const ChildSchema = new Schema({
   fName: { type: String, required: true, trim: true },
   lName: { type: String, required: true, trim: true },
   img: { data: Buffer, contentType: String, required: true },
@@ -154,9 +154,9 @@ const childSchema = new Schema({
   date: { type: Date, default: Date.now },
 });
 
-const Family = mongoose.model("Family", familySchema);
-const Guardian = mongoose.model("Guardian", guardSchema);
-const Temp = mongoose.model("Temp", tempSchema);
-const Child = mongoose.model("Child", childSchema);
+const Family = mongoose.model("Family", FamilySchema);
+const Guardian = mongoose.model("Guardian", GuardSchema);
+const Temp = mongoose.model("Temp", TempSchema);
+const Child = mongoose.model("Child", ChildSchema);
 
 module.exports = Family;
