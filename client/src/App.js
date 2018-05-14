@@ -37,6 +37,11 @@ import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Header from './components/Header'
 import Home from './components/Home'
+import Teacher from "./pages/Teacher"
+import Parent from "./pages/Parent"
+import Temp from "./pages/Temp";
+import Nav from "./components/Nav";
+import Demo from "./pages/Demo"
 
 const DisplayLinks = props => {
 	if (props.loggedIn) {
@@ -161,6 +166,10 @@ class App extends Component {
 						/>}
 				/>
 				<Route exact path="/signup" component={Signup} />
+				<Route exact path="/Demo" component={Demo} />
+		        <Route exact path="/Teacher" component={Teacher} />
+		        <Route exact path="/Parent" component={Parent} />
+                <Route exact path="/Temp" component={Temp} />
 				{/* <LoginForm _login={this._login} /> */}
 			</div>
 		)

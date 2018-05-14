@@ -26,7 +26,7 @@ class Login extends Component {
 		console.log('handleSubmit')
 		this.props._login(this.state.username, this.state.password)
 		this.setState({
-			redirectTo: '/'
+			redirectTo: '/Temp'
 		})
 	}
 
@@ -36,7 +36,7 @@ class Login extends Component {
 		} else {
 			return (
 				<div className="Login">
-					<h1>Login form</h1>
+					<h1>Login</h1>
 					<form>
 						<label htmlFor="username">Username: </label>
 						<input
