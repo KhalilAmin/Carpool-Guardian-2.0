@@ -4,9 +4,10 @@ const ImageCard = props => {
 
     const personArray = props.personArray;
     const listImages = personArray.map((person) =>
-    // <li >
+   
+    <div className="w3-container w3-center">
       <img alt={person.name} src={person.img} key={person.id} />
-    // /* </li> */
+    </div>
   );
 
   // return(<ul>{listImages}</ul>);
