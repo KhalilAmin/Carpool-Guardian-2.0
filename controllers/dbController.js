@@ -8,6 +8,13 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+  getSchool: function(req, res) {
+    console.log("Im hitting this shit");
+    db.School
+      .find(req.query)
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
   getChildren: function(req, res) {
     db.Family.guardian.child
       .findById(req.params.id)
@@ -20,6 +27,13 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+  getFamily: function(req, res) {
+    console.log("blah");
+    db.Family
+      .find({})
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
   addChild: function(req, res) {
     db.Family.guardian.child
       .create(req.body)
@@ -27,6 +41,13 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   addFamily: function(req, res) {
+    db.Family
+      .create(req.body)
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+      console.log(res);
+  },
+  addQueue: function(req, res) {
     db.Family
       .create(req.body)
       .then(dbModel => res.json(dbModel))
@@ -44,6 +65,18 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+  addSchool: function(req, res) {
+    db.School
+      .create(req.body)
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+  updateFamily: function(req, res) {
+    db.Family
+      .findOneAndUpdate({ _id: req.params.id }, req.body)
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
   updateGaurdian: function(req, res) {
     db.Family.guardian
       .findOneAndUpdate({ _id: req.params.id }, req.body)
@@ -56,11 +89,17 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
-  remove: function(req, res) {
-    db.Book
+  removeQueue: function(req, res) {
+    db.School.cone.queueData
       .findById({ _id: req.params.id })
       .then(dbModel => dbModel.remove())
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
-  }
+  },
+  getNext: function(req, res) {
+    db.School.cone.queueData
+      .findOneAndUpdate({ _id: req.params.id }, req.body)
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
 };
