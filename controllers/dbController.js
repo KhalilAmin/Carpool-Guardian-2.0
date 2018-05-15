@@ -5,7 +5,6 @@ module.exports = {
   getGaurdian: function(req, res) {
     db.Family.guardian
       .find(req.query)
-      .sort({ date: -1 })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
@@ -23,6 +22,12 @@ module.exports = {
   },
   addChild: function(req, res) {
     db.Family.guardian.child
+      .create(req.body)
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+  addFamily: function(req, res) {
+    db.Family
       .create(req.body)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
