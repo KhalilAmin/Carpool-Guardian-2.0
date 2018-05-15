@@ -1,25 +1,61 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+// import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Login from "./pages/Login"
 import Demo from "./pages/Demo"
 import Teacher from "./pages/Teacher"
 import Parent from "./pages/Parent"
-import Temp from "./pages/Temp";
+// import Temp from "./pages/Temp";
 import Nav from "./components/Nav";
+import CardHeading from "./components/CardHeading";
+import CardWrapper from "./components/CardWrapper";
+// import GuardianForm from "./components/Form/GuardianForm.js";
+let variable = ["I am the heading", "It might be your heading", "I am not your heading"];
 
 const App = () => (
-  <Router>
-    <div>
-      <Switch>
-         {/* <Route exact path="/" component={Login} /> */}
-        <Route exact path="/" component={Login} />
-        <Route exact path="/Demo" component={Demo} />
-        <Route exact path="/Teacher" component={Teacher} />
-        <Route exact path="/Parent" component={Parent} />
-        <Route exact path="/Temp" component={Temp} />
-      </Switch>
-    </div>
-  </Router>
+  <CardWrapper>
+    <CardHeading>
+      <h2> {variable[0]} </h2>
+    </CardHeading>
+  </CardWrapper>
+ 
+  // <Router>
+  /* <div> */
+  /* <Switch>
+    <Route exact path="/" component={Temp} />
+  </Switch> */
+  /* <Container>
+    <Row>
+    <FormWrapper>
+      <GuardianForm>
+      </GuardianForm>
+    </FormWrapper>
+  </Row>
+  
+  <Row>
+    <FormWrapper>
+      <StudentForm>
+      </StudentForm>
+    </FormWrapper>
+    </Row>
+  </Container>
+     {/* <Route exact path="/" component={Login} /> */
+  /* <Route exact path="/" component={Login} />
+    <Router>
+      <div>
+        <Switch>
+           {/* <Route exact path="/" component={Login} /> */
+  //  <Route exact path="/" component={Login} />
+  //   <Route exact path="/Demo" component={Demo} />
+  //   <Route exact path="/Teacher" component={Teacher} />
+  //   <Route exact path="/Parent" component={Parent} />
+  //   <Route exact path="/Temp" component={Temp} />
+  // <Switch> 
+  //   </div>
+  // </Router> */}
+  // );
+  // </Switch>
+  //   </div>
+  // </Router>
 );
 
 export default App;

@@ -13,25 +13,25 @@ const schoolSchema = new Schema({
         minlength: 2,
         index: { unique: true }
     },
-    schoolStreet: {
-        type: String,
-        required: true
-    },
-    schoolState:{
-        type: String,
-        required: true,
-        minlength: 2
-    },
-    schoolCounty:{
-        type: String,
-        required: true,
-        minlength: 2
-    },
-    schoolZip:{
-        type: Number,
-        required: true,
-        minlength: 2
-    },
+    // schoolStreet: {
+    //     type: String,
+    //     required: true
+    // },
+    // schoolState:{
+    //     type: String,
+    //     required: true,
+    //     minlength: 2
+    // },
+    // schoolCounty:{
+    //     type: String,
+    //     required: true,
+    //     minlength: 2
+    // },
+    // schoolZip:{
+    //     type: Number,
+    //     required: true,
+    //     minlength: 2
+    // },
     faceSetToken: [],
     teacher: [
         {
@@ -41,8 +41,8 @@ const schoolSchema = new Schema({
             ref: "Teacher"
           }
     ],
-    outer_id: { type: String, required: true, trim: true },
-    display_name: { type: String, required: true, trim: true },
+    // outer_id: { type: String, required: true, trim: true },
+    // display_name: { type: String, required: true, trim: true },
     cone: [
         {
             // Store ObjectIds in the array
@@ -73,8 +73,8 @@ const teacherSchema = new Schema({
         minlength: 2,
         maxLength: 15
     },
-    img_base64: { data: Buffer, contentType: String, required: true },
-    face_token: { type: String, unique: true },
+    // img_base64: { data: Buffer, contentType: String, required: true },
+    face_token: { type: String },
     date: { type: Date, default: Date.now },
     email: {
         type: String,
