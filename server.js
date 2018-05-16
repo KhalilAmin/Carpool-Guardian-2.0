@@ -39,7 +39,12 @@ app.use(express.static("client/public"));
 // Add routes, both API and view
 app.use(routes);
 
+<<<<<<< HEAD
 
+=======
+// Connect to the Mongo DB
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/carpoolGaurdian");
+>>>>>>> 40c3fac12ca57143022a50933b72367ae81fc02c
 
 app.get("/", function(req, res) {
     res.sendFile(path.join(__dirname, "apitemp.html"));
@@ -49,8 +54,11 @@ app.post("/createFaceSet", function(req, res) {
     console.log(req.body);
   });
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 40c3fac12ca57143022a50933b72367ae81fc02c
 // Start the API server
 app.listen(PORT, function() {
   console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);

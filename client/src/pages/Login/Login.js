@@ -11,7 +11,7 @@ class Login extends Component {
 			password: '',
 			redirectTo: null
 		}
-		// this.googleSignin = this.googleSignin.bind(this)
+		
 		this.handleSubmit = this.handleSubmit.bind(this)
 		this.handleChange = this.handleChange.bind(this)
 	}
