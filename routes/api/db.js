@@ -2,13 +2,14 @@
 const router = require("express").Router();
 const dbController = require("../../controllers/dbController");
 
-router.route("/getGaurdian")
+
+router.route("/getGaurdian/:id")
   .get(dbController.getGaurdian);
 
-router.route("/getChildren")
+router.route("/getChildren/:id")
   .get(dbController.getChildren);
 
-router.route("/getTeacher")
+router.route("/getTeacher/:id")
   .get(dbController.getTeacher);
 
 router.route("/addChild")

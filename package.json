@@ -22,7 +22,8 @@
     "express": "^4.16.3",
     "form-data": "^2.3.2",
     "mongoose": "^5.0.17",
-    "qs": "^6.5.2"
+    "qs": "^6.5.2",
+    "react-scripts": "^1.1.4"
   },
   "author": "",
   "license": "ISC"

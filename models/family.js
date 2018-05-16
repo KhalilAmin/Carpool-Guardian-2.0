@@ -46,7 +46,7 @@ const GuardSchema = new Schema({
     minlength: 2,
     maxLength: 15
   },
-  // img_base64: { data: Buffer, contentType: String, required: true },
+  img_base64: { data: Buffer, type: String, required: true },
   face_token: { type: String },
   date: { type: Date, default: Date.now },
   email: {
@@ -87,7 +87,7 @@ const TempSchema = new Schema({
     minlength: 2,
     maxLength: 15
   },
-  // img_base64: { data: Buffer, contentType: String, required: true },
+  img_base64: { data: Buffer, type: String, required: true },
   face_token: { type: String },
   date: { type: Date, default: Date.now },
   active: {
@@ -124,7 +124,7 @@ const TempSchema = new Schema({
 const ChildSchema = new Schema({
   fName: { type: String, required: true, trim: true },
   lName: { type: String, required: true, trim: true },
-  // img: { data: Buffer, contentType: String, required: true },
+  img_base64: { data: Buffer, type: String, required: true },
   grade: { data: String, required: false },
   email: {
     type: String,
