@@ -13,26 +13,35 @@ const schoolSchema = new Schema({
         minlength: 2,
         index: { unique: true }
     },
-    // schoolStreet: {
-    //     type: String,
-    //     required: true
-    // },
-    // schoolState:{
-    //     type: String,
-    //     required: true,
-    //     minlength: 2
-    // },
-    // schoolCounty:{
-    //     type: String,
-    //     required: true,
-    //     minlength: 2
-    // },
-    // schoolZip:{
-    //     type: Number,
-    //     required: true,
-    //     minlength: 2
-    // },
-    faceSetToken: [],
+    schoolStreet: {
+        type: String,
+        required: true
+    },
+    schoolState:{
+        type: String,
+        required: true,
+        minlength: 2
+    },
+    schoolCounty:{
+        type: String,
+        required: true,
+        minlength: 2
+    },
+    schoolZip:{
+        type: Number,
+        required: true,
+        minlength: 2
+    },
+    schoolGrades:{
+        type: String,
+        required: true,
+        minlength: 2
+    },
+    faceSetToken:{
+        type: String,
+        required: true,
+        minlength: 2,
+    },
     teacher: [
         {
             // Store ObjectIds in the array

@@ -25,6 +25,11 @@ export default {
   },
   // get guadian tied to a face tocken (pulled from getNext)
   // and on load of parent portal
+
+  addSchool: function(data) {
+    return axios.post("api/db/addSchool", data)
+  },
+
   getGaurdian: function (data) {
     return axios.get("/api/db/getGaurdian" + data);
   },
@@ -66,9 +71,9 @@ export default {
   },
   //help
   //updates cone Schema to add people to queue 
-  addQueue: function (face_Token, cone_id) {
-    return axios.post("/api/books", bookData);
-  },
+  // addQueue: function (face_Token, cone_id) {
+  //   return axios.post("/api/books", bookData);
+  // },
   //Removes people to queue on pickup
   removeQueue: function (id) {
     return axios.delete("/api/db/removeQueue", id);
