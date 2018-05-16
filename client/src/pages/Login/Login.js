@@ -6,7 +6,8 @@ class Login extends Component {
 	constructor() {
 		super()
 		this.state = {
-			username: '',
+			// username: '',
+			email: '',
 			password: '',
 			redirectTo: null
 		}
@@ -24,25 +25,32 @@ class Login extends Component {
 	handleSubmit(event) {
 		event.preventDefault()
 		console.log('handleSubmit')
-		this.props._login(this.state.username, this.state.password)
+		// console.log(this.state.redirectTo)
+		this.props._login(this.state.email, this.state.password)
 		this.setState({
-			redirectTo: '/Temp'
+			redirectTo: '/Temp',
+			loggedIn: true,
+			
 		})
+		// .then (<Redirect to={"/Temp"} />)
+		
 	}
 
 	render() {
-		if (this.state.redirectTo) {
-			return <Redirect to={{ pathname: this.state.redirectTo }} />
+		
+		if (this.state.loggedIn) {
+			return <Redirect to="/Temp" />
+			console.log(this.state)
 		} else {
 			return (
 				<div className="Login">
 					<h1>Login</h1>
 					<form>
-						<label htmlFor="username">Username: </label>
+						<label htmlFor="email">Email: </label>
 						<input
 							type="text"
-							name="username"
-							value={this.state.username}
+							name="email"
+							value={this.state.email}
 							onChange={this.handleChange}
 						/>
 						<label htmlFor="password">Password: </label>

@@ -15,7 +15,7 @@ const Nav = props => {
 			<nav className="navbar">
 				<ul className="nav">
 					<li className="nav-item">
-						<Link to="/" className="nav-link">
+						<Link to="/Temp" className="nav-link">
 							Home
 						</Link>
 					</li>
@@ -31,11 +31,11 @@ const Nav = props => {
 		return (
 			<nav className="navbar">
 				<ul className="nav">
-					<li className="nav-item">
+					{/* <li className="nav-item">
 						<Link to="/" className="nav-link">
 							Home
 						</Link>
-					</li>
+					</li> */}
 					<li className="nav-item">
 						<Link to="/login" className="nav-link">
 							login

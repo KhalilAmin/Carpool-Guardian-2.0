@@ -6,7 +6,9 @@ class Signup extends Component {
 	constructor() {
 		super()
 		this.state = {
-			username: '',
+			firstname: '',
+			lastname: '',
+			email: '',
 			password: '',
 			confirmPassword: '',
 			redirectTo: null
@@ -24,7 +26,9 @@ class Signup extends Component {
 		// TODO - validate!
 		axios
 			.post('/auth/signup', {
-				username: this.state.username,
+				firstname: this.state.firstname,
+				lastname: this.state.lastname,
+				email: this.state.email,
 				password: this.state.password
 			})
 			.then(response => {
@@ -32,7 +36,7 @@ class Signup extends Component {
 				if (!response.data.errmsg) {
 					console.log('youre good')
 					this.setState({
-						redirectTo: '/login'
+						redirectTo: '/Temp'
 					})
 				} else {
 					console.log('duplicate')
@@ -46,11 +50,25 @@ class Signup extends Component {
 		return (
 			<div className="Signup">
 				<h1>Signup form</h1>
-				<label htmlFor="username">Username: </label>
+				<label htmlFor="firstname">Firstname: </label>
 				<input
 					type="text"
-					name="username"
-					value={this.state.username}
+					name="firstname"
+					value={this.state.firstname}
+					onChange={this.handleChange}
+				/>
+				<label htmlFor="lastname">Lastname: </label>
+				<input
+					type="text"
+					name="lastname"
+					value={this.state.lastname}
+					onChange={this.handleChange}
+				/>
+				<label htmlFor="email">Email: </label>
+				<input
+					type="text"
+					name="email"
+					value={this.state.email}
 					onChange={this.handleChange}
 				/>
 				<label htmlFor="password">Password: </label>

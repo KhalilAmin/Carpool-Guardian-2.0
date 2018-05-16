@@ -4,20 +4,21 @@ const bcrypt = require('bcryptjs')
 mongoose.promise = Promise
 
 // Define userSchema
-const userSchema = new Schema({
+const teacherSchema = new Schema({
 	firstName: { type: String, unique: false },
 	lastName: { type: String, unique: false },
 	local: {
 		email: { type: String, unique: false, required: false },
 		password: { type: String, unique: false, required: false }
-	},
-	email: {type: String,
+    },
+    email: {type: String,
         unique: true,
         match: [/.+@.+\..+/, "Please enter a valid e-mail address"]
     },
+    class: {type: String, unique: false, required: false },
 
 	photos: []
-
+	
 })
 
 // Define schema methods
@@ -44,5 +45,5 @@ userSchema.pre('save', function(next) {
 })
 
 // Create reference to User & export
-const User = mongoose.model('User', userSchema)
-module.exports = User
+const User = mongoose.model('Teacher', userSchema)
+module.exports = Teacher

@@ -39,8 +39,7 @@ app.use(express.static("client/public"));
 // Add routes, both API and view
 app.use(routes);
 
-// Connect to the Mongo DB
-// mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/reactreadinglist");
+
 
 app.get("/", function(req, res) {
     res.sendFile(path.join(__dirname, "apitemp.html"));
@@ -50,8 +49,7 @@ app.post("/createFaceSet", function(req, res) {
     console.log(req.body);
   });
 
-// Connect to the Mongo DB
-// mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/reactreadinglist");
+
 
 // Start the API server
 app.listen(PORT, function() {
