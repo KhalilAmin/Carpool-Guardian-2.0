@@ -31,19 +31,19 @@ const Nav = props => {
 		return (
 			<nav className="navbar">
 				<ul className="nav">
-					{/* <li className="nav-item">
-						<Link to="/" className="nav-link">
-							Home
-						</Link>
-					</li> */}
 					<li className="nav-item">
 						<Link to="/login" className="nav-link">
-							login
+							Login
 						</Link>
 					</li>
 					<li className="nav-item">
-						<Link to="/signup" className="nav-link">
-							sign up
+						<Link to="/teacherSignup" className="nav-link">
+							Teacher Signup
+						</Link>
+					</li>
+					<li className="nav-item">
+						<Link to="/guardianSignup" className="nav-link">
+							Guardian Signup
 						</Link>
 					</li>
 				</ul>

@@ -2,13 +2,14 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import { Redirect } from 'react-router-dom'
 
-class Signup extends Component {
+class teacherSignup extends Component {
 	constructor() {
 		super()
 		this.state = {
 			firstname: '',
 			lastname: '',
-			email: '',
+            email: '',
+            class: '',
 			password: '',
 			confirmPassword: '',
 			redirectTo: null
@@ -28,7 +29,8 @@ class Signup extends Component {
 			.post('/auth/signup', {
 				firstname: this.state.firstname,
 				lastname: this.state.lastname,
-				email: this.state.email,
+                email: this.state.email,
+                class: this.state.class,
 				password: this.state.password
 			})
 			.then(response => {
@@ -48,8 +50,8 @@ class Signup extends Component {
 			return <Redirect to={{ pathname: this.state.redirectTo }} />
 		}
 		return (
-			<div className="Signup">
-				<h1>Signup form</h1>
+			<div className="teacherSignup">
+				<h1>Teacher Signup Form</h1>
 				<label htmlFor="firstname">Firstname: </label>
 				<input
 					type="text"
@@ -69,6 +71,13 @@ class Signup extends Component {
 					type="text"
 					name="email"
 					value={this.state.email}
+					onChange={this.handleChange}
+				/>
+                <label htmlFor="class">Class: </label>
+				<input
+					type="text"
+					name="class"
+					value={this.state.class}
 					onChange={this.handleChange}
 				/>
 				<label htmlFor="password">Password: </label>
@@ -91,4 +100,4 @@ class Signup extends Component {
 	}
 }
 
-export default Signup
+export default teacherSignup

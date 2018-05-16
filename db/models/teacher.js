@@ -8,7 +8,7 @@ const teacherSchema = new Schema({
 	firstName: { type: String, unique: false },
 	lastName: { type: String, unique: false },
 	local: {
-		email: { type: String, unique: false, required: false },
+		// email: { type: String, unique: false, required: false },
 		password: { type: String, unique: false, required: false }
     },
     email: {type: String,
@@ -22,7 +22,7 @@ const teacherSchema = new Schema({
 })
 
 // Define schema methods
-userSchema.methods = {
+teacherSchema.methods = {
 	checkPassword: function(inputPassword) {
 		return bcrypt.compareSync(inputPassword, this.local.password)
 	},
@@ -32,7 +32,7 @@ userSchema.methods = {
 }
 
 // Define hooks for pre-saving
-userSchema.pre('save', function(next) {
+teacherSchema.pre('save', function(next) {
 	if (!this.local.password) {
 		console.log('=======NO PASSWORD PROVIDED=======')
 		next()
@@ -45,5 +45,5 @@ userSchema.pre('save', function(next) {
 })
 
 // Create reference to User & export
-const User = mongoose.model('Teacher', userSchema)
+const Teacher = mongoose.model('Teacher', teacherSchema)
 module.exports = Teacher

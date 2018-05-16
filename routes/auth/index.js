@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../../db/models/user');
+const Teacher = require('../../db/models/teacher');
 const passport = require('../../passport');
 
 
@@ -51,16 +52,16 @@ router.post('/signup', (req, res) => {
 	const { firstname, lastname, email, password } = req.body
 	console.log(req.body);
 	// ADD VALIDATION
-	User.findOne({ 'local.email': email }, (err, userMatch) => {
+	User.findOne({ 'email': email }, (err, userMatch) => {
 		if (userMatch) {
 			return res.json({
 				error: `Sorry, already a user with the email: ${email}`
 			})
 		}
 		const newUser = new User({
-			'local.firstname': firstname,
-			'local.lastname': lastname,
-			'local.email': email,
+			'firstname': firstname,
+			'lastname': lastname,
+			'email': email,
 			'local.password': password
 		})
 		newUser.save((err, savedUser) => {
