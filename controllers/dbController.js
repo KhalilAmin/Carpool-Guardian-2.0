@@ -9,7 +9,6 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   getSchool: function(req, res) {
-    console.log("Im hitting this shit");
     db.School
       .find(req.query)
       .then(dbModel => res.json(dbModel))
@@ -21,6 +20,12 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+  addTeacher: function(req, res) {
+    db.School
+      .findOneAndUpdate({ school_id: req.body.school_id }, {$push: {teacher: req.body.teacher}})
+      .then(dbModel > res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
   getTeacher: function(req, res) {
     db.School.teacher
       .findById(req.params.id)
@@ -28,7 +33,6 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   getFamily: function(req, res) {
-    console.log("blah");
     db.Family
       .find({})
       .then(dbModel => res.json(dbModel))
