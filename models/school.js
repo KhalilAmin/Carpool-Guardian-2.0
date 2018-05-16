@@ -9,7 +9,7 @@ const schoolSchema = new Schema({
     },
     school_id: {
         type: String,
-        required: true,
+        // required: true,
         minlength: 2,
         index: { unique: true }
     },
@@ -19,7 +19,7 @@ const schoolSchema = new Schema({
     },
     schoolState:{
         type: String,
-        required: true,
+        required: true
         minlength: 2
     },
     schoolCounty:{
@@ -29,6 +29,10 @@ const schoolSchema = new Schema({
     },
     schoolZip:{
         type: Number,
+        required: true,
+        minlength: 2
+    },
+    faceSetToken: [],
         required: true,
         minlength: 2
     },
