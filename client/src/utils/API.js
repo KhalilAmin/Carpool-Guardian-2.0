@@ -1,6 +1,7 @@
 import axios from "axios";
 
 export default {
+  //this part populates the URL and sends the data as the request
   createFaceSet: function(data) {
     return axios.post("/api/face/createFaceSet/", data);
   },
@@ -31,16 +32,16 @@ export default {
   },
 
   getGaurdian: function (data) {
-    return axios.get("/api/db/getGaurdian" + data);
+    return axios.get("/api/db/getGaurdian", data);
   },
   // Gets all chillren tied to a family (parent Portal) and 
   // get all children tied to a specific Guardian on pickup for a specific cone 
   getChildren: function (data) {
-    return axios.get("/api/db/getChildren" + data);
+    return axios.get("/api/db/getChildren", data);
   },
   // Gets all teachers tied to a school
   getTeachers: function (id) {
-    return axios.get("/api/db/getTeachers" + id);
+    return axios.get("/api/db/getTeachers", id);
   },
   // add a child to a family
   addChild: function (childData) {
