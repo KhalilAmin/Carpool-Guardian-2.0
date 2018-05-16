@@ -32,11 +32,6 @@ const schoolSchema = new Schema({
         required: true,
         minlength: 2
     },
-    faceSetToken: {
-        type: String,
-        required: true,
-        minlength: 2
-    },
     schoolGrades: {
         type: String,
         required: true,
@@ -87,8 +82,7 @@ const teacherSchema = new Schema({
         minlength: 2,
         maxLength: 15
     },
-    // img_base64: { data: Buffer, contentType: String, required: true },
-    face_token: { type: String },
+    img_base64: { data: Buffer, contentType: String, required: true },
     date: { type: Date, default: Date.now },
     email: {
         type: String,
