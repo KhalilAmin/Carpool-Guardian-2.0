@@ -32,7 +32,16 @@ const schoolSchema = new Schema({
         required: true,
         minlength: 2
     },
-    faceSetToken: [],
+    schoolGrades:{
+        type: String,
+        required: true,
+        minlength: 2
+    },
+    faceSetToken:{
+        type: String,
+        required: true,
+        minlength: 2,
+    },
     teacher: [
         {
             // Store ObjectIds in the array
@@ -41,8 +50,8 @@ const schoolSchema = new Schema({
             ref: "Teacher"
           }
     ],
-    outer_id: { type: String, required: true, trim: true },
-    display_name: { type: String, required: true, trim: true },
+    // outer_id: { type: String, required: true, trim: true },
+    // display_name: { type: String, required: true, trim: true },
     cone: [
         {
             // Store ObjectIds in the array
@@ -73,8 +82,8 @@ const teacherSchema = new Schema({
         minlength: 2,
         maxLength: 15
     },
-    img_base64: { data: Buffer, contentType: String, required: true },
-    face_token: { type: String, unique: true },
+    // img_base64: { data: Buffer, contentType: String, required: true },
+    face_token: { type: String },
     date: { type: Date, default: Date.now },
     email: {
         type: String,

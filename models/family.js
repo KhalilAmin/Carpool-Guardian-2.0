@@ -11,7 +11,7 @@ const FamilySchema = new Schema({
     minlength: 2,
     maxLength: 15
   },
-  guardians: [
+  guardian: [
     {
       // Store ObjectIds in the array
       type: Schema.Types.ObjectId,
@@ -19,7 +19,7 @@ const FamilySchema = new Schema({
       ref: "Guardian"
     }
   ],
-  temps: [
+  temp: [
     {
       // Store ObjectIds in the array
       type: Schema.Types.ObjectId,
@@ -27,7 +27,7 @@ const FamilySchema = new Schema({
       ref: "Temp"
     }
   ],
-  children: [
+  child: [
     {
       // Store ObjectIds in the array
       type: Schema.Types.ObjectId,
@@ -47,7 +47,7 @@ const GuardSchema = new Schema({
     maxLength: 15
   },
   // img_base64: { data: Buffer, contentType: String, required: true },
-  face_token: { type: String, unique: true },
+  face_token: { type: String },
   date: { type: Date, default: Date.now },
   email: {
     type: String,
@@ -88,7 +88,7 @@ const TempSchema = new Schema({
     maxLength: 15
   },
   // img_base64: { data: Buffer, contentType: String, required: true },
-  face_token: { type: String, unique: true },
+  face_token: { type: String },
   date: { type: Date, default: Date.now },
   active: {
     type: Boolean,
@@ -124,7 +124,7 @@ const TempSchema = new Schema({
 const ChildSchema = new Schema({
   fName: { type: String, required: true, trim: true },
   lName: { type: String, required: true, trim: true },
-  img: { data: Buffer, contentType: String, required: true },
+  // img: { data: Buffer, contentType: String, required: true },
   grade: { data: String, required: false },
   email: {
     type: String,
@@ -150,7 +150,7 @@ const ChildSchema = new Schema({
     },
     required: false
   },
-  face_token: { data: String, unique: true },
+  face_token: { data: String},
   date: { type: Date, default: Date.now },
 });
 
