@@ -9,7 +9,7 @@ const schoolSchema = new Schema({
     },
     school_id: {
         type: String,
-        // required: true,
+        required: true,
         minlength: 2,
         index: { unique: true }
     },
@@ -17,31 +17,32 @@ const schoolSchema = new Schema({
         type: String,
         required: true
     },
-    schoolState:{
-        type: String,
-        required: true
-        minlength: 2
-    },
-    schoolCounty:{
+    schoolState: {
         type: String,
         required: true,
         minlength: 2
     },
-    schoolZip:{
+    schoolCounty: {
+        type: String,
+        required: true,
+        minlength: 2
+    },
+    schoolZip: {
         type: Number,
         required: true,
         minlength: 2
     },
-    faceSetToken: [],
-        required: true,
-        minlength: 2
-    },
-    schoolGrades:{
+    faceSetToken: {
         type: String,
         required: true,
         minlength: 2
     },
-    faceSetToken:{
+    schoolGrades: {
+        type: String,
+        required: true,
+        minlength: 2
+    },
+    faceSetToken: {
         type: String,
         required: true,
         minlength: 2,
@@ -52,7 +53,7 @@ const schoolSchema = new Schema({
             type: Schema.Types.ObjectId,
             // The ObjectIds will refer to the ids in the child model
             ref: "Teacher"
-          }
+        }
     ],
     // outer_id: { type: String, required: true, trim: true },
     // display_name: { type: String, required: true, trim: true },

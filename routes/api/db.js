@@ -2,7 +2,16 @@
 const router = require("express").Router();
 const dbController = require("../../controllers/dbController");
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+
 router.route("/getGaurdian/:id")
+=======
+router.route("/getGaurdian")
+>>>>>>> 40c3fac12ca57143022a50933b72367ae81fc02c
+=======
+router.route("/getGaurdian/:id")
+>>>>>>> f33b33f9f5bc8c67adbab4cac8c9d5822216ea61
   .get(dbController.getGaurdian);
 
 router.route("/getChildren/:id")
