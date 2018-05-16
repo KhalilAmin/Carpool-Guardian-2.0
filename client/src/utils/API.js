@@ -1,6 +1,7 @@
 import axios from "axios";
 
 export default {
+  //this part populates the URL and sends the data as the request
   createFaceSet: function(data) {
     return axios.post("/api/face/createFaceSet/", data);
   },
@@ -25,17 +26,18 @@ export default {
   },
   // get guadian tied to a face tocken (pulled from getNext)
   // and on load of parent portal
+  //+
   getGaurdian: function (data) {
-    return axios.get("/api/db/getGaurdian" + data);
+    return axios.get("/api/db/getGaurdian", data);
   },
   // Gets all chillren tied to a family (parent Portal) and 
   // get all children tied to a specific Guardian on pickup for a specific cone 
   getChildren: function (data) {
-    return axios.get("/api/db/getChildren" + data);
+    return axios.get("/api/db/getChildren", data);
   },
   // Gets all teachers tied to a school
   getTeachers: function (id) {
-    return axios.get("/api/db/getTeachers" + id);
+    return axios.get("/api/db/getTeachers", id);
   },
   // add a child to a family
   addChild: function (childData) {
@@ -66,9 +68,9 @@ export default {
   },
   //help
   //updates cone Schema to add people to queue 
-  addQueue: function (face_Token, cone_id) {
-    return axios.post("/api/books", bookData);
-  },
+  // addQueue: function (face_Token, cone_id) {
+  //   return axios.post("/api/books", bookData);
+  // },
   //Removes people to queue on pickup
   removeQueue: function (id) {
     return axios.delete("/api/db/removeQueue", id);

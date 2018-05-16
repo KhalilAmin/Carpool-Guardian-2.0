@@ -9,29 +9,29 @@ const schoolSchema = new Schema({
     },
     school_id: {
         type: String,
-        required: true,
+        // required: true,
         minlength: 2,
         index: { unique: true }
     },
-    // schoolStreet: {
-    //     type: String,
-    //     required: true
-    // },
-    // schoolState:{
-    //     type: String,
-    //     required: true,
-    //     minlength: 2
-    // },
-    // schoolCounty:{
-    //     type: String,
-    //     required: true,
-    //     minlength: 2
-    // },
-    // schoolZip:{
-    //     type: Number,
-    //     required: true,
-    //     minlength: 2
-    // },
+    schoolStreet: {
+        type: String,
+        // required: true
+    },
+    schoolState:{
+        type: String,
+        // required: true,
+        minlength: 2
+    },
+    schoolCounty:{
+        type: String,
+        // required: true,
+        minlength: 2
+    },
+    schoolZip:{
+        type: Number,
+        // required: true,
+        minlength: 2
+    },
     faceSetToken: [],
     teacher: [
         {
