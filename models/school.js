@@ -9,37 +9,51 @@ const schoolSchema = new Schema({
     },
     school_id: {
         type: String,
-        // required: true,
+        required: true,
         minlength: 2,
         index: { unique: true }
     },
     schoolStreet: {
         type: String,
-        // required: true
+        required: true
     },
-    schoolState:{
+    schoolState: {
         type: String,
-        // required: true,
+        required: true,
         minlength: 2
     },
-    schoolCounty:{
+    schoolCounty: {
         type: String,
-        // required: true,
+        required: true,
         minlength: 2
     },
-    schoolZip:{
+    schoolZip: {
         type: Number,
-        // required: true,
+        required: true,
         minlength: 2
     },
-    faceSetToken: [],
+    faceSetToken: {
+        type: String,
+        required: true,
+        minlength: 2
+    },
+    schoolGrades: {
+        type: String,
+        required: true,
+        minlength: 2
+    },
+    faceSetToken: {
+        type: String,
+        required: true,
+        minlength: 2,
+    },
     teacher: [
         {
             // Store ObjectIds in the array
             type: Schema.Types.ObjectId,
             // The ObjectIds will refer to the ids in the child model
             ref: "Teacher"
-          }
+        }
     ],
     // outer_id: { type: String, required: true, trim: true },
     // display_name: { type: String, required: true, trim: true },

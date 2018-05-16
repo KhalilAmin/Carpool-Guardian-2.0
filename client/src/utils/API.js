@@ -26,7 +26,11 @@ export default {
   },
   // get guadian tied to a face tocken (pulled from getNext)
   // and on load of parent portal
-  //+
+
+  addSchool: function(data) {
+    return axios.post("api/db/addSchool", data)
+  },
+
   getGaurdian: function (data) {
     return axios.get("/api/db/getGaurdian", data);
   },
