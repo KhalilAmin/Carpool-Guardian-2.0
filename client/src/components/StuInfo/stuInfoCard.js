@@ -8,13 +8,13 @@ const stuInfoCard = props => {
         <div className="">
           <ul>
             <li>
-              <strong>Name:</strong> {person.firstname}{person.lastname}
+              <strong>Name:</strong> {person.fName}{person.lName}
             </li>
             <li>
               <strong>Email:</strong> {props.email}
             </li>
             <li>
-              <strong>Family:</strong> {props.family}
+              <strong>Grade:</strong> {props.grade}
             </li>
             <li>
               <strong>Phone:</strong> {props.phone}
