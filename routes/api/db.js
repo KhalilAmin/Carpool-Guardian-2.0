@@ -10,10 +10,9 @@ router.route("/getGuardian/:id")
 router.route("/getChildren/:id")
   .get(dbController.getChildren);
 
-
 router.route("/addTeacher")
   .post(dbController.addTeacher);
-  
+
 router.route("/getTeacher/:id")
   .get(dbController.getTeacher);
 
