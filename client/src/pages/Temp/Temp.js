@@ -23,7 +23,8 @@ class Temp extends Component {
     face_added: 0,
     search_faceset_token: "",
     result_face_token: "",
-    result_confidence: 0
+    result_confidence: 0,
+    
   };
 
   componentDidMount() {
@@ -129,6 +130,14 @@ class Temp extends Component {
           result_confidence: res.data.confidence
           });
       })
+  }
+
+  handleAddFamily = event => {
+    event.preventDefault();
+
+    API.addFamily({
+
+    })
   }
 
   render() {

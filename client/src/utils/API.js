@@ -88,5 +88,9 @@ export default {
   getNext: function (data) {
     return axios.get("/api/db/getNext", data);
   },  
+
+  getSchool: function (data) {
+    return axios.get("/api/db/getSchool", data);
+  }
   
 };
