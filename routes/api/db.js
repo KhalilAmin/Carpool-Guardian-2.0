@@ -2,12 +2,16 @@
 const router = require("express").Router();
 const dbController = require("../../controllers/dbController");
 
+router.route("/getGuardian")
 
 router.route("/getGuardian/:id")
   .get(dbController.getGuardian);
 
 router.route("/getChildren/:id")
   .get(dbController.getChildren);
+
+router.route("/addTeacher")
+  .post(dbController.addTeacher);
 
 router.route("/getTeacher/:id")
   .get(dbController.getTeacher);
