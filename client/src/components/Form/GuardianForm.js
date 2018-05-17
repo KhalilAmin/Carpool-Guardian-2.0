@@ -3,27 +3,23 @@ import "./Form.css";
 import { Container, Row, Col } from "../Grid";
 
 export class GuardianForm extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            firstName: "",
-            lastName: "",
-            photo: "",
-            email: "",
-            phone: "",
-            guardianType: "",
-            vehicleMake: "",
-            model: "",
-            plate: ""
-        };
-        this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    }
+
+    state = {
+        firstName: "",
+        lastName: "",
+        photo: "",
+        email: "",
+        phone: "",
+        guardianType: "",
+        vehicleMake: "",
+        model: "",
+        plate: ""
+    };
+
     handleInputChange = event => {
-        // Getting the value and name of the input which triggered the change
+   
         const { name, value } = event.target;
 
-        // Updating the input's state
         this.setState({
             [name]: value
         });
