@@ -100,17 +100,27 @@ class School extends Component {
             schoolPhone: this.state.schoolPhone,
             schoolGrades: this.state.schoolGrades,
             schoolImg: this.state.schoolImg,
-            teacherName: this.state.teacher,
+            teacherFirstName: this.state.teacherFirstName,
+            teacherLastName: this.state.teacherLastName,
+            teacherEmail: this.state.teacherEmail,
+            teacherPassword: this.state.teacherPassword,
             teacherSchoolName: this.state.teacherSchoolName,
             faceSetToken: res.data
         })
     })
   };
 
+  
+
   handleAddTeacher = event => {
       API.addTeacher({
-        school_id: this.state.teacherSchoolName, 
-        teacher: this.teacherName
+        schoolName: this.state.teacherSchoolName, 
+        teacher: {
+            fname: this.state.teacherFirstName,
+            lname: this.state.teacherLastName,
+            email: this.state.teacherEmail,
+            password: this.state.teacherPassword,
+        }
       })
   }
 
@@ -209,17 +219,36 @@ class School extends Component {
                                 <div>
                                 <div className="form-group">              
                                     <Input className="form-control"
-                                        value={this.state.teacherName}
+                                        value={this.state.teacherFirstName}
                                         onChange={this.handleInputChange}
-                                        name="teacherName"
-                                        placeholder="Enter Teacher Name"
+                                        name="teacherFirstName"
+                                        placeholder="Enter Teacher First Name"
+                                    />
+                                    <Input className="form-control"
+                                        value={this.state.teacherLastName}
+                                        onChange={this.handleInputChange}
+                                        name="teacherLastName"
+                                        placeholder="Enter Teacher Last Name"
+                                    />
+                                    <Input className="form-control"
+                                        value={this.state.teacherEmail}
+                                        onChange={this.handleInputChange}
+                                        name="teacherEmail"
+                                        placeholder="Enter Teacher Email"
+                                    />
+                                    <Input className="form-control"
+                                        value={this.state.teacherPassword}
+                                        onChange={this.handleInputChange}
+                                        name="teacherPassword"
+                                        placeholder="Enter Teacher Password"
                                     />
                                     <Input className="form-control"
                                         value={this.state.teacherSchoolName}
                                         onChange={this.handleInputChange}
                                         name="teacherSchoolName"
-                                        placeholder="Enter School Name"
+                                        placeholder="Enter Teacher SchoolName"
                                     />
+
                                 </div>
                                 <FormBtn
                                     onClick={this.handleAddTeacher}
@@ -237,6 +266,7 @@ class School extends Component {
                 <Row>
                     <Col size="md-2"></Col>
                     <Col size="md-8">
+                    map
                         <CardWrapper>
                             <ImageCard
                                 name={this.state.schoolName}

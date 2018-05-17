@@ -2,8 +2,8 @@ const db = require("../models");
 
 // Defining methods for the booksController
 module.exports = {
-  getGaurdian: function(req, res) {
-    db.Families.guardian
+  getGuardian: function(req, res) {
+    db.Family.guardian
       .find(req.query)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
@@ -21,10 +21,14 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   addTeacher: function(req, res) {
-    db.School
-      .findOneAndUpdate({ school_id: req.body.school_id }, {$push: {teacher: req.body.teacher}})
-      .then(dbModel > res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+    console.log(req.body.teacher);
+    db.Teacher.create(req.body.teacher)
+      .then(function(dbTeacher) {
+        return db.School.findOneAndUpdate({ schoolName: req.body.schoolName }, {$push: {teacher: req.body.teacher}
+        })
+        .then(dbModel > res.json(dbModel))
+        .catch(err => res.status(422).json(err));
+      })
   },
   getTeacher: function(req, res) {
     db.School.teacher
@@ -57,7 +61,7 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
-  addGaurdian: function(req, res) {
+  addGuardian: function(req, res) {
     db.Family.guardian
       .create(req.body)
       .then(dbModel => res.json(dbModel))
@@ -81,7 +85,7 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
-  updateGaurdian: function(req, res) {
+  updateGuardian: function(req, res) {
     db.Family.guardian
       .findOneAndUpdate({ _id: req.params.id }, req.body)
       .then(dbModel => res.json(dbModel))
