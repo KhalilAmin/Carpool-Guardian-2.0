@@ -9,18 +9,15 @@ import { Input, TextArea, FormBtn, Upload } from "../../components/Form";
 import Modal from "../../components/Modal";
 import CardWrapper from "../../components/PatsTempComponents/CardWrapper";
 import InfoCard from "../../components/PatsTempComponents/InfoCard";
-import ImageCard from "../../components/PatsTempComponents/ImageCard"
+import ImageCard from "../../components/PatsTempComponents/ImageCard";
+import AddCard from "../../components/PatsTempComponents/AddCard"
+
 
 class School extends Component {
-    // constructor(props) {
-    //     super(props);
-    
-    //     this.state = { isOpen: false };
-    //   }
 
 
     state = {
-        addedSchool: "",
+        schools: [],
         isOpen: false,
         // school: {
         //     name: "",
@@ -33,25 +30,35 @@ class School extends Component {
         //     grades: "",
         //     img: ""
         // }
-        schoolName: "",
-        schoolStreet: "",
-        schoolCity: "",
-        schoolCounty: "",
-        schoolState: "",
-        schoolZip: "",
-        schoolPhone: "",
-        schoolGrades: "",
-        schoolImg: "",
-        schoolCones: "",
-        faceset_token: "",
+        // schoolName: "",
+        // schoolStreet: "",
+        // schoolCity: "",
+        // schoolCounty: "",
+        // schoolState: "",
+        // schoolZip: "",
+        // schoolPhone: "",
+        // schoolGrades: "",
+        // schoolImg: "",
+        // schoolCones: "",
+        // faceset_token: "",
 
 
-        teacherName: "",
+        // teacherName: "",
     };
 
 
   componentDidMount() {
-    //If you're using this as an example for another page you could get DB stuff here
+    this.loadSchools();
+  }
+
+  loadSchools = () => {
+      API.getSchool()
+        .then(res => {
+            this.setState( {schools: res.data})
+            console.log(this.state.schools)
+        }
+        )
+        .catch(err => console.log(err));
   }
   
 
@@ -68,250 +75,110 @@ class School extends Component {
     });
   }
 
-  handleCreateFaceSet = event => {
-    event.preventDefault();
+//   handleCreateFaceSet = event => {
+//     event.preventDefault();
 
-    API.createFaceSet({
-      outer_id: this.state.create_outer_id,
-      display_name: this.state.create_display_name
-    })
-      .then(res => {
-        console.log(res.data);
-        this.setState({ faceset_token: res.data});
-    });
-  };
+//     API.createFaceSet({
+//       outer_id: this.state.create_outer_id,
+//       display_name: this.state.create_display_name
+//     })
+//       .then(res => {
+//         console.log(res.data);
+//         this.setState({ faceset_token: res.data});
+//     });
+//   };
 
-  handleAddSchool = event => {
-    event.preventDefault();
+//   handleAddSchool = event => {
+//     event.preventDefault();
     
-    API.createFaceSet({
-        outer_id: this.state.schoolName,
-        display_name: this.state.schoolName
-    })
-    .then(res => {
-        API.addSchool({
-            school_id: this.state.schoolName,
-            schoolName: this.state.schoolName,
-            schoolStreet: this.state.schoolStreet,
-            schoolCity: this.state.schoolCity,
-            schoolCounty: this.state.schoolCounty,
-            schoolState: this.state.schoolState,
-            schoolZip: this.state.schoolZip,
-            schoolPhone: this.state.schoolPhone,
-            schoolGrades: this.state.schoolGrades,
-            schoolImg: this.state.schoolImg,
-            teacherFirstName: this.state.teacherFirstName,
-            teacherLastName: this.state.teacherLastName,
-            teacherEmail: this.state.teacherEmail,
-            teacherPassword: this.state.teacherPassword,
-            teacherSchoolName: this.state.teacherSchoolName,
-            faceSetToken: res.data
-        })
-    })
-  };
+//     API.createFaceSet({
+//         outer_id: this.state.schoolName,
+//         display_name: this.state.schoolName
+//     })
+//     .then(res => {
+//         API.addSchool({
+//             school_id: this.state.schoolName,
+//             schoolName: this.state.schoolName,
+//             schoolStreet: this.state.schoolStreet,
+//             schoolCity: this.state.schoolCity,
+//             schoolCounty: this.state.schoolCounty,
+//             schoolState: this.state.schoolState,
+//             schoolZip: this.state.schoolZip,
+//             schoolPhone: this.state.schoolPhone,
+//             schoolGrades: this.state.schoolGrades,
+//             schoolImg: this.state.schoolImg,
+//             teacherFirstName: this.state.teacherFirstName,
+//             teacherLastName: this.state.teacherLastName,
+//             teacherEmail: this.state.teacherEmail,
+//             teacherPassword: this.state.teacherPassword,
+//             teacherSchoolName: this.state.teacherSchoolName,
+//             faceSetToken: res.data
+//         })
+//     })
+//   };
 
   
 
-  handleAddTeacher = event => {
-      API.addTeacher({
-        schoolName: this.state.teacherSchoolName, 
-        teacher: {
-            fname: this.state.teacherFirstName,
-            lname: this.state.teacherLastName,
-            email: this.state.teacherEmail,
-            password: this.state.teacherPassword,
-        }
-      })
-  }
+//   handleAddTeacher = event => {
+//       API.addTeacher({
+//         schoolName: this.state.teacherSchoolName, 
+//         teacher: {
+//             fName: this.state.teacherFirstName,
+//             lName: this.state.teacherLastName,
+//             email: this.state.teacherEmail,
+//             password: this.state.teacherPassword,
+//             phone: "704-555-1933"
+//         }
+//       })
+//   }
 
   render() {
         return (
-        <div>
+        <div>             
             <Container>
-                <Row>
-                    <Col size="md-6">
-                        <div className="panel panel-default" style={{height:"250px"}}>
-                        <div className="panel-heading">
-                            <h3 className="panel-title">Add School</h3>
-                        </div>
-                        <div className="panel-body">
-                            <div>
-                                <div>
-                                    <div className="form-group">              
-                                        <Input className="form-control"
-                                            value={this.state.schoolName}
-                                            onChange={this.handleInputChange}
-                                            name="schoolName"
-                                            placeholder="Enter School Name"
-                                        />
-                                        <Input className="form-control"
-                                            value={this.state.schoolStreet}
-                                            onChange={this.handleInputChange}
-                                            name="schoolStreet"
-                                            placeholder="Enter School Street"
-                                        />
-                                        <Input className="form-control"
-                                            value={this.state.schoolCity}
-                                            onChange={this.handleInputChange}
-                                            name="schoolCity"
-                                            placeholder="Enter School City"
-                                        />
-                                        <Input className="form-control"
-                                            value={this.state.schoolCounty}
-                                            onChange={this.handleInputChange}
-                                            name="schoolCounty"
-                                            placeholder="Enter School County"
-                                        />
-                                        <Input className="form-control"
-                                            value={this.state.schoolState}
-                                            onChange={this.handleInputChange}
-                                            name="schoolState"
-                                            placeholder="Enter School State"
-                                        />
-                                        <Input className="form-control"
-                                            value={this.state.schoolZip}
-                                            onChange={this.handleInputChange}
-                                            name="schoolZip"
-                                            placeholder="Enter School Zip"
-                                        />
-                                        <Input className="form-control"
-                                            value={this.state.schoolPhone}
-                                            onChange={this.handleInputChange}
-                                            name="schoolPhone"
-                                            placeholder="Enter School Phone"
-                                        />
-                                        <Input className="form-control"
-                                            value={this.state.schoolGrades}
-                                            onChange={this.handleInputChange}
-                                            name="schoolGrades"
-                                            placeholder="Enter School Grades"
-                                        />
-                                        <Input className="form-control"
-                                            value={this.state.schoolImg}
-                                            onChange={this.handleInputChange}
-                                            name="schoolImg"
-                                            placeholder="Enter School Image"
-                                        />
-                                        <Input className="form-control"
-                                            value={this.state.schoolCones}
-                                            onChange={this.handleInputChange}
-                                            name="schoolCones"
-                                            placeholder="Enter School Cones"
-                                        />
-                                </div>
-                                <FormBtn
-                                    onClick={this.handleAddSchool}
-                                >
-                                    Add School
-                                </FormBtn>
-                                </div>
-                            </div>
-                        </div>
-                        </div>
-                    </Col>
-                    <Col size="md-6">
-                        <div className="panel panel-default" style={{height:"250px"}}>
-                        <div className="panel-heading">
-                            <h3 className="panel-title">Add Teacher</h3>
-                        </div>
-                        <div className="panel-body">
-                            <div>
-                                <div>
-                                <div className="form-group">              
-                                    <Input className="form-control"
-                                        value={this.state.teacherFirstName}
-                                        onChange={this.handleInputChange}
-                                        name="teacherFirstName"
-                                        placeholder="Enter Teacher First Name"
-                                    />
-                                    <Input className="form-control"
-                                        value={this.state.teacherLastName}
-                                        onChange={this.handleInputChange}
-                                        name="teacherLastName"
-                                        placeholder="Enter Teacher Last Name"
-                                    />
-                                    <Input className="form-control"
-                                        value={this.state.teacherEmail}
-                                        onChange={this.handleInputChange}
-                                        name="teacherEmail"
-                                        placeholder="Enter Teacher Email"
-                                    />
-                                    <Input className="form-control"
-                                        value={this.state.teacherPassword}
-                                        onChange={this.handleInputChange}
-                                        name="teacherPassword"
-                                        placeholder="Enter Teacher Password"
-                                    />
-                                    <Input className="form-control"
-                                        value={this.state.teacherSchoolName}
-                                        onChange={this.handleInputChange}
-                                        name="teacherSchoolName"
-                                        placeholder="Enter Teacher SchoolName"
-                                    />
-
-                                </div>
-                                <FormBtn
-                                    onClick={this.handleAddTeacher}
-                                >
-                                    Add Teacher
-                                </FormBtn>
-                                </div>
-                            </div>
-                        </div>
-                        </div>
-                    </Col>
-                </Row>
-            </Container>
-            <Container>
+                {this.state.schools.map(school => (
                 <Row>
                     <Col size="md-2"></Col>
                     <Col size="md-8">
-                    map
-                        <CardWrapper>
-                            <ImageCard
-                                name={this.state.schoolName}
-                                img= {this.state.schoolImg}
-                            /> 
+                        <div className="panel panel-default" style={{height:"250px"}}>
+                            <div className="panel-heading">
+                                <h3 className="panel-title">{school.schoolName}</h3>
+                            </div>
+                            <div className="panel-body">
+                                <CardWrapper key={school._id}>
+                                    <ImageCard
+                                        name={school.schoolName}
+                                        img= {"data:image/png;base64," + school.schoolImg}
+                    
+                                    /> 
 
-                            <InfoCard
-                                name={this.state.schoolName}
-                                street= {this.state.schoolStreet}
-                                city= {this.state.schoolCity}
-                                state= {this.state.schoolState}
-                                phone= {this.state.schoolPhone}
-                                grades= {this.state.schoolGrades}
-                                img= {this.state.schoolImg}
-                            />
-                        </CardWrapper>
+                                    <InfoCard
+                                        name={school.schoolName}
+                                        street= {school.schoolStreet}
+                                        city= {school.schoolCity}
+                                        state= {school.schoolState}
+                                        grades= {school.schoolGrades}
+                                        phone= {school.schoolPhone}
+                                    />
+                                </CardWrapper>
+                            </div>
+                        </div>
                     </Col>
                     <Col size="md-2"></Col>
                 </Row>
+                ))}
+  
             </Container>
-            
-
-
-            <div>
             <div className="App">
                 <button onClick={this.toggleModal}>
                 Open the modal
                 </button>
 
-                {/* <Modal show={this.state.isOpen}
+                <Modal show={this.state.isOpen}
                 onClose={this.toggleModal}>
-                    <h1>Test</h1>
-                    <CardWrapper>
-                        <h3>blah</h3>
-                        <ImageCard>
-                            <h3>image</h3>
-                        </ImageCard>
-                        <InfoCard>
-                            <h3>info</h3>
-                        </InfoCard>
-                    </CardWrapper>
-                </Modal> */}
+                    <AddCard/>
+                </Modal>
             </div>
-            
-      </div>
         </div>
      );
     }
