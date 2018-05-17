@@ -266,7 +266,6 @@ class School extends Component {
                 <Row>
                     <Col size="md-2"></Col>
                     <Col size="md-8">
-                    map
                         <CardWrapper>
                             <ImageCard
                                 name={this.state.schoolName}
