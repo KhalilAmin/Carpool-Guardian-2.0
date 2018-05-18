@@ -12,33 +12,18 @@ import InfoCard from "../../components/PatsTempComponents/InfoCard";
 import ImageCard from "../../components/PatsTempComponents/ImageCard"
 
 
-class School extends Component {
-    // constructor(props) {
-    //     super(props);
-    
-    //     this.state = { isOpen: false };
-    //   }
+class Family extends Component {
 
 
     state = {
-        schools: [],
-        addedSchool: "",
-        isOpen: false,
+        familyName: "",
 
-        schoolName: "",
-        schoolStreet: "",
-        schoolCity: "",
-        schoolCounty: "",
-        schoolState: "",
-        schoolZip: "",
-        schoolPhone: "",
-        schoolGrades: "",
-        schoolImg: "",
-        schoolCones: "",
-        faceset_token: "",
+        guardianName: "",
 
+        tempName:"",
 
-        teacherName: "",
+        childName:""
+
     };
 
 
@@ -46,10 +31,10 @@ class School extends Component {
     this.loadSchools();
   }
 
-  loadSchools = () => {
-      API.getSchool()
+  loadFamilies = () => {
+      API.getFamily()
         .then(res =>
-            this.setState( {schools: res.data})
+            this.setState( {families: res.data})
         )
         .catch(err => console.log(err));
   }
@@ -68,20 +53,8 @@ class School extends Component {
     });
   }
 
-  handleCreateFaceSet = event => {
-    event.preventDefault();
 
-    API.createFaceSet({
-      outer_id: this.state.create_outer_id,
-      display_name: this.state.create_display_name
-    })
-      .then(res => {
-        console.log(res.data);
-        this.setState({ faceset_token: res.data});
-    });
-  };
-
-  handleAddSchool = event => {
+  handleAddFamily = event => {
     event.preventDefault();
     
     API.createFaceSet({
@@ -89,7 +62,7 @@ class School extends Component {
         display_name: this.state.schoolName
     })
     .then(res => {
-        API.addSchool({
+        API.addSFamily({
             school_id: this.state.schoolName,
             schoolName: this.state.schoolName,
             schoolStreet: this.state.schoolStreet,
@@ -100,12 +73,6 @@ class School extends Component {
             schoolPhone: this.state.schoolPhone,
             schoolGrades: this.state.schoolGrades,
             schoolImg: this.state.schoolImg,
-            teacherFirstName: this.state.teacherFirstName,
-            teacherLastName: this.state.teacherLastName,
-            teacherEmail: this.state.teacherEmail,
-            teacherPassword: this.state.teacherPassword,
-            teacherSchoolName: this.state.teacherSchoolName,
-            faceSetToken: res.data
         })
     })
   };
