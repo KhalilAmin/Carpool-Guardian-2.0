@@ -28,9 +28,31 @@ router.post(
 		// console.log('POST to /login')
 		const user = JSON.parse(JSON.stringify(req.user)) // hack
 		const cleanUser = Object.assign({}, user)
-		if (cleanUser.local) {
-			console.log(`Deleting ${cleanUser.local.password}`)
-			delete cleanUser.local.password
+		if (cleanUser) {
+			console.log(`Deleting ${cleanUser.password}`)
+			delete cleanUser.password
+		}
+		res.json({ user: cleanUser })
+		// res.redirect('/Temp');
+		
+	}
+)
+
+router.post(
+	'/teacherlogin',
+	function(req, res, next) {
+		console.log(req.body)
+		// console.log('=====testing===========')
+		next()
+	},
+	passport.authenticate('local'),
+	(req, res) => {
+		// console.log('POST to /login')
+		const user = JSON.parse(JSON.stringify(req.user)) // hack
+		const cleanUser = Object.assign({}, user)
+		if (cleanUser) {
+			console.log(`Deleting ${cleanUser.password}`)
+			delete cleanUser.password
 		}
 		res.json({ user: cleanUser })
 		// res.redirect('/Temp');
@@ -54,19 +76,45 @@ router.post('/signup', (req, res) => {
 	// ADD VALIDATION
 	User.findOne({ 'email': email }, (err, userMatch) => {
 		if (userMatch) {
-			return res.json({
+			res.json({
 				error: `Sorry, already a user with the email: ${email}`
 			})
 		}
 		const newUser = new User({
-			'firstname': firstname,
-			'lastname': lastname,
+			'firstName': firstname,
+			'lastName': lastname,
 			'email': email,
-			'local.password': password
+			'password': password
 		})
 		newUser.save((err, savedUser) => {
-			if (err) return res.json(err)
-			return res.json(savedUser)
+			console.log(savedUser);
+			if (err) throw err;
+			res.json(savedUser)
+		})
+	})
+})
+
+router.post('/teachersignup', (req, res) => {
+	const { firstname, lastname, email, grade, password } = req.body
+	console.log(req.body);
+	// ADD VALIDATION
+	Teacher.findOne({ 'email': email }, (err, teacherMatch) => {
+		if (teacherMatch) {
+			return res.json({
+				error: `Sorry, already a teacher with the email: ${email}`
+			})
+		}
+		const newTeacher = new Teacher({
+			'firstName': firstname,
+			'lastName': lastname,
+			'email': email,
+			'grade': grade,
+			'password': password
+		})
+		newTeacher.save((err, savedTeacher) => {
+			console.log(savedTeacher);
+			if (err) throw err;
+			res.json(savedTeacher)
 		})
 	})
 })

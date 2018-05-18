@@ -7,15 +7,11 @@ mongoose.promise = Promise
 const userSchema = new Schema({
 	firstName: { type: String, unique: false },
 	lastName: { type: String, unique: false },
-	local: {
-		firstName: { type: String, unique: false },
-		// email: { type: String, unique: false, required: false },
-		password: { type: String, unique: false, required: false }
-	},
 	email: {type: String,
         unique: true,
         match: [/.+@.+\..+/, "Please enter a valid e-mail address"]
-    },
+	},
+	password: { type: String, unique: false, required: false },	
 
 	photos: []
 
@@ -24,7 +20,7 @@ const userSchema = new Schema({
 // Define schema methods
 userSchema.methods = {
 	checkPassword: function(inputPassword) {
-		return bcrypt.compareSync(inputPassword, this.local.password)
+		return bcrypt.compareSync(inputPassword, this.password)
 	},
 	hashPassword: plainTextPassword => {
 		return bcrypt.hashSync(plainTextPassword, 10)
@@ -33,11 +29,11 @@ userSchema.methods = {
 
 // Define hooks for pre-saving
 userSchema.pre('save', function(next) {
-	if (!this.local.password) {
+	if (!this.password) {
 		console.log('=======NO PASSWORD PROVIDED=======')
 		next()
 	} else {
-		this.local.password = this.hashPassword(this.local.password)
+		this.password = this.hashPassword(this.password)
 		next()
 	}
 	// this.password = this.hashPassword(this.password)

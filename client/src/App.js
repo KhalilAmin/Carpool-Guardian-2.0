@@ -3,6 +3,7 @@ import axios from 'axios'
 import { BrowserRouter as Router, Switch, Route, Link, Redirect } from 'react-router-dom'
 import './App.css'
 import Login from './pages/Login'
+import TeacherLogin from './pages/teacherLogin'
 import guardianSignup from './pages/guardianSignup'
 import teacherSignup from './pages/teacherSignup'
 import Header from './components/Header'
@@ -13,48 +14,7 @@ import Temp from "./pages/Temp";
 import Nav from "./components/Nav";
 import Demo from "./pages/Demo"
 
-// const DisplayLinks = props => {
-// 	if (props.loggedIn) {
-// 		return (
-// 			<nav className="navbar">
-// 				<ul className="nav">
-// 					<li className="nav-item">
-// 						<Link to="/Temp" className="nav-link">
-// 							Home
-// 						</Link>
-// 					</li>
-// 					<li>
-// 						<Link to="#" className="nav-link" onClick={props._logout}>
-// 							Logout
-// 						</Link>
-// 					</li>
-// 				</ul>
-// 			</nav>
-// 		)
-// 	} else {
-// 		return (
-// 			<nav className="navbar">
-// 				<ul className="nav">
-// 					<li className="nav-item">
-// 						<Link to="/" className="nav-link">
-// 							Home
-// 						</Link>
-// 					</li>
-// 					<li className="nav-item">
-// 						<Link to="/login" className="nav-link">
-// 							Login
-// 						</Link>
-// 					</li>
-// 					<li className="nav-item">
-// 						<Link to="/signup" className="nav-link">
-// 							Sign Up
-// 						</Link>
-// 					</li>
-// 				</ul>
-// 			</nav>
-// 		)
-// 	}
-// }
+
 
 class App extends Component {
 	constructor() {
@@ -84,11 +44,12 @@ class App extends Component {
 					user: null
 				})
 			}
-		}).then(res => {
-			// console.log(res);
-			// if (this.state.loggedIn)
-				<Redirect to={'/Temp'} />
 		})
+		// .then(res => {
+		// 	// console.log(res);
+		// 	// if (this.state.loggedIn)
+		// 		<Redirect to={'/Temp'} />
+		// })
 	}
 
 	_logout(event) {
@@ -125,6 +86,28 @@ class App extends Component {
 			})
 	}
 
+	_teacherlogin(email, password) {
+		axios
+			.post('/auth/teacherlogin', {
+				email,
+				password
+			})
+			.then(response => {
+				console.log(response)
+				if (response.status === 200) {
+					// update the state
+					this.setState({
+						loggedIn: true,
+						user: response.data.user
+					})
+					// window.location = '/Temp';
+
+				}
+			})
+	}
+
+
+
 	render() {
 		return (
 			<div className="App">
@@ -140,6 +123,7 @@ class App extends Component {
 					<Switch>
 						<Route exact path="/" render={() => <Home user={this.state.user} />} />
 						<Route exact path="/login" render={() => <Login _login={this._login} />} />
+						<Route exact path="/teacherlogin" render={() => <TeacherLogin _teacherlogin={this._teacherlogin} />} />
 						<Route exact path="/teacherSignup" component={teacherSignup} />
 						<Route exact path="/guardianSignup" component={guardianSignup} />
 						<Route exact path="/Demo" component={() => (

@@ -9,7 +9,7 @@ class teacherSignup extends Component {
 			firstname: '',
 			lastname: '',
             email: '',
-            class: '',
+            grade: '',
 			password: '',
 			confirmPassword: '',
 			redirectTo: null
@@ -26,11 +26,11 @@ class teacherSignup extends Component {
 		event.preventDefault()
 		// TODO - validate!
 		axios
-			.post('/auth/signup', {
+			.post('/auth/teachersignup', {
 				firstname: this.state.firstname,
 				lastname: this.state.lastname,
                 email: this.state.email,
-                class: this.state.class,
+                grade: this.state.grade,
 				password: this.state.password
 			})
 			.then(response => {
@@ -73,11 +73,11 @@ class teacherSignup extends Component {
 					value={this.state.email}
 					onChange={this.handleChange}
 				/>
-                <label htmlFor="class">Class: </label>
+                <label htmlFor="grade">Grade: </label>
 				<input
 					type="text"
 					name="class"
-					value={this.state.class}
+					value={this.state.grade}
 					onChange={this.handleChange}
 				/>
 				<label htmlFor="password">Password: </label>

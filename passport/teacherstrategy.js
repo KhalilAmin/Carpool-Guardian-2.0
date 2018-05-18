@@ -1,27 +1,25 @@
-const User = require('../db/models/user')
+const Teacher = require('../db/models/teacher');
 
 const LocalStrategy = require('passport-local').Strategy
 
-const strategy = new LocalStrategy(
+const teacherstrategy = new LocalStrategy(
 	{
 		usernameField: 'email' // not necessary, DEFAULT
 	},
 	function(email, password, done) {
-		User.findOne({ 'email': email }, (err, userMatch) => {
+		Teacher.findOne({ 'email': email }, (err, teacherMatch) => {
 			if (err) {
 				return done(err)
 			}
-			if (!userMatch) {
+			if (!teacherMatch) {
 				return done(null, false, { message: 'Incorrect username' })
 			}
-			if (!userMatch.checkPassword(password)) {
+			if (!teacherMatch.checkPassword(password)) {
 				return done(null, false, { message: 'Incorrect password' })
 			}
-			return done(null, userMatch)
+			return done(null, teacherMatch)
 		})
 	}
 )
 
-
-
-module.exports = strategy
+module.exports = teacherstrategy

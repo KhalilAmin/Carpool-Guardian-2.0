@@ -33,7 +33,12 @@ const Nav = props => {
 				<ul className="nav">
 					<li className="nav-item">
 						<Link to="/login" className="nav-link">
-							Login
+							Guardian Login
+						</Link>
+					</li>
+					<li className="nav-item">
+						<Link to="/teacherlogin" className="nav-link">
+							Teacher Login
 						</Link>
 					</li>
 					<li className="nav-item">

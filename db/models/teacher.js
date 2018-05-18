@@ -7,16 +7,12 @@ mongoose.promise = Promise
 const teacherSchema = new Schema({
 	firstName: { type: String, unique: false },
 	lastName: { type: String, unique: false },
-	local: {
-		// email: { type: String, unique: false, required: false },
-		password: { type: String, unique: false, required: false }
-    },
-    email: {type: String,
+	email: {type: String,
         unique: true,
         match: [/.+@.+\..+/, "Please enter a valid e-mail address"]
     },
-    class: {type: String, unique: false, required: false },
-
+    grade: {type: Number, unique: false, required: false },
+	password: { type: String, unique: false, required: false },
 	photos: []
 	
 })
@@ -24,7 +20,7 @@ const teacherSchema = new Schema({
 // Define schema methods
 teacherSchema.methods = {
 	checkPassword: function(inputPassword) {
-		return bcrypt.compareSync(inputPassword, this.local.password)
+		return bcrypt.compareSync(inputPassword, this.password)
 	},
 	hashPassword: plainTextPassword => {
 		return bcrypt.hashSync(plainTextPassword, 10)
@@ -33,15 +29,14 @@ teacherSchema.methods = {
 
 // Define hooks for pre-saving
 teacherSchema.pre('save', function(next) {
-	if (!this.local.password) {
+	if (!this.password) {
 		console.log('=======NO PASSWORD PROVIDED=======')
 		next()
 	} else {
-		this.local.password = this.hashPassword(this.local.password)
+		this.password = this.hashPassword(this.password)
 		next()
 	}
-	// this.password = this.hashPassword(this.password)
-	// next()
+
 })
 
 // Create reference to User & export
