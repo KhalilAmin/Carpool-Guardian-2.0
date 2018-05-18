@@ -8,12 +8,6 @@ const schoolSchema = new Schema({
         required: true,
         minlength: 2
     },
-    // school_id: {
-    //     type: String,
-    //     required: true,
-    //     minlength: 2,
-    //     index: { unique: true }
-    // },
     schoolStreet: {
         type: String,
         required: true
@@ -28,11 +22,6 @@ const schoolSchema = new Schema({
         required: false,
         minlength: 2
     },
-    // schoolCounty: {
-    //     type: String,
-    //     required: true,
-    //     minlength: 2
-    // },
     schoolZip: {
         type: Number,
         required: true,
@@ -67,6 +56,10 @@ const schoolSchema = new Schema({
     ],
     // outer_id: { type: String, required: true, trim: true },
     // display_name: { type: String, required: true, trim: true },
+    coneCount: {
+        type: Number,
+        required: true,
+    },
     cone: [
         {
             // Store ObjectIds in the array
