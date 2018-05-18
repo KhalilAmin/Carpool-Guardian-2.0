@@ -61,23 +61,47 @@ class AddCard extends Component {
             schoolPhone: this.state.schoolPhone,
             schoolGrades: this.state.schoolGrades,
             schoolImg: this.state.image_base64,
+            coneCount: this.state.coneCount,
             faceSetToken: res.data
+        })
+        .then(res => {
+            for (let i = 0; i < this.state.coneCount; i++) {
+                API.addCone({
+                    schoolName: this.state.schoolName,
+                    cone: {
+                      coneName: this.state.schoolName + "Cone" + (i + 1) 
+                    }
+                })
+            }
         })
     })
   };
 
-  handleAddFace = event => {
-    event.preventDefault();
+//   handleAddTeacher = event => {
+//     API.addTeacher({
+//       schoolName: this.state.teacherSchoolName, 
+//       teacher: {
+//           fName: this.state.teacherFirstName,
+//           lName: this.state.teacherLastName,
+//           email: this.state.teacherEmail,
+//           password: this.state.teacherPassword,
+//           phone: "704-555-1933"
+//       }
+//     })
+// }
 
-    API.addFace({
-      faceset_token: this.state.add_faceset_token,
-      face_token: this.state.add_face_token
-    })
-      .then(res => {
+//   handleAddFace = event => {
+//     event.preventDefault();
 
-        this.setState({ face_added: res.data.face_added })
-      })
-  }
+//     API.addFace({
+//       faceset_token: this.state.add_faceset_token,
+//       face_token: this.state.add_face_token
+//     })
+//       .then(res => {
+
+//         this.setState({ face_added: res.data.face_added })
+//       })
+//   }
 
   render() {
      return (
@@ -125,12 +149,6 @@ class AddCard extends Component {
                                 placeholder="Enter School City"
                             />
                             <Input className="form-control"
-                                value={this.state.schoolCounty}
-                                onChange={this.handleInputChange}
-                                name="schoolCounty"
-                                placeholder="Enter School County"
-                            />
-                            <Input className="form-control"
                                 value={this.state.schoolState}
                                 onChange={this.handleInputChange}
                                 name="schoolState"
@@ -155,15 +173,9 @@ class AddCard extends Component {
                                 placeholder="Enter School Grades"
                             />
                             <Input className="form-control"
-                                value={this.state.schoolImg}
+                                value={this.state.coneCount}
                                 onChange={this.handleInputChange}
-                                name="schoolImg"
-                                placeholder="Enter School Image"
-                            />
-                            <Input className="form-control"
-                                value={this.state.schoolCones}
-                                onChange={this.handleInputChange}
-                                name="schoolCones"
+                                name="coneCount"
                                 placeholder="Enter School Cones"
                             />
                         </div>

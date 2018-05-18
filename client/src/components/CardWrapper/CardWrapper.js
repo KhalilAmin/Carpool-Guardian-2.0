@@ -1,5 +1,5 @@
 import React from "react";
-import AuthReqProps from './ImageCard/AuthReq-props';
+import AuthReqProps from '../ImageCard/AuthReq-props';
 import "./CardWrapper.css"
 
 const CardWrapper = props => {
