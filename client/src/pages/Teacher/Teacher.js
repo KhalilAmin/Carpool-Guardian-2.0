@@ -1,6 +1,6 @@
-import React from 'react';
-import CardWrapper from '../../components/CardWrapper';
-import API from '../../utils/API.js'
+// import React from 'react';
+// import CardWrapper from '../../components/CardWrapper';
+// import API from '../../utils/API.js'
 
 // class Teacher extends Component {
 //   state = {
@@ -34,6 +34,6 @@ import API from '../../utils/API.js'
 
 // render(
 //   <CardWrapper >
-//     {guardians}
+//     {/* {guardians} */}
 //   </CardWrapper>
 // )

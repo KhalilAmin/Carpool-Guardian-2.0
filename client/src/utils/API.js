@@ -91,6 +91,10 @@ export default {
 
   getSchool: function (data) {
     return axios.get("/api/db/getSchool", data);
+  },
+
+  addCone: function (data) {
+    return axios.post("/api/db/addCone", data);
   }
   
 };

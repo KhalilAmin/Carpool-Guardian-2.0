@@ -58,5 +58,8 @@ router.route("/getFamily")
 router.route("/getSchool")
   .get(dbController.getSchool);
 
+router.route("/addCone")
+  .post(dbController.addCone);
+
 
 module.exports = router;
