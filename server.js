@@ -39,11 +39,8 @@ app.use(express.static("client/public"));
 // Add routes, both API and view
 app.use(routes);
 
-<<<<<<< HEAD
-=======
-// Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/carpoolGuardian");
->>>>>>> 069b5075bf323c21970f0f20300ae5aef9f82f5d
+// // Connect to the Mongo DB
+// mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/carpoolGuardian");
 
 app.get("/", function(req, res) {
     res.sendFile(path.join(__dirname, "apitemp.html"));
