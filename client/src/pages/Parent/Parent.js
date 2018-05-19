@@ -5,6 +5,7 @@ import Modal from "../../components/Modal";
 import AddBtn from "../../components/AddBtn";
 import { Container, Row, Col } from "../../components/Grid";
 
+
 class Parent extends Component {
 
     state = {
@@ -13,19 +14,21 @@ class Parent extends Component {
         name:""
     }
 
-    toggleModal = () => {
+    toggleModal = (status) => {
         this.setState({
-            isOpen: !this.state.isOpen,
-            form:true
+            isOpen: !this.state.isOpen
         });
-        // if(this.state.name == "addGuardian"){
-        //     console.log(this.state.name);
-        //     this.setState.form = true;
-        // } else{
-        //     this.setState.form = false;
-        // }
-        
+        if(status){
+            this.setState({
+                form: true
+            });
+        } else{
+            this.setState({
+                form: false
+            });
+        }
     }
+
     
 
     // toggleModalS = () => {
@@ -39,21 +42,21 @@ class Parent extends Component {
         return (
             <Container>
                 <h2> Guardian: </h2>
-                <AddBtn value={this.state.addGaurdian}
+                <AddBtn
                         name="addGuardian" 
-                        onClick={this.toggleModal}
+                        onClick={() => this.toggleModal(true)}
                         />
 
                 <h2> Student: </h2>
-                <AddBtn value={this.state.addStudent}
+                <AddBtn
                         name="addStudent" 
-                        onClick={this.toggleModal} 
+                        onClick={() => this.toggleModal(false)} 
                         />
 
                 <div>
                     <Modal show={this.state.isOpen}
                         onClose={this.toggleModal}>
-                        <GuardianForm/> 
+                        { this.state.form ? <GuardianForm/> : <StudentForm/> }
                     </Modal>
 
                 </div>
