@@ -95,7 +95,7 @@ router.post('/signup', (req, res) => {
 })
 
 router.post('/teachersignup', (req, res) => {
-	const { firstname, lastname, email, grade, password } = req.body
+	const { firstname, lastname, email, school, password } = req.body
 	console.log(req.body);
 	// ADD VALIDATION
 	Teacher.findOne({ 'email': email }, (err, teacherMatch) => {
@@ -108,7 +108,7 @@ router.post('/teachersignup', (req, res) => {
 			'firstName': firstname,
 			'lastName': lastname,
 			'email': email,
-			'grade': grade,
+			'school': school,
 			'password': password
 		})
 		newTeacher.save((err, savedTeacher) => {

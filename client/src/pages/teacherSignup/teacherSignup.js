@@ -9,7 +9,7 @@ class teacherSignup extends Component {
 			firstname: '',
 			lastname: '',
             email: '',
-            grade: '',
+            school: '',
 			password: '',
 			confirmPassword: '',
 			redirectTo: null
@@ -30,7 +30,7 @@ class teacherSignup extends Component {
 				firstname: this.state.firstname,
 				lastname: this.state.lastname,
                 email: this.state.email,
-                grade: this.state.grade,
+                school: this.state.school,
 				password: this.state.password
 			})
 			.then(response => {
@@ -73,11 +73,11 @@ class teacherSignup extends Component {
 					value={this.state.email}
 					onChange={this.handleChange}
 				/>
-                <label htmlFor="grade">Grade: </label>
+                <label htmlFor="grade">School: </label>
 				<input
 					type="string"
-					name="grade"
-					value={this.state.grade}
+					name="school"
+					value={this.state.school}
 					onChange={this.handleChange}
 				/>
 				<label htmlFor="password">Password: </label>
