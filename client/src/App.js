@@ -25,6 +25,7 @@ class App extends Component {
 		}
 		this._logout = this._logout.bind(this)
 		this._login = this._login.bind(this)
+		this._teacherlogin = this._teacherlogin.bind(this)
 	}
 	componentDidMount() {
 		axios.get('/auth/user').then(response => {
@@ -67,6 +68,7 @@ class App extends Component {
 	}
 
 	_login(email, password) {
+		console.log(email);
 		axios
 			.post('/auth/login', {
 				email,

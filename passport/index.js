@@ -13,7 +13,18 @@ passport.serializeUser((user, done) => {
 })
 
 passport.deserializeUser((id, done) => {
-	console.log('Deserialize ... called')
+	(User.findOne(
+		{ _id: id } === null)) ?
+	Teacher.findOne(
+		{ _id: id },
+		'firstName lastName photos email',
+		(err, user) => {
+			console.log('======= DESERIALIZE USER CALLED ======')
+			console.log(user)
+			console.log('--------------')
+			done(null, user)
+		}
+	) :
 	User.findOne(
 		{ _id: id },
 		'firstName lastName photos email',
@@ -24,11 +35,14 @@ passport.deserializeUser((id, done) => {
 			done(null, user)
 		}
 	)
+
 })
 
+
+
 // ==== Register Strategies ====
-passport.use(LocalStrategy)
-passport.use(teacherStrategy)
+passport.use('local', LocalStrategy)
+passport.use('local.teacher', teacherStrategy)
 // passport.use(GoogleStratgey)
 
 module.exports = passport

@@ -24,7 +24,7 @@ class Login extends Component {
 
 	handleSubmit(event) {
 		event.preventDefault()
-		console.log('handleSubmit')
+		console.log(this.state.email)
 		// console.log(this.state.redirectTo)
 		this.props._login(this.state.email, this.state.password)
 		this.setState({
@@ -44,7 +44,7 @@ class Login extends Component {
 		} else {
 			return (
 				<div className="Login">
-					<h1>Login</h1>
+					<h1>Guardian Login</h1>
 					<form>
 						<label htmlFor="email">Email: </label>
 						<input

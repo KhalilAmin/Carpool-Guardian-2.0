@@ -11,7 +11,7 @@ const teacherSchema = new Schema({
         unique: true,
         match: [/.+@.+\..+/, "Please enter a valid e-mail address"]
     },
-    grade: {type: Number, unique: false, required: false },
+    grade: {type: String, unique: false, required: false },
 	password: { type: String, unique: false, required: false },
 	photos: []
 	

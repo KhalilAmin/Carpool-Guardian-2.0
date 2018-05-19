@@ -45,7 +45,7 @@ router.post(
 		// console.log('=====testing===========')
 		next()
 	},
-	passport.authenticate('local'),
+	passport.authenticate('local.teacher'),
 	(req, res) => {
 		// console.log('POST to /login')
 		const user = JSON.parse(JSON.stringify(req.user)) // hack

@@ -75,8 +75,8 @@ class teacherSignup extends Component {
 				/>
                 <label htmlFor="grade">Grade: </label>
 				<input
-					type="text"
-					name="class"
+					type="string"
+					name="grade"
 					value={this.state.grade}
 					onChange={this.handleChange}
 				/>
