@@ -11,6 +11,7 @@ import School from "./pages/School";
 import CardHeading from "./components/CardHeading";
 import CardWrapper from "./components/CardWrapper";
 import TeacherSignUp from "./components/PatsTempComponents/TeacherSignUp";
+import TeacherPortal from "./pages/TeacherPortal";
 // import GuardianForm from "./components/Form/GuardianForm.js";
 
 const App = () => (
@@ -25,6 +26,7 @@ const App = () => (
         <Route exact path="/School" component={School} />
         <Route exact path="/TeacherSignUp" component={TeacherSignUp} /> 
         {/* TEACHER SIGN UP WILL NOT BE A PAGE IN THE FINAL PRODUCT - JUST HERE NOW SO WE CAN ADD TO THE DB */}
+        <Route exact path="/TeacherPortal" component={TeacherPortal} />
 
       </Switch>
     </div>
