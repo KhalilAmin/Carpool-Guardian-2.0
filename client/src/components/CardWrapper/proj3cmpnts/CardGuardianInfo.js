@@ -14,7 +14,7 @@ class CardGuardianInfo extends Component {
             <h1>Candidate: {this.props.name}</h1>
           </header>
 
-          <div class="w3-container">
+          <div class="w3-container" style={{ backgroundColor: 'white' }}>
             <p>
               <strong>Family:</strong> {this.props.family}</p>
             <p>

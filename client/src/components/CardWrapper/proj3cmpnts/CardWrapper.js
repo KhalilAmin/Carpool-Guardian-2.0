@@ -76,7 +76,7 @@ const CardWrapper = props => {
     }
   ];
   return (
-    <div className="">
+    <div className="" style={{ backgroundColor: 'lightgrey', margin: 'auto' }}>
 
       {
         PERSONS.map(person =>
