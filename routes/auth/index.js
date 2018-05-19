@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../../db/models/user');
-const Teacher = require('../../db/models/teacher');
+const Guardian = require('../../models/guardian');
+const Teacher = require('../../models/teacher');
 const passport = require('../../passport');
 
 
@@ -74,19 +74,19 @@ router.post('/signup', (req, res) => {
 	const { firstname, lastname, email, password } = req.body
 	console.log(req.body);
 	// ADD VALIDATION
-	User.findOne({ 'email': email }, (err, userMatch) => {
+	Guardian.findOne({ 'email': email }, (err, userMatch) => {
 		if (userMatch) {
 			res.json({
 				error: `Sorry, already a user with the email: ${email}`
 			})
 		}
-		const newUser = new User({
+		const newGuardian = new Guardian({
 			'firstName': firstname,
 			'lastName': lastname,
 			'email': email,
 			'password': password
 		})
-		newUser.save((err, savedUser) => {
+		newGuardian.save((err, savedUser) => {
 			console.log(savedUser);
 			if (err) throw err;
 			res.json(savedUser)

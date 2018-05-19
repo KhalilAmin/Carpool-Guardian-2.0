@@ -16,7 +16,7 @@ import Demo from "./pages/Demo"
 import School from "./pages/School";
 import CardHeading from "./components/CardHeading";
 import CardWrapper from "./components/CardWrapper";
-import TeacherSignUp from "./components/PatsTempComponents/TeacherSignUp";
+// import TeacherSignUp from "./components/PatsTempComponents/TeacherSignUp";
 import TeacherPortal from "./pages/TeacherPortal";
 
 
