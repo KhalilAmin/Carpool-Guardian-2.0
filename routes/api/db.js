@@ -2,21 +2,25 @@
 const router = require("express").Router();
 const dbController = require("../../controllers/dbController");
 
+router.route("/getGuardian")
 
-router.route("/getGaurdian/:id")
-  .get(dbController.getGaurdian);
+router.route("/getGuardian/:id")
+  .get(dbController.getGuardian);
 
 router.route("/getChildren/:id")
   .get(dbController.getChildren);
 
+router.route("/addTeacher")
+  .post(dbController.addTeacher);
+
 router.route("/getTeacher/:id")
   .get(dbController.getTeacher);
 
-router.route("/addChild")
-  .post(dbController.addChild);
+// router.route("/addChild")
+//   .post(dbController.addChild);
 
-router.route("/addGaurdian")
-  .post(dbController.addGaurdian);
+router.route("/addGuardian")
+  .post(dbController.addGuardian);
 
 router.route("/addFamily")
   .post(dbController.addFamily);
@@ -24,11 +28,14 @@ router.route("/addFamily")
 router.route("/addSchool")
   .post(dbController.addSchool);
 
+router.route("/getSchool")
+  .get(dbController.getSchool);
+
 router.route("/addTemp")
   .post(dbController.addTemp);
 
-router.route("/updateGaurdian")
-  .post(dbController.updateGaurdian);
+router.route("/updateGuardian")
+  .post(dbController.updateGuardian);
 
 router.route("/updateChild")
   .post(dbController.updateChild);
@@ -50,6 +57,9 @@ router.route("/getFamily")
 
 router.route("/getSchool")
   .get(dbController.getSchool);
+
+router.route("/addCone")
+  .post(dbController.addCone);
 
 
 module.exports = router;

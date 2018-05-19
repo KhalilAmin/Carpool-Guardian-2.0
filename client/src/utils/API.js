@@ -31,8 +31,12 @@ export default {
     return axios.post("api/db/addSchool", data)
   },
 
-  getGaurdian: function (data) {
-    return axios.get("/api/db/getGaurdian", data);
+  addTeacher: function(data) {
+    return axios.post("api/db/addTeacher", data)
+  },
+
+  getGuardian: function (data) {
+    return axios.get("/api/db/getGuardian", data);
   },
   // Gets all chillren tied to a family (parent Portal) and 
   // get all children tied to a specific Guardian on pickup for a specific cone 
@@ -51,16 +55,16 @@ export default {
     return axios.post("/api/db/addFamily", familyData);
   },
   //add a guardian to a family
-  addGaurdian: function (gaurdianData) {
-    return axios.post("/api/db/addGaurdian", gaurdianData);
+  addGuardian: function (GuardianData) {
+    return axios.post("/api/db/addGuardian", GuardianData);
   },
   //add temp gaudian to a family
   addTemp: function (tempData) {
     return axios.post("/api/db/addTemp", tempData);
   },
   // update guardian info
-  updateGaurdian: function (gaurdianData) {
-    return axios.post("/api/db/updateGaurdian", gaurdianData);
+  updateGuardian: function (GuardianData) {
+    return axios.post("/api/db/updateGuardian", GuardianData);
   },
   // update child info
   updateChild: function (childData) {
@@ -84,5 +88,13 @@ export default {
   getNext: function (data) {
     return axios.get("/api/db/getNext", data);
   },  
+
+  getSchool: function (data) {
+    return axios.get("/api/db/getSchool", data);
+  },
+
+  addCone: function (data) {
+    return axios.post("/api/db/addCone", data);
+  }
   
 };
