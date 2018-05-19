@@ -1,15 +1,11 @@
 import React, { Component } from "react";
-import DeleteBtn from "../../../components/DeleteBtn";
-import Jumbotron from "../../../components/Jumbotron";
 import API from "../../../utils/API";
-import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../../components/Grid";
-import { List, ListItem } from "../../../components/List";
-import { Input, TextArea, FormBtn, Upload } from "../../../components/Form";
+import { Input, FormBtn} from "../../../components/Form";
 import AddImageCard from "../AddImageCard"
 
 
-class AddCard extends Component {
+class AddSchoolCard extends Component {
   state = {
     filename: null,
   };
@@ -112,6 +108,7 @@ class AddCard extends Component {
                     <Col size="md-4">
                         <AddImageCard
                             image_base64 = {this.state.image_base64}
+                            name = {this.state.schoolName}
                         />
             
                         <div className="form-group">
@@ -197,4 +194,4 @@ class AddCard extends Component {
     }
 }
 
-export default AddCard;
+export default AddSchoolCard;
