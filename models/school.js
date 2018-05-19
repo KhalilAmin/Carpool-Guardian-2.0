@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+// const teacher = require("./teacher")
 const Schema = mongoose.Schema;
 
 const schoolSchema = new Schema({
@@ -7,37 +8,44 @@ const schoolSchema = new Schema({
         required: true,
         minlength: 2
     },
-    school_id: {
-        type: String,
-        required: true,
-        minlength: 2,
-        index: { unique: true }
-    },
     schoolStreet: {
         type: String,
         required: true
     },
-    schoolState:{
+    schoolState: {
         type: String,
         required: true,
         minlength: 2
     },
-    schoolCounty:{
+    schoolCity: {
         type: String,
-        required: true,
+        required: false,
         minlength: 2
     },
-    schoolZip:{
+    schoolZip: {
         type: Number,
         required: true,
         minlength: 2
     },
-    schoolGrades:{
+    schoolGrades: {
         type: String,
         required: true,
         minlength: 2
     },
-    faceSetToken:{
+    schoolPhone: {
+        type: String,
+        required: true,
+        minlength: 7
+    },
+    schoolImg: {
+        type:String,
+        required: false,
+    },
+    lastConeIndex: {
+        type: Number,
+        required: false
+    },
+    faceSetToken: {
         type: String,
         required: true,
         minlength: 2,
@@ -48,10 +56,14 @@ const schoolSchema = new Schema({
             type: Schema.Types.ObjectId,
             // The ObjectIds will refer to the ids in the child model
             ref: "Teacher"
-          }
+        }
     ],
     // outer_id: { type: String, required: true, trim: true },
     // display_name: { type: String, required: true, trim: true },
+    coneCount: {
+        type: Number,
+        required: true,
+    },
     cone: [
         {
             // Store ObjectIds in the array
@@ -62,6 +74,7 @@ const schoolSchema = new Schema({
     ]
 });
 
+<<<<<<< HEAD
 const coneSchema = new Schema({
     coneName: {
         type: String,
@@ -117,5 +130,8 @@ const coneSchema = new Schema({
 const School = mongoose.model("School", schoolSchema);
 // const Teacher = mongoose.model("Teacher", teacherSchema);
 const Cone = mongoose.model("Cone", coneSchema);
+=======
+const School = mongoose.model("School", schoolSchema);
+>>>>>>> 069b5075bf323c21970f0f20300ae5aef9f82f5d
 
 module.exports = School;

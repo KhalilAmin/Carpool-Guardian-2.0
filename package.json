@@ -8,7 +8,6 @@
     "client": "node scripts/start-client.js",
     "start": "concurrently \"nodemon server.js\" \"npm run client\"",
     "build": "node scripts/build.js",
-    "seed": "node scripts/seedDB.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "installDeps": "yarn && cd client && yarn"
   },
@@ -27,6 +26,7 @@
     "express-session": "^1.15.4",
     "form-data": "^2.3.2",
     "mongoose": "^5.0.17",
+<<<<<<< HEAD
     "morgan": "^1.8.2",
     "passport": "^0.3.2",
     "passport-google-oauth": "^1.0.0",
@@ -37,6 +37,10 @@
     "react-bootstrap": "^0.32.1",
     "react-dom": "^15.5.4",
     "react-router-dom": "^4.2.2"
+=======
+    "qs": "^6.5.2",
+    "react-scripts": "^1.1.4"
+>>>>>>> 069b5075bf323c21970f0f20300ae5aef9f82f5d
   },
   "proxy": "http://localhost:3001",
   "author": "",

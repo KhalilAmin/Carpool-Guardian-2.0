@@ -1,21 +1,18 @@
 import React, { Component } from "react";
-import "./Form.css";
-import { Container, Row, Col } from "../Grid";
+import { Container, Row, Col } from "../../components/Grid";
+import API from "../../utils/API";
 
 export class StudentForm extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            firstName: "",
-            lastName: "",
-            photo: "",
-            age: "",
+    
+        state = {
+            fName: "",
+            lName: "",
+            img_base64: "",
             grade: "",
-            teacher: ""
+            email:"",
+            phone: ""
         };
-        this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    }
+        
     handleInputChange = event => {
 
         const { name, value } = event.target;
@@ -25,17 +22,26 @@ export class StudentForm extends Component {
         });
     };
 
-    handleFormSubmit = event => {
+    handleAddChild = event => {
         event.preventDefault();
 
         this.setState({
-            firstName: "",
-            lastName: "",
-            photo: "",
-            age: "",
+            fName: "",
+            lName: "",
+            img_base64: "",
             grade: "",
-            teacher: ""
+            email:"",
+            phone: ""
         });
+
+        API.addChild({
+            fName: this.state.fName,
+            lName: this.state.lName,
+            img_base64: this.state.img_base64,
+            grade: this.state.grade,
+            email: this.state.email,
+            phone: this.state.phone
+        })
     };
 
     render() {
@@ -51,8 +57,8 @@ export class StudentForm extends Component {
                             <div className="form-group row">
                                 <input
                                     className="form-control"
-                                    value={this.state.firstName}
-                                    name="firstName"
+                                    value={this.state.fName}
+                                    name="fName"
                                     onChange={this.handleInputChange}
                                     type="text"
                                     placeholder="First Name"
@@ -65,8 +71,8 @@ export class StudentForm extends Component {
                             <div className="form-group row">
                                 <input
                                     className="form-control"
-                                    value={this.state.lastName}
-                                    name="lastName"
+                                    value={this.state.lName}
+                                    name="lName"
                                     onChange={this.handleInputChange}
                                     type="text"
                                     placeholder="Last Name"
@@ -80,8 +86,8 @@ export class StudentForm extends Component {
                                 <label className="">Upload Photo</label>
                                 <input
                                     className="form-control-file"
-                                    value={this.state.photo}
-                                    name="photo"
+                                    value={this.state.img_base64}
+                                    name="img_base64"
                                     onChange={this.handleInputChange}
                                     type="file"
                                     placeholder="Upload Photo"
@@ -89,7 +95,7 @@ export class StudentForm extends Component {
                             </div>
                         </Col>
                     </Row>
-                    <Row>
+                    {/* <Row>
                         <Col size="md-10">
                             <div className="form-group row">
                                 <input
@@ -102,7 +108,7 @@ export class StudentForm extends Component {
                                 />
                             </div>
                         </Col>
-                    </Row>
+                    </Row> */}
                     <Row>
                         <Col size="md-10">
                             <div className="form-group row">
@@ -122,18 +128,32 @@ export class StudentForm extends Component {
                             <div className="form-group row">
                                 <input
                                     className="form-control"
-                                    value={this.state.teacher}
-                                    name="teacher"
+                                    value={this.state.email}
+                                    name="email"
                                     onChange={this.handleInputChange}
-                                    type="text"
-                                    placeholder="Teacher"
+                                    type="email"
+                                    placeholder="Email"
                                 />
                             </div>
                         </Col>
                     </Row>
                     <Row>
                         <Col size="md-10">
-                            <button className="btn btn-primary" onClick={this.handleFormSubmit}>Submit</button>
+                            <div className="form-group row">
+                                <input
+                                    className="form-control"
+                                    value={this.state.phone}
+                                    name="phone"
+                                    onChange={this.handleInputChange}
+                                    type="text"
+                                    placeholder="Phone"
+                                />
+                            </div>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col size="md-10">
+                            <button className="btn btn-primary" onClick={this.handleAddChild}>Submit</button>
                         </Col>
                     </Row>
                 </form>

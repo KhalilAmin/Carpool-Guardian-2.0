@@ -32,13 +32,18 @@ app.use(passport.initialize())
 app.use(passport.session()) // will call the deserializeUser
 
 // Configure body parser for AJAX requests
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true, limit: '3mb', parameterLimit: 3000 }));
+app.use(bodyParser.json({limit: '3mb'}));
 // Serve up static assets
 app.use(express.static("client/public"));
 // Add routes, both API and view
 app.use(routes);
 
+<<<<<<< HEAD
+=======
+// Connect to the Mongo DB
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/carpoolGuardian");
+>>>>>>> 069b5075bf323c21970f0f20300ae5aef9f82f5d
 
 app.get("/", function(req, res) {
     res.sendFile(path.join(__dirname, "apitemp.html"));

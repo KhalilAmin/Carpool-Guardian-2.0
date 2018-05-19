@@ -2,10 +2,8 @@ const mongoose = require("mongoose");
 const db = require("../models");
 mongoose.Promise = global.Promise;
 
-// This file empties the Books collection and inserts the books below
-
 mongoose.connect(
-  process.env.MONGODB_URI || "mongodb://localhost/carpoolGaurdian",
+  process.env.MONGODB_URI || "mongodb://localhost/carpoolGuardian",
   {
     useMongoClient: true
   }
@@ -22,22 +20,6 @@ const schoolSeed = [
     grades: "PreK-5",
     faceSetToken: "92aa90b824e07a351bcbbc70dfbbc647",
     cones: "3",
-    teacher: [ 
-      {
-        fname: "Amber",
-        lname: "Elder",
-        password: "12345",
-        email: "aelder@cmsschools.com",
-        phone: "980-555-1234"
-      },
-      {
-        fname: "Karen",
-        lname: "Fletcher",
-        password: "12345",
-        email: "kfletcher@cmsschools.com",
-        phone: "980-555-4321"
-      }
-    ]
   },
   {
     name: "Dilworth Elementary School",
@@ -49,14 +31,6 @@ const schoolSeed = [
     grades: "K-5",
     faceSetToken: "2b0696c4c0a7d3f57c37ca8b10ca1abb",
     cones: "3",
-    teacher: [ 
-      {fname: "Tina",
-       lname: "Smith",
-       password: "12345",
-       email: "tsmith@cmsschools.com",
-       phone: "980-555-1111"}
-
-    ]
   }
  
 ];
