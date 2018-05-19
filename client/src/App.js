@@ -7,6 +7,7 @@ import Parent from "./pages/Parent"
 import Temp from "./pages/Temp";
 import Nav from "./components/Nav";
 import School from "./pages/School";
+
 import CardHeading from "./components/CardHeading";
 import CardWrapper from "./components/CardWrapper";
 import TeacherSignUp from "./components/PatsTempComponents/TeacherSignUp";
@@ -30,59 +31,6 @@ const App = () => (
       </Switch>
     </div>
   </Router>
-
-
-
-
-
-
-// let variable = ["I am the heading", "It might be your heading", "I am not your heading"];
-
-// const App = () => (
-//   <CardWrapper>
-//     <CardHeading>
-//       <h2> {variable[0]} </h2>
-//     </CardHeading>
-//   </CardWrapper>
- 
-  // <Router>
-  /* <div> */
-  /* <Switch>
-    <Route exact path="/" component={Temp} />
-  </Switch> */
-  /* <Container>
-    <Row>
-    <FormWrapper>
-      <GuardianForm>
-      </GuardianForm>
-    </FormWrapper>
-  </Row>
-  
-  <Row>
-    <FormWrapper>
-      <StudentForm>
-      </StudentForm>
-    </FormWrapper>
-    </Row>
-  </Container>
-     {/* <Route exact path="/" component={Login} /> */
-  /* <Route exact path="/" component={Login} />
-    <Router>
-      <div>
-        <Switch>
-           {/* <Route exact path="/" component={Login} /> */
-  //  <Route exact path="/" component={Login} />
-  //   <Route exact path="/Demo" component={Demo} />
-  //   <Route exact path="/Teacher" component={Teacher} />
-  //   <Route exact path="/Parent" component={Parent} />
-  //   <Route exact path="/Temp" component={Temp} />
-  // <Switch> 
-  //   </div>
-  // </Router> */}
-  // );
-  // </Switch>
-  //   </div>
-  // </Router>
 );
 
 export default App;

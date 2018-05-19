@@ -10,7 +10,7 @@ const GuardSchema = new Schema({
       minlength: 2,
       maxLength: 15
     },
-    img_base64: { data: Buffer, type: String, required: true },
+    img_base64: { data: Buffer, type: String, required: false },
     face_token: { type: String },
     date: { type: Date, default: Date.now },
     email: {
