@@ -56,10 +56,15 @@ router.route("/getFamily")
   .get(dbController.getFamily);
 
 router.route("/getSchool")
-  .get(dbController.getSchool);
+  .post(dbController.getSchool);
+
+router.route("/updateSchool")
+  .post(dbController.updateSchool);
 
 router.route("/addCone")
   .post(dbController.addCone);
 
+router.route("/addToConeQueue")
+  .post(dbController.addToConeQueue);
 
 module.exports = router;

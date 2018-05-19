@@ -9,8 +9,10 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   getSchool: function(req, res) {
+    console.log("getSchool", req.body.schoolName);
     db.School
-      .find(req.query)
+      .find(req.body)
+      .populate("cone")
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
@@ -78,6 +80,12 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+  updateSchool: function(req, res) {
+    db.School 
+      .findOneAndUpdate({ _id: req.body._id }, {lastConeIndex: req.body.lastConeIndex})
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
   updateFamily: function(req, res) {
     db.Family
       .findOneAndUpdate({ _id: req.params.id }, req.body)
@@ -114,6 +122,13 @@ module.exports = {
       .then(function(dbCone) {
         return db.School.findOneAndUpdate({schoolName: req.body.schoolName}, {$push: {cone: dbCone._id}}, {new: true });
       })
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+  addToConeQueue: function(req, res) {
+    console.log("BODY", req.body._id, req.body.face_token, req.body.confidence);
+    db.Cone
+      .findOneAndUpdate({_id: req.body._id}, {$push: {queueData: {face_token: req.body.face_token, confidence: req.body.confidence}}}, {new: true})
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   }

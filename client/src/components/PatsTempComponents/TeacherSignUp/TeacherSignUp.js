@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import API from "../../../utils/API";
 import { Col, Row, Container } from "../../../components/Grid";
-import { List, ListItem } from "../../../components/List";
-import { Input, TextArea, FormBtn, Upload } from "../../../components/Form";
+import { Input, FormBtn } from "../../../components/Form";
 
 
 class TeacherSignUp extends Component {
