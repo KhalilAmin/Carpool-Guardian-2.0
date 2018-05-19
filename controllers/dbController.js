@@ -9,11 +9,14 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   getSchool: function(req, res) {
+    console.log("getSchool", req.body.schoolName);
     db.School
-      .find(req.query)
+      .find(req.body)
+      .populate("cone")
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+
   getChildren: function(req, res) {
     db.Family.guardian.child
       .findById(req.params.id)
@@ -21,14 +24,12 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   addTeacher: function(req, res) {
-    console.log(req.body.teacher);
     db.Teacher.create(req.body.teacher)
       .then(function(dbTeacher) {
-        return db.School.findOneAndUpdate({ schoolName: req.body.schoolName }, {$push: {teacher: req.body.teacher}
-        })
-        .then(dbModel > res.json(dbModel))
-        .catch(err => res.status(422).json(err));
+        return db.School.findOneAndUpdate({schoolName: req.body.schoolName}, {$push: {teacher: dbTeacher._id}}, {new: true });
       })
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
   },
   getTeacher: function(req, res) {
     db.School.teacher
@@ -79,6 +80,12 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+  updateSchool: function(req, res) {
+    db.School 
+      .findOneAndUpdate({ _id: req.body._id }, {lastConeIndex: req.body.lastConeIndex})
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
   updateFamily: function(req, res) {
     db.Family
       .findOneAndUpdate({ _id: req.params.id }, req.body)
@@ -110,4 +117,19 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+  addCone: function(req, res) {
+    db.Cone.create(req.body.cone)
+      .then(function(dbCone) {
+        return db.School.findOneAndUpdate({schoolName: req.body.schoolName}, {$push: {cone: dbCone._id}}, {new: true });
+      })
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+  addToConeQueue: function(req, res) {
+    console.log("BODY", req.body._id, req.body.face_token, req.body.confidence);
+    db.Cone
+      .findOneAndUpdate({_id: req.body._id}, {$push: {queueData: {face_token: req.body.face_token, confidence: req.body.confidence}}}, {new: true})
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  }
 };

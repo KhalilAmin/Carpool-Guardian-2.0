@@ -16,8 +16,8 @@ router.route("/addTeacher")
 router.route("/getTeacher/:id")
   .get(dbController.getTeacher);
 
-router.route("/addChild")
-  .post(dbController.addChild);
+// router.route("/addChild")
+//   .post(dbController.addChild);
 
 router.route("/addGuardian")
   .post(dbController.addGuardian);
@@ -27,6 +27,9 @@ router.route("/addFamily")
 
 router.route("/addSchool")
   .post(dbController.addSchool);
+
+router.route("/getSchool")
+  .get(dbController.getSchool);
 
 router.route("/addTemp")
   .post(dbController.addTemp);
@@ -53,7 +56,15 @@ router.route("/getFamily")
   .get(dbController.getFamily);
 
 router.route("/getSchool")
-  .get(dbController.getSchool);
+  .post(dbController.getSchool);
 
+router.route("/updateSchool")
+  .post(dbController.updateSchool);
+
+router.route("/addCone")
+  .post(dbController.addCone);
+
+router.route("/addToConeQueue")
+  .post(dbController.addToConeQueue);
 
 module.exports = router;

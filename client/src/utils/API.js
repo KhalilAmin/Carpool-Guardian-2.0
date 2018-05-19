@@ -88,5 +88,25 @@ export default {
   getNext: function (data) {
     return axios.get("/api/db/getNext", data);
   },  
+
+  getSchool: function (data) {
+    return axios.post("/api/db/getSchool", data);
+  },
+
+  updateSchool: function (data) {
+    return axios.post("/api/db/updateSchool", data);
+  },
+
+  addCone: function (data) {
+    return axios.post("/api/db/addCone", data);
+  },
+
+  addToConeQueue: function (data) {
+    return axios.post("/api/db/addToConeQueue", data);
+  },
+
+  addDriver: function (data) {
+    return axios.post("/api/driver/addDriver", data);
+  }
   
 };

@@ -1,11 +1,8 @@
 import React, { Component } from "react";
-import DeleteBtn from "../../components/DeleteBtn";
-import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
-import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
-import { Input, TextArea, FormBtn, Upload } from "../../components/Form";
+import { Input, FormBtn } from "../../components/Form";
 
 class Temp extends Component {
   state = {
@@ -23,7 +20,8 @@ class Temp extends Component {
     face_added: 0,
     search_faceset_token: "",
     result_face_token: "",
-    result_confidence: 0
+    result_confidence: 0,
+    
   };
 
   componentDidMount() {
@@ -129,6 +127,14 @@ class Temp extends Component {
           result_confidence: res.data.confidence
           });
       })
+  }
+
+  handleAddFamily = event => {
+    event.preventDefault();
+
+    API.addFamily({
+
+    })
   }
 
   render() {
