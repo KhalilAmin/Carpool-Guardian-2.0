@@ -1,16 +1,11 @@
 import React, { Component } from "react";
-import DeleteBtn from "../../components/DeleteBtn";
-import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
-import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
-import { List, ListItem } from "../../components/List";
-import { Input, TextArea, FormBtn, Upload } from "../../components/Form";
 import Modal from "../../components/Modal";
 import CardWrapper from "../../components/PatsTempComponents/CardWrapper";
 import InfoCard from "../../components/PatsTempComponents/InfoCard";
 import ImageCard from "../../components/PatsTempComponents/ImageCard";
-import AddCard from "../../components/PatsTempComponents/AddCard"
+import AddSchoolCard from "../../components/PatsTempComponents/AddSchoolCard"
 
 
 class School extends Component {
@@ -176,7 +171,7 @@ class School extends Component {
 
                 <Modal show={this.state.isOpen}
                 onClose={this.toggleModal}>
-                    <AddCard/>
+                    <AddSchoolCard/>
                 </Modal>
             </div>
         </div>

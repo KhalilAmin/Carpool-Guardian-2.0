@@ -41,6 +41,10 @@ const schoolSchema = new Schema({
         type:String,
         required: false,
     },
+    lastConeIndex: {
+        type: Number,
+        required: false
+    },
     faceSetToken: {
         type: String,
         required: true,
