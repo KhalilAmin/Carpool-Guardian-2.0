@@ -6,8 +6,8 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Configure body parser for AJAX requests
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ limit: '5mb', extended: true }));
+app.use(bodyParser.json({limit:'5mb'}));
 // Serve up static assets
 app.use(express.static("client/public"));
 // Add routes, both API and view
