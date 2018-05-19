@@ -22,7 +22,7 @@ class Parent extends Component {
     }
 
     loadFamily = () => {
-        API.getFamily(guardianID).then(res => {
+        API.getFamily(guardianID).then(res => { //This GuardianID needs to be passed
             this.setState({
                 guardians: res.data.guardian,
                 students: res.data.child
@@ -69,19 +69,26 @@ class Parent extends Component {
 
                 </div>
 
-                guardians.forEach(guardian => {
-                //   <CardWrapperGuardian> 
-                //       {guardian}
-                //   </CardWrapperGuardian> 
-                });
-                students.forEach(student => {
-                //   <CardWrapperStudent> 
-                //       {student}
-                //   </CardWrapperStudent> 
+                {this.state.guardians}.forEach(guardian => {
+                    <Row>
+                        {/* <CardWrapperGuardian>      
+                            {guardian}
+                        </CardWrapperGuardian> */}
+                    </Row>
                 });
 
+
+                {this.state.students}.forEach(student => {
+                    <Row>
+                        {/* <CardWrapperStudent>       
+                            {student}
+                        </CardWrapperStudent> */}
+                    </Row>
+                });
+
+
             </Container>
- 
+
         );
     }
 
