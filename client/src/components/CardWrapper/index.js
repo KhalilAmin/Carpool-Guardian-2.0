@@ -1,1 +1,3 @@
-export {default} from "./CardWrapper";
+export { default } from "./ImageCard";
+export { default } from "./AuthReq-props";
+
