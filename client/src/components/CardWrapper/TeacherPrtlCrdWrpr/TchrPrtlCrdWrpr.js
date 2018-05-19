@@ -1,11 +1,11 @@
 import React from "react";
-import ImageComponent from './ImageComponent';
-import CardGuardianInfo from './CardGuardianInfo';
-import CardHeader from './CardHeader';
-import avatar from './images/img_avatar3.png';
-import "./CardWrapper.css"
+import ImageComponent from '../ImageComponent';
+import CardGuardianInfo from '../CardGuardianInfo';
+import CardHeader from '../CardHeader';
+import avatar from '../images/img_avatar3.png';
+import "./TchrPrtlCrdWrpr.css"
 
-const CardWrapper = props => {
+const TchrPrtlCrdWrpr = props => {
   // make this array = to the incoming data from the database
   let PERSONS = [
     {
@@ -17,7 +17,8 @@ const CardWrapper = props => {
       email: '5whatever@you.com',
       phone: '323.555.2134',
       credentials: `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore`,
-      bio: `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.`
+      bio: `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.`,
+      cardHeading: 'Carpool Candidate'
     },
     {
       id: '01',
@@ -28,7 +29,8 @@ const CardWrapper = props => {
       email: '0whatever@you.com',
       phone: '323.000.2134',
       credentials: `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore`,
-      bio: `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.`
+      bio: `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.`,
+      cardHeading: 'Carpool Candidate'
     },
     {
       id: '02',
@@ -39,7 +41,8 @@ const CardWrapper = props => {
       email: '1whatever@you.com',
       phone: '323.111.2134',
       credentials: `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore`,
-      bio: `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.`
+      bio: `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.`,
+      cardHeading: 'Carpool Candidate'
     },
     {
       id: '03',
@@ -75,14 +78,14 @@ const CardWrapper = props => {
       bio: `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.`
     }
   ];
-  let cardHeading = 'Carpool Candidate';    // created variable for CardHeader to increase portability
+  // let cardHeading = 'Carpool Candidate';    // created variable for CardHeader to increase portability
   return (
-    <div className="" style={{ backgroundColor: 'lightgrey', margin: 'auto' }}>
+    <div className="" style={{ backgroundColor: 'lightblue', margin: 'auto' }}>
 
       {
         PERSONS.map(person =>
           <span>
-            <CardHeader heading={cardHeading} />      {/* heading is now a variable.  Can be switched to props if desired */}
+            <CardHeader cardHeading={person.cardHeading} />      {/* heading is now a variable.  Can be switched to props if desired */}
             <ImageComponent name={person.name} image_heading={person.image_heading} image={person.image} />
             <CardGuardianInfo name={person.name} email={person.email} phone={person.phone} family={person.family} credentials={person.credentials} bio={person.bio} />
           </span>
@@ -91,4 +94,4 @@ const CardWrapper = props => {
     </div>
   );
 }
-export default CardWrapper;
+export default TchrPrtlCrdWrpr;
