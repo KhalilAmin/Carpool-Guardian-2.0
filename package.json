@@ -20,6 +20,7 @@
     "body-parser": "^1.18.2",
     "express": "^4.16.3",
     "form-data": "^2.3.2",
+    "moment": "^2.22.1",
     "mongoose": "^5.0.17",
     "qs": "^6.5.2",
     "react-scripts": "^1.1.4"
