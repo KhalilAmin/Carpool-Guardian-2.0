@@ -212,7 +212,7 @@ class DemoCard extends Component {
                 <Row>
                     <Col size="md-6">
                         <FormBtn 
-                            onClick ={this.handleAddDriver2}
+                            onClick ={this.handleAddDriver}
                         >
                             Save
                         </FormBtn>

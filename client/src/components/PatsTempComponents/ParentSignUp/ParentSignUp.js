@@ -11,16 +11,16 @@ class TeacherSignUp extends Component {
 
 
   componentDidMount() {
-    // this.loadSchools();
+    this.loadSchools();
   }
 
-//   loadSchools = () => {
-//       API.getSchool()
-//         .then(res =>
-//             this.setState( {schools: res.data})
-//         )
-//         .catch(err => console.log(err));
-//   }
+  loadSchools = () => {
+      API.getSchool()
+        .then(res =>
+            this.setState( {schools: res.data})
+        )
+        .catch(err => console.log(err));
+  }
   
 
   handleInputChange = event => {
@@ -30,53 +30,53 @@ class TeacherSignUp extends Component {
     });
   };
 
-//   toggleModal = () => {
-//     this.setState({
-//       isOpen: !this.state.isOpen
-//     });
-//   }
+  toggleModal = () => {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+  }
 
-//   handleCreateFaceSet = event => {
-//     event.preventDefault();
+  handleCreateFaceSet = event => {
+    event.preventDefault();
 
-//     API.createFaceSet({
-//       outer_id: this.state.create_outer_id,
-//       display_name: this.state.create_display_name
-//     })
-//       .then(res => {
-//         console.log(res.data);
-//         this.setState({ faceset_token: res.data});
-//     });
-//   };
+    API.createFaceSet({
+      outer_id: this.state.create_outer_id,
+      display_name: this.state.create_display_name
+    })
+      .then(res => {
+        console.log(res.data);
+        this.setState({ faceset_token: res.data});
+    });
+  };
 
-//   handleAddSchool = event => {
-//     event.preventDefault();
+  handleAddSchool = event => {
+    event.preventDefault();
     
-//     API.createFaceSet({
-//         outer_id: this.state.schoolName,
-//         display_name: this.state.schoolName
-//     })
-//     .then(res => {
-//         API.addSchool({
-//             school_id: this.state.schoolName,
-//             schoolName: this.state.schoolName,
-//             schoolStreet: this.state.schoolStreet,
-//             schoolCity: this.state.schoolCity,
-//             schoolCounty: this.state.schoolCounty,
-//             schoolState: this.state.schoolState,
-//             schoolZip: this.state.schoolZip,
-//             schoolPhone: this.state.schoolPhone,
-//             schoolGrades: this.state.schoolGrades,
-//             schoolImg: this.state.schoolImg,
-//             teacherFirstName: this.state.teacherFirstName,
-//             teacherLastName: this.state.teacherLastName,
-//             teacherEmail: this.state.teacherEmail,
-//             teacherPassword: this.state.teacherPassword,
-//             teacherSchoolName: this.state.teacherSchoolName,
-//             faceSetToken: res.data
-//         })
-//     })
-//   };
+    API.createFaceSet({
+        outer_id: this.state.schoolName,
+        display_name: this.state.schoolName
+    })
+    .then(res => {
+        API.addSchool({
+            school_id: this.state.schoolName,
+            schoolName: this.state.schoolName,
+            schoolStreet: this.state.schoolStreet,
+            schoolCity: this.state.schoolCity,
+            schoolCounty: this.state.schoolCounty,
+            schoolState: this.state.schoolState,
+            schoolZip: this.state.schoolZip,
+            schoolPhone: this.state.schoolPhone,
+            schoolGrades: this.state.schoolGrades,
+            schoolImg: this.state.schoolImg,
+            teacherFirstName: this.state.teacherFirstName,
+            teacherLastName: this.state.teacherLastName,
+            teacherEmail: this.state.teacherEmail,
+            teacherPassword: this.state.teacherPassword,
+            teacherSchoolName: this.state.teacherSchoolName,
+            faceSetToken: res.data
+        })
+    })
+  };
 
   
 

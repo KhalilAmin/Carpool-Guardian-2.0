@@ -9,7 +9,6 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   getSchool: function(req, res) {
-    console.log("getSchool", req.body.schoolName);
     db.School
       .find(req.body)
       .populate("cone")
@@ -130,6 +129,23 @@ module.exports = {
     db.Cone
       .findOneAndUpdate({_id: req.body._id}, {$push: {queueData: {face_token: req.body.face_token, confidence: req.body.confidence}}}, {new: true})
       .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+  addPickup: function(req, res) {
+    db.Pickup.create(req.body.pickup)
+      .then(function(dbPickup) {
+        return db.Family.findOneAndUpdate({_id: familyId}, {$push: {pickup: dbPickup._id}}, {new: true });
+      })
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+
+  addStudent: function(req, res) {
+    db.Student.create(req.body.student)
+      .then(function(dbStudent) {
+        return db.Family.findOneAndUpdate({_id: familyId}, {$push: {student: dbStudent._id}}, {new: true})
+      })
+      .then(dbModal => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   }
 };
