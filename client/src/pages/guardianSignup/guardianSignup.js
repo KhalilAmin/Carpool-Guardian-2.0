@@ -6,9 +6,10 @@ class guardianSignup extends Component {
 	constructor() {
 		super()
 		this.state = {
-			firstname: '',
-			lastname: '',
+			fName: '',
+			lName: '',
 			email: '',
+			phone: '',
 			password: '',
 			confirmPassword: '',
 			redirectTo: null
@@ -26,9 +27,10 @@ class guardianSignup extends Component {
 		// TODO - validate!
 		axios
 			.post('/auth/signup', {
-				firstname: this.state.firstname,
-				lastname: this.state.lastname,
+				fName: this.state.fName,
+				lName: this.state.lName,
 				email: this.state.email,
+				phone: this.state.phone,
 				password: this.state.password
 			})
 			.then(response => {
@@ -69,6 +71,13 @@ class guardianSignup extends Component {
 					type="text"
 					name="email"
 					value={this.state.email}
+					onChange={this.handleChange}
+				/>
+				<label htmlFor="phone">Phone: </label>
+				<input
+					type="string"
+					name="phone"
+					value={this.state.phone}
 					onChange={this.handleChange}
 				/>
 				<label htmlFor="password">Password: </label>

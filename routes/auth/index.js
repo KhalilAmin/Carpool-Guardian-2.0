@@ -71,7 +71,7 @@ router.post('/logout', (req, res) => {
 })
 
 router.post('/signup', (req, res) => {
-	const { firstname, lastname, email, password } = req.body
+	const { fName, lName, email, phone, password } = req.body
 	console.log(req.body);
 	// ADD VALIDATION
 	Guardian.findOne({ 'email': email }, (err, userMatch) => {
@@ -81,9 +81,10 @@ router.post('/signup', (req, res) => {
 			})
 		}
 		const newGuardian = new Guardian({
-			'firstName': firstname,
-			'lastName': lastname,
+			'fName': fName,
+			'lName': lName,
 			'email': email,
+			'phone': phone,
 			'password': password
 		})
 		newGuardian.save((err, savedUser) => {
@@ -95,7 +96,7 @@ router.post('/signup', (req, res) => {
 })
 
 router.post('/teachersignup', (req, res) => {
-	const { firstname, lastname, email, school, password } = req.body
+	const { fName, lName, email, school, phone, password } = req.body
 	console.log(req.body);
 	// ADD VALIDATION
 	Teacher.findOne({ 'email': email }, (err, teacherMatch) => {
@@ -105,10 +106,11 @@ router.post('/teachersignup', (req, res) => {
 			})
 		}
 		const newTeacher = new Teacher({
-			'firstName': firstname,
-			'lastName': lastname,
+			'fName': fName,
+			'lName': lName,
 			'email': email,
 			'school': school,
+			'phone': phone,
 			'password': password
 		})
 		newTeacher.save((err, savedTeacher) => {

@@ -1,4 +1,4 @@
-const Teacher = require('../db/models/teacher');
+const Teacher = require('../models/teacher');
 
 const LocalStrategy = require('passport-local').Strategy
 

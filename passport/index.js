@@ -2,8 +2,8 @@ const passport = require('passport')
 const LocalStrategy = require('./localStrategy')
 const teacherStrategy = require('./teacherstrategy')
 // const GoogleStratgey = require('./googleStrategy')
-const User = require('../db/models/user')
-const Teacher = require('../db/models/teacher');
+const Guardian = require('../models/guardian')
+const Teacher = require('../models/teacher');
 
 passport.serializeUser((user, done) => {
 	console.log('=== serialize ... called ===')
@@ -13,11 +13,11 @@ passport.serializeUser((user, done) => {
 })
 
 passport.deserializeUser((id, done) => {
-	(User.findOne(
+	(Guardian.findOne(
 		{ _id: id } === null)) ?
 	Teacher.findOne(
 		{ _id: id },
-		'firstName lastName photos email',
+		'fName lName school email',
 		(err, user) => {
 			console.log('======= DESERIALIZE USER CALLED ======')
 			console.log(user)
@@ -25,9 +25,9 @@ passport.deserializeUser((id, done) => {
 			done(null, user)
 		}
 	) :
-	User.findOne(
+	Guardian.findOne(
 		{ _id: id },
-		'firstName lastName photos email',
+		'fName lName phone email',
 		(err, user) => {
 			console.log('======= DESERIALIZE USER CALLED ======')
 			console.log(user)

@@ -8,7 +8,7 @@ const MongoStore = require("connect-mongo")(session);
 const dbConnection = require("./models"); // loads our connection to the mongo database
 const passport = require("./passport");
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 8080;
 
 // ===== Middleware ====
 app.use(morgan('dev'))

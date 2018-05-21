@@ -6,8 +6,8 @@ class teacherSignup extends Component {
 	constructor() {
 		super()
 		this.state = {
-			firstname: '',
-			lastname: '',
+			fName: '',
+			lName: '',
             email: '',
             school: '',
 			password: '',
@@ -27,10 +27,11 @@ class teacherSignup extends Component {
 		// TODO - validate!
 		axios
 			.post('/auth/teachersignup', {
-				firstname: this.state.firstname,
-				lastname: this.state.lastname,
+				fName: this.state.fName,
+				lName: this.state.lName,
                 email: this.state.email,
-                school: this.state.school,
+				school: this.state.school,
+				phone: this.state.phone,
 				password: this.state.password
 			})
 			.then(response => {
@@ -52,18 +53,18 @@ class teacherSignup extends Component {
 		return (
 			<div className="teacherSignup">
 				<h1>Teacher Signup Form</h1>
-				<label htmlFor="firstname">Firstname: </label>
+				<label htmlFor="fName">Firstname: </label>
 				<input
 					type="text"
-					name="firstname"
-					value={this.state.firstname}
+					name="fName"
+					value={this.state.fName}
 					onChange={this.handleChange}
 				/>
-				<label htmlFor="lastname">Lastname: </label>
+				<label htmlFor="lName">Lastname: </label>
 				<input
 					type="text"
-					name="lastname"
-					value={this.state.lastname}
+					name="lName"
+					value={this.state.lName}
 					onChange={this.handleChange}
 				/>
 				<label htmlFor="email">Email: </label>
@@ -73,11 +74,18 @@ class teacherSignup extends Component {
 					value={this.state.email}
 					onChange={this.handleChange}
 				/>
-                <label htmlFor="grade">School: </label>
+                <label htmlFor="school">School: </label>
 				<input
 					type="string"
 					name="school"
 					value={this.state.school}
+					onChange={this.handleChange}
+				/>
+				 <label htmlFor="phone">Phone: </label>
+				<input
+					type="string"
+					name="phone"
+					value={this.state.phone}
 					onChange={this.handleChange}
 				/>
 				<label htmlFor="password">Password: </label>

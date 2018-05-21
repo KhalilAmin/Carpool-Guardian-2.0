@@ -14,6 +14,7 @@ const teacherSchema = new Schema({
         minlength: 2,
         maxLength: 15
     },
+    school: { type: String, required: true, trim: true },
     img_base64: { data: Buffer, type: String, required: false },
     date: { type: Date, default: Date.now },
     email: {
