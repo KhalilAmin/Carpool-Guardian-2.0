@@ -15,7 +15,7 @@ class Guardian extends Component {
 
 
     state = {
-        familyid: String,
+        familyid:"",
         children: [],
         temp: [],
         guardians: [],
