@@ -27,6 +27,10 @@ export default {
   // get guadian tied to a face tocken (pulled from getNext)
   // and on load of parent portal
 
+  addFamily: function (familyData) {
+    return axios.post("/api/db/addFamily", familyData);
+  },
+
   addSchool: function(data) {
     return axios.post("api/db/addSchool", data)
   },
@@ -40,6 +44,9 @@ export default {
   },
   // Gets all chillren tied to a family (parent Portal) and 
   // get all children tied to a specific Guardian on pickup for a specific cone 
+  getFamily: function (data) {
+    return axios.get("/api/db/getFamily", data);
+  },
   getChildren: function (data) {
     return axios.get("/api/db/getChildren", data);
   },
@@ -50,9 +57,6 @@ export default {
   // add a child to a family
   addChild: function (childData) {
     return axios.post("/api/db/addChild", childData);
-  },
-  addFamily: function (familyData) {
-    return axios.post("/api/db/addFamily", familyData);
   },
   //add a guardian to a family
   addGuardian: function (GuardianData) {

@@ -1,5 +1,7 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
+const bcrypt = require('bcryptjs')
+mongoose.promise = Promise
 
 const GuardSchema = new Schema({
     fName: { type: String, required: true, trim: true },
@@ -42,6 +44,37 @@ const GuardSchema = new Schema({
     }
   });
 
+  // Define schema methods
+GuardSchema.methods = {
+	checkPassword: function(inputPassword) {
+		return bcrypt.compareSync(inputPassword, this.password)
+	},
+	hashPassword: plainTextPassword => {
+		return bcrypt.hashSync(plainTextPassword, 10)
+	}
+}
+
+// Define hooks for pre-saving
+GuardSchema.pre('save', function(next) {
+	if (!this.password) {
+		console.log('=======NO PASSWORD PROVIDED=======')
+		next()
+	} else {
+		this.password = this.hashPassword(this.password)
+		next()
+	}
+	// this.password = this.hashPassword(this.password)
+	// next()
+})
+
   const Guardian = mongoose.model("Guardian", GuardSchema);
 
   module.exports = Guardian;
+
+
+
+
+
+
+
+
