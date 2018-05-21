@@ -10,35 +10,9 @@ import AddSchoolCard from "../../components/PatsTempComponents/AddSchoolCard"
 
 class School extends Component {
 
-
     state = {
         schools: [],
-        isOpen: false,
-        // school: {
-        //     name: "",
-        //     street: "",
-        //     city: "",
-        //     county: "",
-        //     state: "",
-        //     zip: "",
-        //     phone: "",
-        //     grades: "",
-        //     img: ""
-        // }
-        // schoolName: "",
-        // schoolStreet: "",
-        // schoolCity: "",
-        // schoolCounty: "",
-        // schoolState: "",
-        // schoolZip: "",
-        // schoolPhone: "",
-        // schoolGrades: "",
-        // schoolImg: "",
-        // schoolCones: "",
-        // faceset_token: "",
-
-
-        // teacherName: "",
+        isOpen: false
     };
 
 
@@ -56,7 +30,6 @@ class School extends Component {
         .catch(err => console.log(err));
   }
   
-
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({
@@ -69,63 +42,6 @@ class School extends Component {
       isOpen: !this.state.isOpen
     });
   }
-
-//   handleCreateFaceSet = event => {
-//     event.preventDefault();
-
-//     API.createFaceSet({
-//       outer_id: this.state.create_outer_id,
-//       display_name: this.state.create_display_name
-//     })
-//       .then(res => {
-//         console.log(res.data);
-//         this.setState({ faceset_token: res.data});
-//     });
-//   };
-
-//   handleAddSchool = event => {
-//     event.preventDefault();
-    
-//     API.createFaceSet({
-//         outer_id: this.state.schoolName,
-//         display_name: this.state.schoolName
-//     })
-//     .then(res => {
-//         API.addSchool({
-//             school_id: this.state.schoolName,
-//             schoolName: this.state.schoolName,
-//             schoolStreet: this.state.schoolStreet,
-//             schoolCity: this.state.schoolCity,
-//             schoolCounty: this.state.schoolCounty,
-//             schoolState: this.state.schoolState,
-//             schoolZip: this.state.schoolZip,
-//             schoolPhone: this.state.schoolPhone,
-//             schoolGrades: this.state.schoolGrades,
-//             schoolImg: this.state.schoolImg,
-//             teacherFirstName: this.state.teacherFirstName,
-//             teacherLastName: this.state.teacherLastName,
-//             teacherEmail: this.state.teacherEmail,
-//             teacherPassword: this.state.teacherPassword,
-//             teacherSchoolName: this.state.teacherSchoolName,
-//             faceSetToken: res.data
-//         })
-//     })
-//   };
-
-  
-
-//   handleAddTeacher = event => {
-//       API.addTeacher({
-//         schoolName: this.state.teacherSchoolName, 
-//         teacher: {
-//             fName: this.state.teacherFirstName,
-//             lName: this.state.teacherLastName,
-//             email: this.state.teacherEmail,
-//             password: this.state.teacherPassword,
-//             phone: "704-555-1933"
-//         }
-//       })
-//   }
 
   render() {
         return (

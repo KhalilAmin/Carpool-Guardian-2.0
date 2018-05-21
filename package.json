@@ -26,6 +26,7 @@
     "express-session": "^1.15.4",
     "form-data": "^2.3.2",
     "mongoose": "^5.0.17",
+<<<<<<< HEAD
     "morgan": "^1.8.2",
     "passport": "^0.3.2",
     "passport-google-oauth": "^1.0.0",
@@ -37,6 +38,12 @@
     "react-dom": "^15.5.4",
     "react-router-dom": "^4.2.2",
     "react-scripts": "^1.1.4"
+=======
+    "prop-types": "^15.6.1",
+    "qs": "^6.5.2",
+    "react-scripts": "^1.1.4",
+    "react-webcam": "^0.5.0"
+>>>>>>> 83ff705573ec6b1efc669d81271fc491ccd51402
   },
   "proxy": "http://localhost:8080",
   "author": "",
