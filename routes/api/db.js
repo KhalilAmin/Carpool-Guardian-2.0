@@ -16,8 +16,8 @@ router.route("/addTeacher")
 router.route("/getTeacher/:id")
   .get(dbController.getTeacher);
 
-// router.route("/addChild")
-//   .post(dbController.addChild);
+router.route("/addChild")
+  .post(dbController.addChild);
 
 router.route("/addGuardian")
   .post(dbController.addGuardian);
