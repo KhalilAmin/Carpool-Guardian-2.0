@@ -15,8 +15,8 @@ const Nav = props => {
 			<nav className="navbar">
 				<ul className="nav">
 					<li className="nav-item">
-						<Link to="/Temp" className="nav-link">
-							Home
+						<Link to="/TeacherPortal" className="nav-link">
+							Teacher Portal
 						</Link>
 					</li>
 					<li>

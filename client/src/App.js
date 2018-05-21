@@ -158,7 +158,7 @@ class App extends Component {
 						)
 						}
 						/>
-						<Route exact path="/Teacher" component={() => (
+						<Route exact path="/TeacherPortal" component={() => (
 							this.state.loggedIn ? (
 								<Teacher />
 							) : (

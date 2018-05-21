@@ -34,12 +34,13 @@ db.once('open', () => {
 	)
 })
 
-module.exports = db
-// module.exports = {
-//    // path to the guardians db
-//     Guardian: require("./guardian"),
-//     School: require("./school"),
-//     Teacher: require("./teacher"),
-//     Family: require("./family"),
-//     Cone: require("./cone")
-//   };
+// module.exports = db
+module.exports = db, {
+
+   // path to the guardians db
+    Guardian: require("./guardian"),
+    School: require("./school"),
+    Teacher: require("./teacher"),
+    Family: require("./family"),
+    Cone: require("./cone")
+  };

@@ -52,18 +52,18 @@ class guardianSignup extends Component {
 		return (
 			<div className="guardianSignup">
 				<h1>Guardian Signup Form</h1>
-				<label htmlFor="firstname">Firstname: </label>
+				<label htmlFor="fName">Firstname: </label>
 				<input
 					type="text"
-					name="firstname"
-					value={this.state.firstname}
+					name="fName"
+					value={this.state.fName}
 					onChange={this.handleChange}
 				/>
-				<label htmlFor="lastname">Lastname: </label>
+				<label htmlFor="lName">Lastname: </label>
 				<input
 					type="text"
-					name="lastname"
-					value={this.state.lastname}
+					name="lName"
+					value={this.state.lName}
 					onChange={this.handleChange}
 				/>
 				<label htmlFor="email">Email: </label>
