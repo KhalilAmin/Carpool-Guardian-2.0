@@ -8,16 +8,16 @@ import guardianSignup from './pages/guardianSignup'
 import teacherSignup from './pages/teacherSignup'
 import Header from './components/Header'
 import Home from './components/Home'
-import Teacher from "./pages/Teacher"
-import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Login from "./pages/Login"
+// import Teacher from "./pages/Teacher"
+// import React from "react";
+// import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+// import Login from "./pages/Login"
 import Demo from "./pages/Demo"
 import Parent from "./pages/Parent"
 import Guardian from "./pages/GuardianPortal"
 import Temp from "./pages/Temp";
 import Nav from "./components/Nav";
-import Demo from "./pages/Demo"
+// import Demo from "./pages/Demo"
 import School from "./pages/School";
 
 import CardHeading from "./components/CardHeading";
@@ -166,7 +166,7 @@ class App extends Component {
 						/>
 						<Route exact path="/TeacherPortal" component={() => (
 							this.state.loggedIn ? (
-								<Teacher />
+								<TeacherPortal />
 							) : (
 									<Redirect to={'/'} />
 								)
