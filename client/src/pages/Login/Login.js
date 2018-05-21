@@ -94,17 +94,12 @@ class Login extends Component {
 
 
 
-<<<<<<< HEAD
+
     return (
       <Container fluid>
         <h1>Hello World</h1>
       </Container>
     )
-  }
-};
-=======
-//   render() {
->>>>>>> ef02c4f79c161b5548fe408cece6740cdf577713
 
 //     return (
 //       <Container fluid>
