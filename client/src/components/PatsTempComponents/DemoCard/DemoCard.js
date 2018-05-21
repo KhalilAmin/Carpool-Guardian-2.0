@@ -78,6 +78,8 @@ class DemoCard extends Component {
                 result_confidence: res.data.confidence
                 });
         })
+        //I think this is where I'd need to search the DB for the result face token and provide the Family we find
+        /////////////////////////////////////
         .then(res => {
             
             if (this.state.result_face_token) {
