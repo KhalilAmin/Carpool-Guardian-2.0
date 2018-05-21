@@ -12,6 +12,7 @@ import CardHeading from "./components/CardHeading";
 import CardWrapper from "./components/CardWrapper";
 import TeacherSignUp from "./components/PatsTempComponents/TeacherSignUp";
 import TeacherPortal from "./pages/TeacherPortal";
+import TestWebCam from "./pages/TestWebCam";
 // import GuardianForm from "./components/Form/GuardianForm.js";
 const App = () => (
   <Router>
@@ -26,6 +27,7 @@ const App = () => (
         <Route exact path="/TeacherSignUp" component={TeacherSignUp} /> 
         {/* TEACHER SIGN UP WILL NOT BE A PAGE IN THE FINAL PRODUCT - JUST HERE NOW SO WE CAN ADD TO THE DB */}
         <Route exact path="/TeacherPortal" component={TeacherPortal} />
+        <Route exact path="/TestWebCam" component={TestWebCam} />
 
       </Switch>
     </div>
