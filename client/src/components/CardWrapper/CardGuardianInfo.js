@@ -38,10 +38,6 @@ class CardGuardianInfo extends Component {
 
 
 
-
-
-
-
 // );
 
 // }

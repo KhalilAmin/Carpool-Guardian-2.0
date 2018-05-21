@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 // import avatar from './assets/images/img_avatar3.png'
 
-class AuthReqProps extends Component {
+class ImageComponent extends Component {
 
   render() {
     return (
@@ -29,4 +29,4 @@ class AuthReqProps extends Component {
   }
 }
 
-export default AuthReqProps
+export default ImageComponent
