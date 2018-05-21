@@ -5,6 +5,7 @@ const ChildSchema = new Schema({
   fName: { type: String, required: true, trim: true },
   lName: { type: String, required: true, trim: true },
   img_base64: { data: Buffer, type: String, required: true },
+
   grade: { data: String, required: false },
   email: {
     type: String,
@@ -30,7 +31,11 @@ const ChildSchema = new Schema({
     },
     required: false
   },
-  face_token: { data: String},
+  schoolName: {
+    type: String
+  },
+  //get faceset token associated school
+  faceSetToken: { data: String},
   date: { type: Date, default: Date.now },
 });
 

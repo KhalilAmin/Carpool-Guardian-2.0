@@ -3,6 +3,7 @@ const db = require("../models");
 // Defining methods for the booksController
 module.exports = {
   getGuardian: function(req, res) {
+    console.log("get guardian",req.body.guardianName)
     db.Family.guardian
       .find(req.query)
       .then(dbModel => res.json(dbModel))
@@ -31,6 +32,14 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+  addChild: function(req, res) {
+    db.Child.create(req.body.child)
+      .then(function(dbChild) {
+        return db.School.findOneAndUpdate({schoolName: req.body.schoolName}, {$push: {teacher: dbTeacher._id}}, {new: true });
+      })
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
   getTeacher: function(req, res) {
     db.School.teacher
       .findById(req.params.id)
@@ -42,19 +51,6 @@ module.exports = {
       .find({})
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
-  },
-  addChild: function(req, res) {
-    db.Family.guardian.child
-      .create(req.body)
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
-  },
-  addFamily: function(req, res) {
-    db.Family
-      .create(req.body)
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
-      console.log(res);
   },
   addQueue: function(req, res) {
     db.Family
@@ -76,6 +72,12 @@ module.exports = {
   },
   addSchool: function(req, res) {
     db.School
+      .create(req.body)
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+  addFamily: function(req, res) {
+    db.Family
       .create(req.body)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
