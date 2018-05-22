@@ -8,21 +8,14 @@ import guardianSignup from './pages/guardianSignup'
 import teacherSignup from './pages/teacherSignup'
 import Header from './components/Header'
 import Home from './components/Home'
-// import Teacher from "./pages/Teacher"
-// import React from "react";
-// import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-// import Login from "./pages/Login"
 import Demo from "./pages/Demo"
 import Parent from "./pages/Parent"
 import Guardian from "./pages/GuardianPortal"
 import Temp from "./pages/Temp";
 import Nav from "./components/Nav";
-// import Demo from "./pages/Demo"
 import School from "./pages/School";
-
 import CardHeading from "./components/CardHeading";
 import CardWrapper from "./components/CardWrapper";
-// import TeacherSignUp from "./components/PatsTempComponents/TeacherSignUp";
 import TeacherPortal from "./pages/TeacherPortal";
 
 
@@ -32,6 +25,7 @@ class App extends Component {
 		super()
 		this.state = {
 			loggedIn: false,
+			isTeacher: false,
 			user: null
 		}
 		this._logout = this._logout.bind(this)
@@ -53,6 +47,7 @@ class App extends Component {
 			else {
 				this.setState({
 					loggedIn: false,
+					isTeacher: false,
 					user: null
 				})
 			}
@@ -88,6 +83,7 @@ class App extends Component {
 			if (response.status === 200) {
 				this.setState({
 					loggedIn: false,
+					isTeacher: false,
 					user: null
 				})
 			}
@@ -107,6 +103,7 @@ class App extends Component {
 					// update the state
 					this.setState({
 						loggedIn: true,
+						isTeacher: false,
 						user: response.data.user
 					})
 					// window.location = '/Temp';
@@ -127,6 +124,7 @@ class App extends Component {
 					// update the state
 					this.setState({
 						loggedIn: true,
+						isTeacher: true,
 						user: response.data.user
 					})
 					// window.location = '/Temp';

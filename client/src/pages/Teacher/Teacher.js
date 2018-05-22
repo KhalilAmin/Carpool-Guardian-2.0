@@ -1,5 +1,4 @@
-// import React from 'react';
-// import CardWrapper from '../../components/CardWrapper';
+//import React from 'react';
 // import API from '../../utils/API.js'
 
 // class Teacher extends Component {
@@ -34,6 +33,6 @@
 
 // render(
 //   <CardWrapper >
-//     {guardians}
+//     {/* {guardians} */}
 //   </CardWrapper>
 // )
