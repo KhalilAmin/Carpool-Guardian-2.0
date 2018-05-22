@@ -42,7 +42,7 @@ class App extends Component {
 					user: response.data.user
 				})
 				
-				console.log(this.state);
+				//console.log(this.state);
 			}
 			else {
 				this.setState({
@@ -148,7 +148,7 @@ class App extends Component {
 				{/* <Route exact path="/" component={Home} /> */}
 				
 					<Switch>
-						<Route exact path="/" render={() => <Home user={this.state.user} />} />
+						<Route exact path="/" render={() => <Home user={this.state.user} isTeacher={this.state.isTeacher}/>} />
 						<Route exact path="/login" render={() => <Login _login={this._login} />} />
 						<Route exact path="/teacherlogin" render={() => <TeacherLogin _teacherlogin={this._teacherlogin} />} />
 						<Route exact path="/teacherSignup" component={teacherSignup} />
