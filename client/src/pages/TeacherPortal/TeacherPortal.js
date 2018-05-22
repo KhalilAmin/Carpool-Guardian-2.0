@@ -12,6 +12,7 @@ import Dropdown from "../../components/PatsTempComponents/Dropdown";
 class TeacherPortal extends Component {
 
     state = {
+        // user: this.props.user,
         coneNames: [],
         schoolNames: [],
         schoolName: ""
@@ -19,6 +20,8 @@ class TeacherPortal extends Component {
 
 
     componentDidMount() {
+        console.log("TeacherPortal.js Componenet Called");
+        console.log(this.props.user);
         this.loadSchoolNames()
     }
 

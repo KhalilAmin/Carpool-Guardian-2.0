@@ -7,7 +7,12 @@ import TeacherLogin from './pages/teacherLogin'
 import guardianSignup from './pages/guardianSignup'
 import teacherSignup from './pages/teacherSignup'
 import Header from './components/Header'
-import Home from './components/Home'
+// import Home from './components/Home'
+import Home from './pages/Home'
+// import Teacher from "./pages/Teacher"
+// import React from "react";
+// import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+// import Login from "./pages/Login"
 import Demo from "./pages/Demo"
 import Parent from "./pages/Parent"
 import Guardian from "./pages/GuardianPortal"
@@ -29,8 +34,10 @@ class App extends Component {
 			user: null
 		}
 		this._logout = this._logout.bind(this)
-		this._login = this._login.bind(this)
+		// this._login = this._login.bind(this)
+		this._login = this._login
 		this._teacherlogin = this._teacherlogin.bind(this)
+		// this._teacherlogin = this._teacherlogin
 	}
 	componentDidMount() {
 		axios.get('/auth/user').then(response => {
@@ -119,7 +126,8 @@ class App extends Component {
 				password
 			})
 			.then(response => {
-				console.log(response)
+				console.log("Teacher Log in");
+				console.log(response);
 				if (response.status === 200) {
 					// update the state
 					this.setState({
@@ -127,6 +135,7 @@ class App extends Component {
 						isTeacher: true,
 						user: response.data.user
 					})
+
 					// window.location = '/Temp';
 
 				}
