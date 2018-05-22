@@ -34,8 +34,10 @@ class App extends Component {
 			user: null
 		}
 		this._logout = this._logout.bind(this)
-		this._login = this._login.bind(this)
+		// this._login = this._login.bind(this)
+		this._login = this._login
 		this._teacherlogin = this._teacherlogin.bind(this)
+		// this._teacherlogin = this._teacherlogin
 	}
 	componentDidMount() {
 		axios.get('/auth/user').then(response => {
@@ -124,7 +126,8 @@ class App extends Component {
 				password
 			})
 			.then(response => {
-				console.log(response)
+				console.log("Teacher Log in");
+				console.log(response);
 				if (response.status === 200) {
 					// update the state
 					this.setState({
@@ -132,6 +135,7 @@ class App extends Component {
 						isTeacher: true,
 						user: response.data.user
 					})
+
 					// window.location = '/Temp';
 
 				}
@@ -153,7 +157,7 @@ class App extends Component {
 				{/* <Route exact path="/" component={Home} /> */}
 				
 					<Switch>
-						<Route exact path="/" render={() => <Home user={this.state.user} />} />
+						<Route exact path="/" render={() => <Home user={this.state.user} isTeacher={this.state.isTeacher}/>} />
 						<Route exact path="/login" render={() => <Login _login={this._login} />} />
 						<Route exact path="/teacherlogin" render={() => <TeacherLogin _teacherlogin={this._teacherlogin} />} />
 						<Route exact path="/teacherSignup" component={teacherSignup} />
