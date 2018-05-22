@@ -22,23 +22,36 @@ import School from "./pages/School";
 import CardHeading from "./components/CardHeading";
 import CardWrapper from "./components/CardWrapper";
 import TeacherPortal from "./pages/TeacherPortal";
+import API from "./utils/API";
 
 
 
 class App extends Component {
-	constructor() {
-		super()
-		this.state = {
-			loggedIn: false,
-			isTeacher: false,
-			user: null
+	
+	//TREVOR OLD
+	// constructor() {
+	// 	super()
+	// 	this.state = {
+	// 		loggedIn: false,
+	// 		isTeacher: false,
+	// 		user: null
+	// 	}
+	// 	this._logout = this._logout.bind(this)
+	// 	// this._login = this._login.bind(this)
+	// 	this._login = this._login
+	// 	this._teacherlogin = this._teacherlogin.bind(this)
+	// 	// this._teacherlogin = this._teacherlogin
+	// }
+	//TREVOR OLD
+
+	//PAT NEW
+	state = {
+		loggedIn: false,
+		isGuardian: false,
+		isTeacher: false,
+		user: null
 		}
-		this._logout = this._logout.bind(this)
-		// this._login = this._login.bind(this)
-		this._login = this._login
-		this._teacherlogin = this._teacherlogin.bind(this)
-		// this._teacherlogin = this._teacherlogin
-	}
+
 	componentDidMount() {
 		axios.get('/auth/user').then(response => {
 			console.log(response.data)
@@ -49,12 +62,12 @@ class App extends Component {
 					user: response.data.user
 				})
 				
-				console.log(this.state);
+				//console.log(this.state);
 			}
 			else {
 				this.setState({
 					loggedIn: false,
-					isTeacher: false,
+					//isTeacher: false,
 					user: null
 				})
 			}
@@ -82,7 +95,7 @@ class App extends Component {
 //         {/* TEACHER SIGN UP WILL NOT BE A PAGE IN THE FINAL PRODUCT - JUST HERE NOW SO WE CAN ADD TO THE DB */}
 //         <Route exact path="/TeacherPortal" component={TeacherPortal} />
 
-	_logout(event) {
+	_logout = event => {
 		event.preventDefault()
 		console.log('logging out')
 		axios.post('/auth/logout').then(response => {
@@ -90,15 +103,18 @@ class App extends Component {
 			if (response.status === 200) {
 				this.setState({
 					loggedIn: false,
-					isTeacher: false,
+					//isTeacher: false,
 					user: null
 				})
 			}
 		})
 	}
 
-	_login(email, password) {
-		console.log(email);
+	_login = logininfo => {
+		
+		const email = logininfo.email;
+		const password = logininfo.password;
+
 		axios
 			.post('/auth/login', {
 				email,
@@ -110,12 +126,28 @@ class App extends Component {
 					// update the state
 					this.setState({
 						loggedIn: true,
-						isTeacher: false,
-						user: response.data.user
+						user: response.data.user,
+						email: email,
+						password: password
 					})
 					// window.location = '/Temp';
 
 				}
+			})
+			.then(response => {
+				//Check if this is a guardian
+				API.getGuardian({
+					email: email
+				})
+				.then(res => this.setState({ isGuardian: true }))
+				.catch(err => console.log(err));
+
+				//Check if this is a teacher
+				API.getTeacher({
+					email: email
+				})
+				.then(res => this.setState({ isTeacher: true }))
+				.catch(err => console.log(err));
 			})
 	}
 
@@ -132,14 +164,25 @@ class App extends Component {
 					// update the state
 					this.setState({
 						loggedIn: true,
-						isTeacher: true,
+						//isTeacher: true,
 						user: response.data.user
 					})
+
 
 					// window.location = '/Temp';
 
 				}
 			})
+	}
+
+	clickTest = event => {
+		event.preventDefault()
+
+		API.getGuardian({
+			email: this.state.email
+		})
+		.then(res => this.setState({ isGuardian: true }))
+		.catch(err => console.log(err));
 	}
 
 
@@ -157,7 +200,35 @@ class App extends Component {
 				{/* <Route exact path="/" component={Home} /> */}
 				
 					<Switch>
-						<Route exact path="/" render={() => <Home user={this.state.user} isTeacher={this.state.isTeacher}/>} />
+						<Route exact path="/" render={() => (
+							this.state.loggedIn ? (
+								this.state.isTeacher ? (
+									<button onClick={this.clickTest}>
+                					TPOOP
+               					 	</button>
+									//<Redirect to={'/TeacherPortal'}/>	
+								) : (
+									this.state.isGuardian ? (
+										<button onClick={this.clickTest}>
+										GPOOP
+										</button>
+										//<Redirect to={'/GuardianPortal'}/>
+									) : (
+										<button onClick={this.clickTest}>
+										DPOOP
+										</button>
+										//<Redirect to={'/'} />
+									)
+									
+								)
+								
+							) : (
+								<Redirect to={'/'} />
+							
+							)
+						)
+						}
+						/>
 						<Route exact path="/login" render={() => <Login _login={this._login} />} />
 						<Route exact path="/teacherlogin" render={() => <TeacherLogin _teacherlogin={this._teacherlogin} />} />
 						<Route exact path="/teacherSignup" component={teacherSignup} />
@@ -198,6 +269,7 @@ class App extends Component {
 						)
 						}
 						/>
+						
 					</Switch>
 				
 			</div>

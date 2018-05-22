@@ -3,15 +3,19 @@ const router = require("express").Router();
 const dbController = require("../../controllers/dbController");
 
 router.route("/getGuardian")
+  .post(dbController.getGuardian); //PAT CHANGE TO POST
 
-router.route("/getGuardian/:id")
-  .get(dbController.getGuardian);
+// router.route("/getGuardian/:id")
+//   .get(dbController.getGuardian);
 
 router.route("/getChildren/:id")
   .get(dbController.getChildren);
 
 router.route("/addTeacher")
   .post(dbController.addTeacher);
+
+router.route("/getTeacher")
+  .post(dbController.getTeacher);
 
 router.route("/getTeacher/:id")
   .get(dbController.getTeacher);
@@ -66,5 +70,8 @@ router.route("/addCone")
 
 router.route("/addToConeQueue")
   .post(dbController.addToConeQueue);
+
+router.route("/teachersignup")
+  .post(dbController.addTeacher);
 
 module.exports = router;

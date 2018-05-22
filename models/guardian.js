@@ -47,9 +47,11 @@ const GuardSchema = new Schema({
   // Define schema methods
 GuardSchema.methods = {
 	checkPassword: function(inputPassword) {
+    console.log("IM CHECKING THE PASSWORD")
 		return bcrypt.compareSync(inputPassword, this.password)
 	},
 	hashPassword: plainTextPassword => {
+    console.log("IM CHECKING THE HASH")
 		return bcrypt.hashSync(plainTextPassword, 10)
 	}
 }

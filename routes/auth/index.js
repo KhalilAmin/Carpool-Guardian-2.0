@@ -19,7 +19,7 @@ router.get('/user', (req, res, next) => {
 router.post(
 	'/login',
 	function(req, res, next) {
-		console.log(req.body)
+		console.log("AUTH REQ BODY", req.body)
 		// console.log('=====testing===========')
 		next()
 	},
