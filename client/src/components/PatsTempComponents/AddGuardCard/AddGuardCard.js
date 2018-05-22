@@ -44,7 +44,7 @@ class AddGuardCard extends Component {
     event.preventDefault();
     //create face token
     API.detectFace({
-        face_token: this.state. face_token,
+        face_token: this.state.face_token,
     })
     .then(res => {
         API.addGuard({
@@ -54,16 +54,6 @@ class AddGuardCard extends Component {
             phone: this.state.phone,
             face_Token: res.data
         })
-        // .then(res => {
-        //     for (let i = 0; i < this.state.coneCount; i++) {
-        //         API.addCone({
-        //             schoolName: this.state.schoolName,
-        //             cone: {
-        //               coneName: this.state.schoolName + "Cone" + (i + 1) 
-        //             }
-        //         })
-        //     }
-        // })
     })
   };
 
@@ -77,7 +67,6 @@ class AddGuardCard extends Component {
                         <AddImageCard
                             image_base64 = {this.state.image_base64}
                         />
-            
                         <div className="form-group">
                             <input
                             type="file"

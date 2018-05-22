@@ -7,7 +7,12 @@ import TeacherLogin from './pages/teacherLogin'
 import guardianSignup from './pages/guardianSignup'
 import teacherSignup from './pages/teacherSignup'
 import Header from './components/Header'
-import Home from './components/Home'
+// import Home from './components/Home'
+import Home from './pages/Home'
+// import Teacher from "./pages/Teacher"
+// import React from "react";
+// import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+// import Login from "./pages/Login"
 import Demo from "./pages/Demo"
 import Parent from "./pages/Parent"
 import Guardian from "./pages/GuardianPortal"
