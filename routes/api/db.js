@@ -67,4 +67,7 @@ router.route("/addCone")
 router.route("/addToConeQueue")
   .post(dbController.addToConeQueue);
 
+router.route("/teachersignup")
+  .post(dbController.addTeacher);
+
 module.exports = router;
