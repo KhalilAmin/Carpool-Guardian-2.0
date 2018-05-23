@@ -5,7 +5,7 @@ import { Input, FormBtn} from "../../../components/Form";
 import AddImageCard from "../AddImageCard"
 
 
-class AddGuardCard extends Component {
+class AddTeacherCard extends Component {
   state = {
     filename: null,
   };
@@ -149,4 +149,4 @@ class AddGuardCard extends Component {
     }
 }
 
-export default AddGuardCard;
+export default AddTeacherCard;
