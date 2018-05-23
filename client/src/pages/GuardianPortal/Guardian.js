@@ -12,9 +12,10 @@ import AddGuardCard from "../../components/PatsTempComponents/AddGuardCard"
 
 
 class Guardian extends Component {
-
+    
 
     state = {
+        // user: this.props.user,
         familyid:"",
         children: [],
         temp: [],
@@ -26,6 +27,8 @@ class Guardian extends Component {
 
 
     componentDidMount() {
+        console.log("Guardian.js Componenet Called");
+        console.log(this.props.user);
         this.loadGuardians();
         // this.loadFamily();
         // this.loadChildren();
