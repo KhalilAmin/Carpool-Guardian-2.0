@@ -88,7 +88,8 @@ class TeacherSignUp extends Component {
             lName: this.state.teacherLastName,
             email: this.state.teacherEmail,
             password: this.state.teacherPassword,
-            phone: "704-555-1933"
+            phone: this.state.teacherPhone,
+            school: this.state.teacherSchoolName
         }
       })
   }
@@ -123,6 +124,12 @@ class TeacherSignUp extends Component {
                                         onChange={this.handleInputChange}
                                         name="teacherEmail"
                                         placeholder="Enter Teacher Email"
+                                    />
+                                    <Input className="form-control"
+                                        value={this.state.teacherPhone}
+                                        onChange={this.handleInputChange}
+                                        name="teacherPhone"
+                                        placeholder="Enter Teacher Phone"
                                     />
                                     <Input className="form-control"
                                         value={this.state.teacherPassword}

@@ -40,13 +40,7 @@ export default {
   },
 
   getGuardian: function (data) {
-    console.log("IM IN GET GUARDIAN", data)
-    return axios.post("/api/db/getGuardian", data);
-  },
-
-  getTeacher: function (data) {
-    console.log("IM IN GET TEACHER", data)
-    return axios.post("/api/db/getTeacher", data);
+    return axios.get("/api/db/getGuardian", data);
   },
   // Gets all chillren tied to a family (parent Portal) and 
   // get all children tied to a specific Guardian on pickup for a specific cone 
