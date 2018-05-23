@@ -1,13 +1,13 @@
 import React from "react";
-import ImageComponent from '../ImageComponent';
-import TchrCardGuardianInfo from './TchrCardGuardianInfo';
-import CardHeader from '../CardHeader';
+import ParentImageCmpnt from './ParentImageCmpnt';
+import ParentCardInfo from './ParentCardInfo';
+import ParentCardHeading from './ParentCardHeading';
 import avatar from '../images/img_avatar3.png';
-import "./TchrPrtlCrdWrpr.css"
+import "./ParentPortalCrdWrpr.css"
 
 const moment = require('moment');
 
-const TchrPrtlCrdWrpr = props => {
+const ParentPortalCrdWrpr = props => {
   // make this array = to the incoming data from the database
   let PERSONS = [
     {
@@ -101,16 +101,35 @@ const TchrPrtlCrdWrpr = props => {
 
       {
         PERSONS.map(person =>
-          <span>
-            <div style={{ display: 'none' }}>{person.cardHeading = "Parent / Guardian"}</div>   {/* this is hidden so cardHeading can be set to "Parent/Guardian" */}
-            <CardHeader cardHeading={person.cardHeading} />      {/* heading is now a variable.  Can be switched to props if desired */}
-            < ImageComponent name={person.fName} image_heading={person.image_heading} image={person.image} />
-            <TchrCardGuardianInfo fName={person.fName} lName={person.lName} email={person.email} phone={person.phone} family={person.family} credentials={person.credentials} bio={person.bio} date={person.date} />
-          </span>
+
+          <div class='container'>
+
+            <div class='row'>
+              <div style={{ display: 'none' }}>{person.cardHeading = "Parent / Guardian"}</div>   {/* this is hidden so cardHeading can be set to "Parent/Guardian" */}
+              <div class='col-md-12'>
+                <ParentCardHeading cardHeading={person.cardHeading} />      {/*heading is now a variable.  Can be switched to props if desired*/}
+              </div>
+              <div class='col-md-1'></div>
+              <div class='col-md-5' >
+                <ParentImageCmpnt name={person.fName} image_heading={person.image_heading} image={person.image} />
+              </div>
+              <div class='col-md-5'>
+                <ParentCardInfo fName={person.fName} lName={person.lName} email={person.email} phone={person.phone} family={person.family} credentials={person.credentials} bio={person.bio} date={person.date} />
+              </div>
+              <div class='col-md-1'></div>
+            </div>
+          </div>
+
+
+
+
+
+
+
 
         )
       }
     </div >
   );
 }
-export default TchrPrtlCrdWrpr;
+export default ParentPortalCrdWrpr;
