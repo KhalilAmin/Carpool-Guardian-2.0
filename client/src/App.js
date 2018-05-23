@@ -54,7 +54,8 @@ class App extends Component {
 		isGuardian: false,
 		isTeacher: false,
 		user: null,
-		isOpen: false
+		teacherIsOpen: false,
+		guardianIsOpen: false
 		}
 
 	componentDidMount() {
@@ -121,11 +122,18 @@ class App extends Component {
 	// 	})
 	// 	.catch(err => console.log(err));	
 	// }
-	  toggleModal = () => {
-    this.setState({
-      isOpen: !this.state.isOpen
-    });
-  }
+	toggleTeacherModal = () => {
+		this.setState({
+		teacherIsOpen: !this.state.teacherIsOpen
+		});
+  	}
+
+  	toggleGuardianModal = () => {
+		this.setState({
+		guardianIsOpen: !this.state.guardianIsOpen
+		});
+	}
+
 
 	_logout = event => {
 		event.preventDefault()
@@ -308,8 +316,13 @@ class App extends Component {
 							this.state.loggedIn ? (
 								this.state.isTeacher ? (
 									<div>
+<<<<<<< HEAD
 										
 										<Redirect to={'/TeacherPortal'}/>
+=======
+										<h1>RIKKY</h1>
+										{/* <Redirect to={'/TeacherPortal'}/> */}
+>>>>>>> a344778aea1eeba1226832be26866a8712d7e856
 									</div>
 								) : (
 									this.state.isGuardian ? (
@@ -372,22 +385,22 @@ class App extends Component {
 						
 					</Switch>
 					<div className="App">
-						<button onClick={this.toggleModal}>
+						<button onClick={this.toggleTeacherModal}>
 							SignUp as Teacher
 						</button>
 
-						<Modal show={this.state.isOpen}
-							onClose={this.toggleModal}>
+						<Modal show={this.state.teacherIsOpen}
+							onClose={this.toggleTeacherModal}>
 							<AddTeacherCard/>
 						</Modal>
             		</div>
 					<div className="App">
-						<button onClick={this.toggleModal}>
+						<button onClick={this.toggleGuardianModal}>
 							SignUp as Parent
 						</button>
 
-						<Modal show={this.state.isOpen}
-							onClose={this.toggleModal}>
+						<Modal show={this.state.guardianIsOpen}
+							onClose={this.toggleGuardianModal}>
 							<AddGuardCard/>
 						</Modal>
             		</div>
