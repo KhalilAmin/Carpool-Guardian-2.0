@@ -11,7 +11,8 @@ const Home = props => {
 				</code>
 			</div>
 		)
-	} else {
+	} 
+	else {
 		return (
 			<div className="Home">
 				<p>Current User:</p>
