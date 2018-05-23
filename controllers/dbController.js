@@ -84,25 +84,29 @@ module.exports = {
     console.log("HERE's THE GUARDIAN REQ", req.body.guardian);
 
     const newGuardian = new db.models.Guardian(req.body.guardian)
+    newGuardian.save()
+    // newGuardian.save((err, dbGuardian) => {
+    //   console.log("I STILL HAVE THE FAMILY NAME", db.models.Family)
+      
 
-    newGuardian.save((err, dbGuardian) => {
-      console.log("I STILL HAVE THE FAMILY NAME", db.models.Family)
+
+    //   //FOR SOME REASON THIS GIVES AN ERROR BUT IT WORKS
+    //   // db.models.Family.findOneAndUpdate({familyName: req.body.familyName}, {$push: {guardian: dbGuardian._id}}, {new: true })
+    //   // .then(dbModel => res.json(dbModel))
+    //   // .catch(err => res.status(422).json(err));
+
+		// 	// if (err) throw err;
+    //   // res.json(dbGuardian)
+    // })
+    .then(result => {
+      console.log("REQQQQ", req.body.familyName)
       db.models.Family
-        .find(req.body.familyName)
+        .find({familyName: req.body.familyName})
         //.then(dbModel => res.json(dbModel))
-        .then(dbModel => console.log("FAMILY", dbModel))
-        .catch(err => res.status(422).json(err));
-
-        console.log(dbModel);
-
-      //FOR SOME REASON THIS GIVES AN ERROR BUT IT WORKS
-      // db.models.Family.findOneAndUpdate({familyName: req.body.familyName}, {$push: {guardian: dbGuardian._id}}, {new: true })
-      // .then(dbModel => res.json(dbModel))
-      // .catch(err => res.status(422).json(err));
-
-			if (err) throw err;
-      res.json(dbGuardian)
+        .then(dbModel => console.log("Hello log"))
+        .catch(err => console.log(err))
     })
+
   },
 
   // addGuardian: function(req, res) {

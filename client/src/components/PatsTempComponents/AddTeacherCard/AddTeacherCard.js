@@ -21,48 +21,19 @@ class AddTeacherCard extends Component {
     });
   };
 
-
-  handleFileSelection = event => {
-    event.preventDefault();
-    
-    const file = event.target.files[0];
-    const reader = new FileReader();
-
-    this.setState({ filename: event.target.files[0].name})
-    
-    reader.readAsDataURL(file);
-
-    reader.onloadend = error => {
-      const image_base64 = reader.result.slice(22);
-
-      this.setState({ image_base64: image_base64})
-    }
-
-  };
-
-  handleAddGuard = event => {
-    event.preventDefault();
-    //create face token
-    // API.detectFace({
-    //     image_base64: this.state.image_base64
-    // })
-    // .then(res => this.setState({face_token: res.data}))
-    // .then(res => {
-        API.addGuardian({
-            familyName: this.state.familyName,
-            guardian: {
-                fName: this.state.fName,
-                lName: this.state.lName,
-                password: this.state.password,
-                //img_base64: this.state.image_base64,
-                email: this.state.email,
-                phone: this.state.phone,
-                family: this.state.familyName,
-                face_token: "023lwe023lse0sel3"
-            }
-        })
-    // })
-  };
+  handleAddTeacher = event => {
+    API.addTeacher({
+      schoolName: this.state.teacherSchoolName, 
+      teacher: {
+          fName: this.state.teacherFirstName,
+          lName: this.state.teacherLastName,
+          email: this.state.teacherEmail,
+          password: this.state.teacherPassword,
+          phone: this.state.teacherPhone,
+          school: this.state.teacherSchoolName
+      }
+    })
+}
 
   render() {
      return (
@@ -70,73 +41,51 @@ class AddTeacherCard extends Component {
         <div className="panel panel-default">
             <div className="panel-body">
                 <Row>
-                    <Col size="md-4">
-                        <AddImageCard
-                            image_base64 = {this.state.image_base64}
-                        />
-                        <div className="form-group">
-                            <input
-                            type="file"
-                            style={{display: 'none'}}
-                            onChange={this.handleFileSelection}
-                            ref={fileInput => this.fileInput = fileInput}
-                            />
-                        </div>
-                        <FormBtn
-                            onClick ={() => this.fileInput.click()}
-                        >
-                            Select Image
-                        </FormBtn>
-                    </Col>
                     <Col size="md-6">
-                        <div className="form-group">              
-                            <Input className="form-control"
-                                value={this.state.fName}
-                                onChange={this.handleInputChange}
-                                name="fName"
-                                placeholder="Enter First Name"
-                            />
-                            <Input className="form-control"
-                                value={this.state.lName}
-                                onChange={this.handleInputChange}
-                                name="lName"
-                                placeholder="Enter Last Name"
-                            />
-                            <Input className="form-control"
-                                value={this.state.email}
-                                onChange={this.handleInputChange}
-                                name="email"
-                                type="email"
-                                placeholder="Enter Email"
-                            />
-                            <Input className="form-control"
-                                value={this.state.phone}
-                                onChange={this.handleInputChange}
-                                name="phone"
-                                pattern="/\d{3}-\d{3}-\d{4}/"
-                                placeholder="Enter Phone Number"
-                            />
-                            <Input className="form-control"
-                                value={this.state.familyName}
-                                onChange={this.handleInputChange}
-                                name="familyName"
-                                pattern="/\d{3}-\d{3}-\d{4}/"
-                                placeholder="Enter Family"
-                            />
-                            <Input className="form-control"
-                                value={this.state.password}
-                                onChange={this.handleInputChange}
-                                name="password"
-                                pattern="/\d{3}-\d{3}-\d{4}/"
-                                placeholder="Enter Password"
-                            />
-                        </div>
+                    <div className="form-group">              
+                        <Input className="form-control"
+                            value={this.state.teacherFirstName}
+                            onChange={this.handleInputChange}
+                            name="teacherFirstName"
+                            placeholder="Enter Teacher First Name"
+                        />
+                        <Input className="form-control"
+                            value={this.state.teacherLastName}
+                            onChange={this.handleInputChange}
+                            name="teacherLastName"
+                            placeholder="Enter Teacher Last Name"
+                        />
+                        <Input className="form-control"
+                            value={this.state.teacherEmail}
+                            onChange={this.handleInputChange}
+                            name="teacherEmail"
+                            placeholder="Enter Teacher Email"
+                        />
+                        <Input className="form-control"
+                            value={this.state.teacherPhone}
+                            onChange={this.handleInputChange}
+                            name="teacherPhone"
+                            placeholder="Enter Teacher Phone"
+                        />
+                        <Input className="form-control"
+                            value={this.state.teacherPassword}
+                            onChange={this.handleInputChange}
+                            name="teacherPassword"
+                            placeholder="Enter Teacher Password"
+                        />
+                        <Input className="form-control"
+                            value={this.state.teacherSchoolName}
+                            onChange={this.handleInputChange}
+                            name="teacherSchoolName"
+                            placeholder="Enter Teacher SchoolName"
+                        />
+                    </div>
                     </Col>
                 </Row>
                 <Row>
                     <Col size="md-6">
                         <FormBtn 
-                            onClick ={this.handleAddGuard}
+                            onClick ={this.handleAddTeacher}
                         >
                             Save
                         </FormBtn>
