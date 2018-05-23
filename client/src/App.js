@@ -309,13 +309,13 @@ class App extends Component {
 								this.state.isTeacher ? (
 									<div>
 										
-										{/* <Redirect to={'/TeacherPortal'}/> */}
+										<Redirect to={'/TeacherPortal'}/>
 									</div>
 								) : (
 									this.state.isGuardian ? (
 										<div>
 											<h1>IKKY</h1>
-											{/* <Redirect to={'/GuardianPortal'}/> */}
+											<Redirect to={'/GuardianPortal'}/>
 										</div>
 									) : (
 										<Redirect to={'/'} />
@@ -330,7 +330,7 @@ class App extends Component {
 						}
 						/>
 						<Route exact path="/login" render={() => <Login _login={this._login} />} />
-						<Route exact path="/teacherlogin" render={() => <TeacherLogin _teacherlogin={this._teacherlogin} />} />
+						{/* <Route exact path="/teacherlogin" render={() => <TeacherLogin _teacherlogin={this._teacherlogin} />} /> */}
 						<Route exact path="/teacherSignup" component={teacherSignup} />
 						<Route exact path="/guardianSignup" component={guardianSignup} />
 						<Route exact path="/Demo" component={() => (
