@@ -34,12 +34,7 @@ db.once('open', () => {
 	)
 })
 
-// module.exports = db
-module.exports = db, {
-
-   // path to the guardians db
-// module.exports = {
-    // path to the guardians db
+module.exports = db, {       
     Family: require("./family"),
     Guardian: require("./guardian"),
     Child: require("./child"),

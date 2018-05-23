@@ -1,8 +1,12 @@
+// const router = require("express").Router();
+const dbController = require("../../controllers/dbController");
+const faceController = require("../../controllers/faceController")
 const express = require('express');
 const router = express.Router();
 const Guardian = require('../../models/guardian');
 const Teacher = require('../../models/teacher');
 const passport = require('../../passport');
+
 
 
 // this route is just used to get the user basic info
@@ -120,5 +124,26 @@ router.post('/teachersignup', (req, res) => {
 		})
 	})
 })
+
+// router.route("/getTeacher")
+//   .post(dbController.gtTeacher);
+
+// router.post('/getTeacher', (req, res) => {
+// 	console.log("HERE in auth");
+// 	// ADD VALIDATION
+// 	console.log("teacher", Teacher)
+// 	Teacher.find({email: 'sdfsd@sdfsdf.com'}, (err, teacherMatch) => {
+// 		if (teacherMatch) {
+// 			return res.json({
+// 				//error: `Sorry, already a teacher with the email: ${email}`
+// 			})
+// 		}
+		
+// 	})
+// 	.then(dbModel => console.log("PROGRESS", dbModel))
+// })
+
+
+
 
 module.exports = router

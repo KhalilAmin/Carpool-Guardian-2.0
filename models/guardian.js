@@ -41,6 +41,11 @@ const GuardSchema = new Schema({
         message: '{VALUE} is not a valid phone number!'
       },
       required: [true, 'User phone number required']
+    },
+    family: {
+      type: String,
+      trim: true,
+      required: [true, 'Family is required'],
     }
   });
 
