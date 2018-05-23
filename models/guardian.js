@@ -41,15 +41,22 @@ const GuardSchema = new Schema({
         message: '{VALUE} is not a valid phone number!'
       },
       required: [true, 'User phone number required']
+    },
+    family: {
+      type: String,
+      trim: true,
+      required: [true, 'Family is required'],
     }
   });
 
   // Define schema methods
 GuardSchema.methods = {
 	checkPassword: function(inputPassword) {
+    console.log("IM CHECKING THE PASSWORD")
 		return bcrypt.compareSync(inputPassword, this.password)
 	},
 	hashPassword: plainTextPassword => {
+    console.log("IM CHECKING THE HASH")
 		return bcrypt.hashSync(plainTextPassword, 10)
 	}
 }
