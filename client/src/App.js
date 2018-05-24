@@ -355,7 +355,12 @@ class App extends Component {
 						/>
 						<Route exact path="/TeacherPortal" component={() => (
 							this.state.loggedIn ? (
-								<TeacherPortal />
+								<TeacherPortal 
+									school= {this.state.user.school}
+									fName = {this.state.user.fName}
+									lName = {this.state.user.lName}
+									email = {this.state.user.email}
+								/>
 							) : (
 									<Redirect to={'/'} />
 								)

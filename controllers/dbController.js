@@ -54,6 +54,8 @@ module.exports = {
   getFamily: function(req, res) {
     db.models.Family
       .find(req.body)
+      .populate("guardian")
+      .populate("child")
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
@@ -158,26 +160,35 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
-  addCone: function(req, res) {
-    console.log("CONE", db.models.Cone)
-    console.log("SCHOOL", db.models.School)
-    console.log("req", req.body.cone)
-    console.log("reqschool", req.body.schoolName)
+  // addCone: function(req, res) {
+  //   console.log("CONE", db.models.Cone)
+  //   console.log("SCHOOL", db.models.School)
+  //   console.log("req", req.body.cone)
+  //   console.log("reqschool", req.body.schoolName)
 
+  //   db.models.Cone.create(req.body.cone)
+  //     .then(function(dbCone) {
+  //         db.models.School.findOneAndUpdate({schoolName: req.body.schoolName}, {$push: {cone: dbCone._id}}, {new: true })
+  //         .then(dbModel => res.json(dbModel))
+  //         .catch(err => res.status(422).json(err))
+  //     })
+  //     .then(dbModel => res.json(dbModel))
+  //     .catch(err => res.status(422).json(err));
+  // },
+  addCone: function(req, res) {
+    console.log("CONE", db.models.Cone);
     db.models.Cone.create(req.body.cone)
       .then(function(dbCone) {
-          db.models.School.findOneAndUpdate({schoolName: req.body.schoolName}, {$push: {cone: dbCone._id}}, {new: true })
-          .then(dbModel => res.json(dbModel))
-          .catch(err => res.status(422).json(err))
+        return db.models.School.findOneAndUpdate({schoolName: req.body.schoolName}, {$push: {cone: dbCone._id}}, {new: true });
       })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
 
   addToConeQueue: function(req, res) {
-    console.log("BODY", req.body._id, req.body.face_token, req.body.confidence);
+    console.log("BODY", req.body._id, req.body.face_token, req.body.confidence, req.body.guardian_id, req.body.family);
     db.models.Cone
-      .findOneAndUpdate({_id: req.body._id}, {$push: {queueData: {face_token: req.body.face_token, confidence: req.body.confidence}}}, {new: true})
+      .findOneAndUpdate({_id: req.body._id}, {$push: {queueData: {face_token: req.body.face_token, confidence: req.body.confidence, guardian_id: req.body.guardian_id, family: req.body.family}}}, {new: true})
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
