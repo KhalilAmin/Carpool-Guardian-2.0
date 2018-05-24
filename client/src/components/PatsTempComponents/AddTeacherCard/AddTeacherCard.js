@@ -71,6 +71,7 @@ class AddTeacherCard extends Component {
                             value={this.state.teacherPassword}
                             onChange={this.handleInputChange}
                             name="teacherPassword"
+                            type="password"
                             placeholder="Enter Teacher Password"
                         />
                         <Input className="form-control"

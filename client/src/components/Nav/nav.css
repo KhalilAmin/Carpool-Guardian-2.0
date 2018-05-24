@@ -1,5 +1,7 @@
-.nav-item {
+.nav-link button {
+  color: rgb(61, 9, 250);
+}
+
+button {
   color: green;
-  border: solid;
-  margin: 10px;
 }
