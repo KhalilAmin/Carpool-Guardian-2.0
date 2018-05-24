@@ -19,6 +19,22 @@ const Nav = props => {
 							Teacher Portal
 						</Link>
 					</li>
+					<li className="nav-item">
+						<Link to="/Demo" className="nav-link">
+							Demo
+						</Link>
+					</li>
+					<li className="nav-item">
+						<Link to="/Temp" className="nav-link">
+							Temp
+						</Link>
+					</li>
+					<li className="nav-item">
+						<Link to="/schools" className="nav-link">
+							Schools
+						</Link>
+					</li>
+					
 					<li>
 						<Link to="#" className="nav-link" onClick={props._logout}>
 							Logout
@@ -33,24 +49,24 @@ const Nav = props => {
 				<ul className="nav">
 					<li className="nav-item">
 						<Link to="/login" className="nav-link">
-							Guardian Login
+							Login
 						</Link>
 					</li>
+					{/* <li className="nav-item">
+						<Link to="/Demo" className="nav-link">
+							Demo
+						</Link>
+					</li> */}
 					<li className="nav-item">
-						<Link to="/teacherlogin" className="nav-link">
-							Teacher Login
+						<Link to="/schools" className="nav-link">
+							Schools
 						</Link>
 					</li>
-					<li className="nav-item">
-						<Link to="/teacherSignup" className="nav-link">
-							Teacher Signup
-						</Link>
-					</li>
-					<li className="nav-item">
+					{/* <li className="nav-item">
 						<Link to="/guardianSignup" className="nav-link">
 							Guardian Signup
 						</Link>
-					</li>
+					</li> */}
 				</ul>
 			</nav>
 		)

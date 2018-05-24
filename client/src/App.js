@@ -222,6 +222,8 @@ class App extends Component {
 	}
 
 
+	
+
 	// _login = logininfo => {
 
 	// 	console.log("LOGININFO", logininfo);
@@ -340,6 +342,7 @@ class App extends Component {
 						<Route exact path="/login" render={() => <Login _login={this._login} />} />
 						<Route exact path="/teacherlogin" render={() => <TeacherLogin _teacherlogin={this._teacherlogin} />} />
 						<Route exact path="/teacherSignup" component={teacherSignup} />
+						<Route exact path="/schools" component={School} />
 						<Route exact path="/guardianSignup" component={guardianSignup} />
 						<Route exact path="/Demo" component={() => (
 							this.state.loggedIn ? (
