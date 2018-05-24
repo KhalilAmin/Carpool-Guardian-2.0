@@ -44,14 +44,15 @@ module.exports = {
     },
 
     deleteFaceSet: function (req, res) {
-
+        
         axios({
         method: "post",
         url: 'https://api-us.faceplusplus.com/facepp/v3/faceset/delete', 
             data: qs.stringify({
                 api_key: api_key,
                 api_secret: api_secret,
-                faceset_token: req.body.faceset_token
+                faceset_token: req.body.faceset_token,
+                check_empty: 0
             })
         })
         .then(function (response) {

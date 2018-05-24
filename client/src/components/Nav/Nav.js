@@ -25,6 +25,22 @@ const Nav = props => {
 							Logout
 						</Link>
 					</li>
+					<li className="nav-item">
+						<Link to="/Demo" className="nav-link">
+							Demo
+						</Link>
+					</li>
+					<li className="nav-item">
+						<Link to="/Temp" className="nav-link">
+							Temp
+						</Link>
+					</li>
+					<li className="nav-item">
+						<Link to="/School" className="nav-link">
+							School
+						</Link>
+					</li>
+					
 				</ul>
 			</nav>
 		)
@@ -34,8 +50,8 @@ const Nav = props => {
 				<ul className="nav">
 					<li className="nav-item">
 						<Link to="/login" className="nav-link">
-						<button className="w3-circle">
-							Login
+							<button>
+								Login
 							</button>
 						</Link>
 					</li>
