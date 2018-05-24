@@ -1,3 +1,7 @@
+import axios from 'axios'
+import { Redirect } from 'react-router-dom'
+import TeacherPortal from "../TeacherPortal";
+import GuardianPortal from "../GuardianPortal";
 import React, { Component } from 'react'
 // TODO - add proptypes
 
@@ -23,10 +27,6 @@ class Home extends Component {
 				</div>
 			)
 		}
-		import axios from 'axios'
-		import { Redirect } from 'react-router-dom'
-		import TeacherPortal from "../TeacherPortal";
-		import GuardianPortal from "../GuardianPortal";
 
 		// TODO - add proptypes
 
