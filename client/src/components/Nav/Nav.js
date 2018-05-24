@@ -34,7 +34,7 @@ const Nav = props => {
 				<ul className="nav">
 					<li className="nav-item">
 						<Link to="/login" className="nav-link">
-						<button>
+						<button className="w3-circle">
 							Login
 							</button>
 						</Link>
