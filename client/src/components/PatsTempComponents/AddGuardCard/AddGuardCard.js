@@ -3,6 +3,7 @@ import API from "../../../utils/API";
 import { Col, Row, Container } from "../../../components/Grid";
 import { Input, FormBtn} from "../../../components/Form";
 import AddImageCard from "../AddImageCard"
+import "./addGuardCard.css";
 
 
 class AddGuardCard extends Component {
