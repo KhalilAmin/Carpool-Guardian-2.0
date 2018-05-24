@@ -341,6 +341,7 @@ class App extends Component {
 						<Route exact path="/teacherlogin" render={() => <TeacherLogin _teacherlogin={this._teacherlogin} />} />
 						<Route exact path="/teacherSignup" component={teacherSignup} />
 						<Route exact path="/guardianSignup" component={guardianSignup} />
+						<Route exact path="/School" component={School} />
 						<Route exact path="/Demo" component={() => (
 							this.state.loggedIn ? (
 								<Demo />
