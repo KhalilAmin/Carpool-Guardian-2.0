@@ -1,5 +1,6 @@
 import React from "react";
 import { Redirect, Route, Link } from 'react-router-dom'
+import "./nav.css";
 // const Nav = () => (
 //   <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
 //     <a className="navbar-brand" href="/">
@@ -40,6 +41,22 @@ const Nav = props => {
 							Logout
 						</Link>
 					</li>
+					{/* <li className="nav-item">
+						<Link to="/Demo" className="nav-link">
+							Demo
+						</Link>
+					</li>
+					<li className="nav-item">
+						<Link to="/Temp" className="nav-link">
+							Temp
+						</Link>
+					</li>
+					<li className="nav-item">
+						<Link to="/School" className="nav-link">
+							School
+						</Link>
+					</li>
+					 */}
 				</ul>
 			</nav>
 		)
@@ -55,6 +72,14 @@ const Nav = props => {
 					{/* <li className="nav-item">
 						<Link to="/Demo" className="nav-link">
 							Demo
+							<button>
+								Login
+							</button>
+						</Link>
+					</li>
+					{/* <li className="nav-item">
+						<Link to="/teacherlogin" className="nav-link">
+							Teacher Login
 						</Link>
 					</li> */}
 					<li className="nav-item">
