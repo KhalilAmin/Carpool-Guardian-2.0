@@ -1,7 +1,7 @@
 import React from "react";
 import ImageComponent from '../ImageComponent';
 import TchrCardGuardianInfo from './TchrCardGuardianInfo';
-import TchrCardHeading from './TchrCardHeading';
+import CardHeader from '../CardHeader';
 import avatar from '../images/img_avatar3.png';
 import "./TchrPrtlCrdWrpr.css"
 
@@ -101,31 +101,12 @@ const TchrPrtlCrdWrpr = props => {
 
       {
         PERSONS.map(person =>
-
-          <div class='container'>
-            <div class='row'>
-              <div style={{ display: 'none' }}>{person.cardHeading = "Parent / Guardian"}</div>   {/* this is hidden so cardHeading can be set to "Parent/Guardian" */}
-              <div class='col-md-12'>
-                <TchrCardHeading cardHeading={person.cardHeading} />      {/*heading is now a variable.  Can be switched to props if desired*/}
-              </div>
-            </div>
-            <div class='row'>
-              <div class='col-md-4'>
-                < ImageComponent name={person.fName} image_heading={person.image_heading} image={person.image} />
-              </div>
-              <div class='col-md-1'></div>
-              <div class='col-md-7'>
-                <TchrCardGuardianInfo fName={person.fName} lName={person.lName} email={person.email} phone={person.phone} family={person.family} credentials={person.credentials} bio={person.bio} date={person.date} />
-              </div>
-            </div>
-          </div>
-
-
-
-
-
-
-
+          <span>
+            <div style={{ display: 'none' }}>{person.cardHeading = "Parent / Guardian"}</div>   {/* this is hidden so cardHeading can be set to "Parent/Guardian" */}
+            <CardHeader cardHeading={person.cardHeading} />      {/* heading is now a variable.  Can be switched to props if desired */}
+            < ImageComponent name={person.fName} image_heading={person.image_heading} image={person.image} />
+            <TchrCardGuardianInfo fName={person.fName} lName={person.lName} email={person.email} phone={person.phone} family={person.family} credentials={person.credentials} bio={person.bio} date={person.date} />
+          </span>
 
         )
       }

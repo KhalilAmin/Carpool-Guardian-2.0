@@ -1,13 +1,13 @@
 import React from "react";
-import ImageComponent from '../ImageComponent';
-import TchrCardGuardianInfo from './TchrCardGuardianInfo';
-import TchrCardHeading from './TchrCardHeading';
+import ParentImageCmpnt from './ParentChildImageCmpnt';
+import ParentCardInfo from './ParentChildCardInfo';
+import ParentCardHeading from './ParentChildCardHeading';
 import avatar from '../images/img_avatar3.png';
-import "./TchrPrtlCrdWrpr.css"
+import "./ParentPortalChildCrdWrpr.css"
 
 const moment = require('moment');
 
-const TchrPrtlCrdWrpr = props => {
+const ParentPortalChildCrdWrpr = props => {
   // make this array = to the incoming data from the database
   let PERSONS = [
     {
@@ -103,20 +103,20 @@ const TchrPrtlCrdWrpr = props => {
         PERSONS.map(person =>
 
           <div class='container'>
+
             <div class='row'>
               <div style={{ display: 'none' }}>{person.cardHeading = "Parent / Guardian"}</div>   {/* this is hidden so cardHeading can be set to "Parent/Guardian" */}
               <div class='col-md-12'>
-                <TchrCardHeading cardHeading={person.cardHeading} />      {/*heading is now a variable.  Can be switched to props if desired*/}
-              </div>
-            </div>
-            <div class='row'>
-              <div class='col-md-4'>
-                < ImageComponent name={person.fName} image_heading={person.image_heading} image={person.image} />
+                <ParentChildCardHeading cardHeading={person.cardHeading} />      {/*heading is now a variable.  Can be switched to props if desired*/}
               </div>
               <div class='col-md-1'></div>
-              <div class='col-md-7'>
-                <TchrCardGuardianInfo fName={person.fName} lName={person.lName} email={person.email} phone={person.phone} family={person.family} credentials={person.credentials} bio={person.bio} date={person.date} />
+              <div class='col-md-5' >
+                <ParentChildImageCmpnt name={person.fName} image_heading={person.image_heading} image={person.image} />
               </div>
+              <div class='col-md-5'>
+                <ParentChildCardInfo fName={person.fName} lName={person.lName} email={person.email} phone={person.phone} family={person.family} credentials={person.credentials} bio={person.bio} date={person.date} />
+              </div>
+              <div class='col-md-1'></div>
             </div>
           </div>
 
@@ -132,4 +132,4 @@ const TchrPrtlCrdWrpr = props => {
     </div >
   );
 }
-export default TchrPrtlCrdWrpr;
+export default ParentPortalChildCrdWrpr;
