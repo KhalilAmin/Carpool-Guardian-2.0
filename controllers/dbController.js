@@ -32,6 +32,7 @@ module.exports = {
   },
 
   addTeacher: function(req, res) {
+    console.log(req);
     const newTeacher = new db.models.Teacher(req.body.teacher)
 
     newTeacher.save((err, dbTeacher) => {
