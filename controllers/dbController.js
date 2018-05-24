@@ -159,13 +159,21 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   addCone: function(req, res) {
+    console.log("CONE", db.models.Cone)
+    console.log("SCHOOL", db.models.School)
+    console.log("req", req.body.cone)
+    console.log("reqschool", req.body.schoolName)
+
     db.models.Cone.create(req.body.cone)
       .then(function(dbCone) {
-        return db.models.School.findOneAndUpdate({schoolName: req.body.schoolName}, {$push: {cone: dbCone._id}}, {new: true });
+          db.models.School.findOneAndUpdate({schoolName: req.body.schoolName}, {$push: {cone: dbCone._id}}, {new: true })
+          .then(dbModel => res.json(dbModel))
+          .catch(err => res.status(422).json(err))
       })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+
   addToConeQueue: function(req, res) {
     console.log("BODY", req.body._id, req.body.face_token, req.body.confidence);
     db.models.Cone
