@@ -1,5 +1,6 @@
 import React from "react";
 import { Redirect, Route, Link } from 'react-router-dom'
+import "./nav.css";
 // const Nav = () => (
 //   <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
 //     <a className="navbar-brand" href="/">

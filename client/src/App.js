@@ -31,7 +31,7 @@ import Modal from "./components/Modal";
 
 
 class App extends Component {
-	
+
 	//TREVOR OLD
 	// constructor() {
 	// 	super()
@@ -56,7 +56,7 @@ class App extends Component {
 		user: null,
 		teacherIsOpen: false,
 		guardianIsOpen: false
-		}
+	}
 
 	componentDidMount() {
 		axios.get('/auth/user').then(response => {
@@ -67,7 +67,7 @@ class App extends Component {
 					loggedIn: true,
 					user: response.data.user
 				})
-				
+
 				//console.log(this.state);
 			}
 			else {
@@ -85,21 +85,21 @@ class App extends Component {
 		// })
 	}
 
-// import GuardianForm from "./components/Form/GuardianForm.js";
+	// import GuardianForm from "./components/Form/GuardianForm.js";
 
-// const App = () => (
-//   <Router>
-//     <div>
-//       <Switch>
-//         <Route exact path="/" component={Login} />
-//         <Route exact path="/Demo" component={Demo} />
-//         <Route exact path="/Teacher" component={Teacher} />
-//         <Route exact path="/Parent" component={Parent} />
-//         <Route exact path="/Temp" component={Temp} />
-//         <Route exact path="/School" component={School} />
-//         <Route exact path="/TeacherSignUp" component={TeacherSignUp} /> 
-//         {/* TEACHER SIGN UP WILL NOT BE A PAGE IN THE FINAL PRODUCT - JUST HERE NOW SO WE CAN ADD TO THE DB */}
-//         <Route exact path="/TeacherPortal" component={TeacherPortal} />
+	// const App = () => (
+	//   <Router>
+	//     <div>
+	//       <Switch>
+	//         <Route exact path="/" component={Login} />
+	//         <Route exact path="/Demo" component={Demo} />
+	//         <Route exact path="/Teacher" component={Teacher} />
+	//         <Route exact path="/Parent" component={Parent} />
+	//         <Route exact path="/Temp" component={Temp} />
+	//         <Route exact path="/School" component={School} />
+	//         <Route exact path="/TeacherSignUp" component={TeacherSignUp} /> 
+	//         {/* TEACHER SIGN UP WILL NOT BE A PAGE IN THE FINAL PRODUCT - JUST HERE NOW SO WE CAN ADD TO THE DB */}
+	//         <Route exact path="/TeacherPortal" component={TeacherPortal} />
 
 	// checkUserType = event => {
 	// 	console.log("I WILL BE CHECKING IF THERE IS A GUARDIAN")
@@ -124,13 +124,13 @@ class App extends Component {
 	// }
 	toggleTeacherModal = () => {
 		this.setState({
-		teacherIsOpen: !this.state.teacherIsOpen
+			teacherIsOpen: !this.state.teacherIsOpen
 		});
-  	}
+	}
 
-  	toggleGuardianModal = () => {
+	toggleGuardianModal = () => {
 		this.setState({
-		guardianIsOpen: !this.state.guardianIsOpen
+			guardianIsOpen: !this.state.guardianIsOpen
 		});
 	}
 
@@ -154,7 +154,7 @@ class App extends Component {
 	_login = logininfo => {
 
 		console.log("LOGININFO", logininfo);
-		
+
 		const email = logininfo.email;
 		const password = logininfo.password;
 
@@ -162,70 +162,70 @@ class App extends Component {
 		API.getGuardian({
 			email: email
 		})
-		.then(res => {
-			//IF THERE IS A GUARDIAN THE RETURNED DATA WILL HAVE A LENGTH OF 1
-			if (res.data.length > 0) {
-				//THE USER IS A GUARDIAN
-				this.setState({ isGuardian: true,  })
-				axios.post('/auth/login', {
+			.then(res => {
+				//IF THERE IS A GUARDIAN THE RETURNED DATA WILL HAVE A LENGTH OF 1
+				if (res.data.length > 0) {
+					//THE USER IS A GUARDIAN
+					this.setState({ isGuardian: true, })
+					axios.post('/auth/login', {
 						email,
 						password
 					})
-					.then(response => {
-						console.log(response)
-						if (response.status === 200) {
-							// update the state
-							this.setState({
-								loggedIn: true,
-								user: response.data.user,
-								email: email,
-								password: password
-							})
-							// window.location = '/Temp';
+						.then(response => {
+							console.log(response)
+							if (response.status === 200) {
+								// update the state
+								this.setState({
+									loggedIn: true,
+									user: response.data.user,
+									email: email,
+									password: password
+								})
+								// window.location = '/Temp';
 
-						}
+							}
+						})
+				} else {
+					API.getTeacher({
+						email: email
 					})
-			} else {
-				API.getTeacher({
-					email: email
-				})
-				.then(res => {
-					if (res.data.length > 0) {
-					//THE USER IS A TEACHER
-					this.setState({ isTeacher: true })
-					axios.post('/auth/teacherlogin', {
-								email,
-								password
-							})
-							.then(response => {
-								console.log(response)
-								if (response.status === 200) {
-									// update the state
-									this.setState({
-										loggedIn: true,
-										user: response.data.user,
-										email: email,
-										password: password
-									})
-									// window.location = '/Temp';
-	
-								}
-							})
-					}
-				})
-				.catch(err => console.log(err));
-			}
+						.then(res => {
+							if (res.data.length > 0) {
+								//THE USER IS A TEACHER
+								this.setState({ isTeacher: true })
+								axios.post('/auth/teacherlogin', {
+									email,
+									password
+								})
+									.then(response => {
+										console.log(response)
+										if (response.status === 200) {
+											// update the state
+											this.setState({
+												loggedIn: true,
+												user: response.data.user,
+												email: email,
+												password: password
+											})
+											// window.location = '/Temp';
 
-			
-		})
-		.catch(err => console.log(err))
+										}
+									})
+							}
+						})
+						.catch(err => console.log(err));
+				}
+
+
+			})
+			.catch(err => console.log(err))
 	}
 
 
 	// _login = logininfo => {
 
 	// 	console.log("LOGININFO", logininfo);
-		
+
 	// 	const email = logininfo.email;
 	// 	const password = logininfo.password;
 
@@ -269,7 +269,7 @@ class App extends Component {
 	// }
 
 	// _teacherlogin = logininfo => {
-		
+
 	// 	const email = logininfo.email;
 	// 	const password = logininfo.password;
 
@@ -310,96 +310,98 @@ class App extends Component {
 				{/* <Temp /> */}
 				{/*  ROUTES */}
 				{/* <Route exact path="/" component={Home} /> */}
-				
-					<Switch>
-						<Route exact path="/" render={() => (
-							this.state.loggedIn ? (
-								this.state.isTeacher ? (
-									<div>
-										{/* <h1>RIKKY</h1> */}
-										<Redirect to={'/TeacherPortal'}/>
-									</div>
-								) : (
+
+				<Switch>
+					<Route exact path="/" render={() => (
+						this.state.loggedIn ? (
+							this.state.isTeacher ? (
+								<div>
+
+									<Redirect to={'/TeacherPortal'} />
+									<h1>RIKKY</h1>
+									{/* <Redirect to={'/TeacherPortal'}/> */}
+								</div>
+							) : (
 									this.state.isGuardian ? (
 										<div>
-											{/* <h1>IKKY</h1> */}
-											<Redirect to={'/GuardianPortal'}/>
+											<h1>IKKY</h1>
+											<Redirect to={'/GuardianPortal'} />
 										</div>
 									) : (
-										<Redirect to={'/'} />
-									)
+											<Redirect to={'/'} />
+										)
 								)
-								
-							) : (
+
+						) : (
 								<Redirect to={'/'} />
-							
+
 							)
-						)
-						}
-						/>
-						<Route exact path="/login" render={() => <Login _login={this._login} />} />
-						{/* <Route exact path="/teacherlogin" render={() => <TeacherLogin _teacherlogin={this._teacherlogin} />} /> */}
-						<Route exact path="/teacherSignup" component={teacherSignup} />
-						<Route exact path="/guardianSignup" component={guardianSignup} />
-						<Route exact path="/Demo" component={() => (
-							this.state.loggedIn ? (
-								<Demo />
-							) : (
-									<Redirect to={'/'} />
-								)
-						)
-						}
-						/>
-						<Route exact path="/TeacherPortal" component={() => (
-							this.state.loggedIn ? (
-								<TeacherPortal />
-							) : (
-									<Redirect to={'/'} />
-								)
-						)
-						}
-						/>
-						<Route exact path="/Parent" component={() => (
-							this.state.loggedIn ? (
-								<Parent />
-							) : (
-									<Redirect to={'/'} />
-								)
-						)
-						}
-						/>
-						<Route exact path="/Temp" component={() => (
-							this.state.loggedIn ? (
-								<Temp />
-							) : (
-									<Redirect to={'/'} />
-								)
-						)
-						}
-						/>
-						
-					</Switch>
-					<div className="App">
-						<button onClick={this.toggleTeacherModal}>
-							SignUp as Teacher
+					)
+					}
+					/>
+					<Route exact path="/login" render={() => <Login _login={this._login} />} />
+					{/* <Route exact path="/teacherlogin" render={() => <TeacherLogin _teacherlogin={this._teacherlogin} />} /> */}
+					<Route exact path="/teacherSignup" component={teacherSignup} />
+					<Route exact path="/guardianSignup" component={guardianSignup} />
+					<Route exact path="/Demo" component={() => (
+						this.state.loggedIn ? (
+							<Demo />
+						) : (
+								<Redirect to={'/'} />
+							)
+					)
+					}
+					/>
+					<Route exact path="/TeacherPortal" component={() => (
+						this.state.loggedIn ? (
+							<TeacherPortal />
+						) : (
+								<Redirect to={'/'} />
+							)
+					)
+					}
+					/>
+					<Route exact path="/Parent" component={() => (
+						this.state.loggedIn ? (
+							<Parent />
+						) : (
+								<Redirect to={'/'} />
+							)
+					)
+					}
+					/>
+					<Route exact path="/Temp" component={() => (
+						this.state.loggedIn ? (
+							<Temp />
+						) : (
+								<Redirect to={'/'} />
+							)
+					)
+					}
+					/>
+
+				</Switch>
+				<div className="App">
+					<button onClick={this.toggleTeacherModal}>
+						SignUp as Teacher
 						</button>
 
-						<Modal show={this.state.teacherIsOpen}
-							onClose={this.toggleTeacherModal}>
-							<AddTeacherCard/>
-						</Modal>
-            		</div>
-					<div className="App">
-						<button onClick={this.toggleGuardianModal}>
-							SignUp as Parent
+					<Modal show={this.state.teacherIsOpen}
+						onClose={this.toggleTeacherModal}>
+						<AddTeacherCard />
+					</Modal>
+				</div>
+				<div className="App">
+					<button onClick={this.toggleGuardianModal}>
+						SignUp as Parent
 						</button>
 
-						<Modal show={this.state.guardianIsOpen}
-							onClose={this.toggleGuardianModal}>
-							<AddGuardCard/>
-						</Modal>
-            		</div>
-				
+					<Modal show={this.state.guardianIsOpen}
+						onClose={this.toggleGuardianModal}>
+						<AddGuardCard />
+					</Modal>
+				</div>
+
 			</div>
 		)
 	}

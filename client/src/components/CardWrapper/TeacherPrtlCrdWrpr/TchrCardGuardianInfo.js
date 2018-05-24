@@ -1,47 +1,34 @@
 import React, { Component } from 'react'
 
-// const CardGuardianInfo = props => {
 
-// const personArray = props.personArray;
-// const list = personArray.map((person) =>
-//  key={person.id } 
 class CardGuardianInfo extends Component {
   render() {
     return (
-      <div style={{ width: '45%', display: 'table-cell' }}>
-        <div class="w3-card-4" style={{ width: '80%', position: 'relative' }}>
+      <div style={{ border: '3px solid' }}>
+        <div class="w3-card-4" style={{ minWidth: '300px' }}>
           <header class="w3-container w3-blue">
-            <h1>Candidate: {this.props.fName} {this.props.lName}</h1>
+            <h1><strong> {this.props.fName} </strong></h1>
+            <h1><strong> {this.props.lName} </strong></h1>
           </header>
 
-          <div class="w3-container" style={{ backgroundColor: 'white' }}>
+          <div class="w3-container" style={{ backgroundColor: 'white', fontSize: '30px' }}>
             <p>
               <strong>Family:</strong> {this.props.family}</p>
             <p>
-              <strong>Phone:</strong> {this.props.phone}</p>
-            <p>
               <strong>Email:</strong> {this.props.email}</p>
             <p>
-              <strong>Credentials:</strong> {this.props.credentials}</p>
-            <p>
-              <strong>Bio:</strong> {this.props.bio}</p>
+              <strong>Phone:</strong> {this.props.phone}</p>
             <p>
               <strong>Date:</strong> {this.props.date}</p>
           </div>
 
           <footer class="w3-container w3-blue">
-            <h5>CMS Schools</h5>
+            <h4>CMS Schools</h4>
           </footer>
         </div>
       </div>
     )
   }
 }
-
-
-
-// );
-
-// }
 
 export default CardGuardianInfo;
