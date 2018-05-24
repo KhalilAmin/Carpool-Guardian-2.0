@@ -128,6 +128,7 @@ class AddGuardCard extends Component {
                                 value={this.state.password}
                                 onChange={this.handleInputChange}
                                 name="password"
+                                type="password"
                                 pattern="/\d{3}-\d{3}-\d{4}/"
                                 placeholder="Enter Password"
                             />
