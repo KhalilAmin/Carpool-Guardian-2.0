@@ -15,14 +15,17 @@ class TeacherPortal extends Component {
         // user: this.props.user,
         coneNames: [],
         schoolNames: [],
-        schoolName: ""
+        schoolName: "",
+        cones: []
     };
 
 
     componentDidMount() {
+        
+
         console.log("TeacherPortal.js Componenet Called");
-        console.log(this.props.user);
-        this.loadSchoolNames()
+        console.log("THIS IS THE TEACHER", this.props.school);
+        this.loadCones()
     }
 
     loadSchoolNames = () => {
@@ -42,7 +45,6 @@ class TeacherPortal extends Component {
 
     }
 
-
     handleInputChange = event => {
         const { name, value } = event.target;
         this.setState({
@@ -50,28 +52,56 @@ class TeacherPortal extends Component {
         });
     };
 
-    handleSchoolDropdown = event => {
-        let schoolName = event.target.value;
-
-        this.setState({ schoolName: schoolName })
+    loadCones = event => {
 
         API.getSchool({
-            schoolName: schoolName
+            schoolName: this.props.school
         })
             .then(res => {
-                let coneNames = ["Please select a cone"]
-                res.data[0].cone.forEach(function (cone) {
-                    coneNames.push(cone.coneName)
-                })
-                this.setState({ coneNames: coneNames })
+                
+
+                this.setState({cones: res.data[0].cone})
+                console.log(this.state.cones);
+                // let coneNames = ["Please select a cone"]
+                // let cones = []
+                // res.data[0].cone.forEach(function (cone) {
+                //     coneNames.push(cone.coneName)
+                //     cones.push(cone)
+                // })
+                // this.setState({ coneNames: coneNames })
+                // this.setState({cones: cones})
             })
             .catch(err => console.log(err));
     }
 
     handleConeDropdown = event => {
-        let coneName = event.target.value;
+        let coneindex = event.target.value;
+        let selectedCone = this.state.cones[coneindex]
 
-        this.setState({ coneName: coneName })
+        this.setState({selectedCone: selectedCone})
+
+        if (selectedCone.queueData[0]) {
+            console.log(selectedCone.queueData[0].family)
+
+            API.getFamily({
+                familyName: selectedCone.queueData[0].family
+            })
+            .then(res => {
+                console.log("HERE IS THE FAMILY", res.data);
+            })
+            .catch(err => console.log(err));
+
+
+
+
+
+        }
+        
+
+        // this.setState({ 
+        //     selectedCone: event.target.value 
+        //     driver
+        // })
 
         //the cone needs to have the family name then we look at the next item in the queue and bring the person based on facetoken and their family
     }
@@ -87,10 +117,13 @@ class TeacherPortal extends Component {
                             <Col size="md-11"></Col>
                             <select
                                 onChange={this.handleConeDropdown}
-                                value={this.state.cone}
+                                
                             >
-                                {this.state.coneNames.map(cone => (
+                                {/* {this.state.coneNames.map(cone => (
                                     <option value={cone}>{cone}</option>
+                                ))} */}
+                                {this.state.cones.map((cone, index)=> (
+                                    <option value={index} key={cone._id}>{cone.coneName}</option>
                                 ))}
                             </select>
                             <Col size="md-1"></Col>
