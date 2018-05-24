@@ -316,18 +316,13 @@ class App extends Component {
 							this.state.loggedIn ? (
 								this.state.isTeacher ? (
 									<div>
-<<<<<<< HEAD
-										
+										{/* <h1>RIKKY</h1> */}
 										<Redirect to={'/TeacherPortal'}/>
-=======
-										<h1>RIKKY</h1>
-										{/* <Redirect to={'/TeacherPortal'}/> */}
->>>>>>> a344778aea1eeba1226832be26866a8712d7e856
 									</div>
 								) : (
 									this.state.isGuardian ? (
 										<div>
-											<h1>IKKY</h1>
+											{/* <h1>IKKY</h1> */}
 											<Redirect to={'/GuardianPortal'}/>
 										</div>
 									) : (

@@ -80,78 +80,39 @@ class TeacherPortal extends Component {
     render() {
         return (
             <div>
-                <Container>
-                    <Row>
-                        <Col size="md-11"></Col>
-                        <select
-                            onChange={this.handleSchoolDropdown}
-                            value={this.state.schoolName}
-                        >
-                            {this.state.schoolNames.map(school => (
-                                <option value={school}>{school}</option>
-                            ))}
-                        </select>
-                        <Col size="md-1"></Col>
-                    </Row>
-                    <Row>
-                        <Col size="md-11"></Col>
-                        <select
-                            onChange={this.handleConeDropdown}
-                            value={this.state.cone}
-                        >
-                            {this.state.coneNames.map(cone => (
-                                <option value={cone}>{cone}</option>
-                            ))}
-                        </select>
-                        <Col size="md-1"></Col>
-                    </Row>
-                </Container>
-
-                <TchrPrtlCrdWrpr />
+                <div>
+                    <Container>
+                        <Row>
+                            <h1> teacher portal called! </h1>
+                            <Col size="md-11"></Col>
+                            <select
+                                onChange={this.handleConeDropdown}
+                                value={this.state.cone}
+                            >
+                                {this.state.coneNames.map(cone => (
+                                    <option value={cone}>{cone}</option>
+                                ))}
+                            </select>
+                            <Col size="md-1"></Col>
+                        </Row>
+                    </Container>
+                    <h1> {this.props.user} is at {this.value} </h1>
+                </div>
+                {/* <div>
+                    <Col size="md-8">
+                        <div className="panel panel-default" style={{ height: "250px" }}>
+                            <div className="panel-heading">
+                                <h3 className="panel-title">{school.schoolName}</h3>
+                            </div>
+                            <div className="panel-body">
+                            </div>
+                        </div>
+                    </Col>
+                </div> */}
             </div>
-            //             <Col size="md-8">
-            //                 <div className="panel panel-default" style={{height:"250px"}}>
-            //                     <div className="panel-heading">
-            //                         <h3 className="panel-title">{school.schoolName}</h3>
-            //                     </div>
-            //                     <div className="panel-body">
-            //                         <CardWrapper key={school._id}>
-            //                             <ImageCard
-            //                                 name={school.schoolName}
-            //                                 img= {"data:image/png;base64," + school.schoolImg}
-
-            //                             /> 
-
-            //                             <InfoCard
-            //                                 name={school.schoolName}
-            //                                 street= {school.schoolStreet}
-            //                                 city= {school.schoolCity}
-            //                                 state= {school.schoolState}
-            //                                 grades= {school.schoolGrades}
-            //                                 phone= {school.schoolPhone}
-            //                             />
-            //                         </CardWrapper>
-            //                     </div>
-            //                 </div>
-            //             </Col>
-            //             <Col size="md-2"></Col>
-            //         </Row>
-            //         ))}
-
-            //     </Container>
-            //     <div className="App">
-            //         <button onClick={this.toggleModal}>
-            //         Open the modal
-            //         </button>
-
-            //         <Modal show={this.state.isOpen}
-            //         onClose={this.toggleModal}>
-            //             <AddSchoolCard/>
-            //         </Modal>
-            //     </div>
-            // </div>
-        );
-    }
+        )
+    };
 }
+
 
 export default TeacherPortal;
