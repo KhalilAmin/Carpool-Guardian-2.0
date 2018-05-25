@@ -13,7 +13,7 @@ class ImageComponent extends Component {
 
             <div className="w3-container w3-center">
               <h3>{this.props.image_heading}</h3>
-              <img src={this.props.image} alt={"Avatar"} style={{ width: '85%', height: '85%' }} />
+              <img src={this.props.img} alt={"Avatar"} style={{ width: '85%', height: '85%' }} />
               <h5>{this.props.name}</h5>
 
               <div className='w3-section'>

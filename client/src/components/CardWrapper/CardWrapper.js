@@ -83,7 +83,7 @@ const CardWrapper = props => {
         PERSONS.map(person =>
           <span>
             <CardHeader heading={cardHeading} />      {/* heading is now a variable.  Can be switched to props if desired */}
-            <ImageComponent name={person.name} image_heading={person.image_heading} image={person.image} />
+            <ImageComponent name={person.name} image_heading={person.image_heading} img={this.props.img} />
             <CardGuardianInfo name={person.name} email={person.email} phone={person.phone} family={person.family} credentials={person.credentials} bio={person.bio} />
           </span>
 
