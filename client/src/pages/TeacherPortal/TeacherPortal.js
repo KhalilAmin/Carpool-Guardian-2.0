@@ -16,7 +16,8 @@ class TeacherPortal extends Component {
         coneNames: [],
         schoolNames: [],
         schoolName: "",
-        cones: []
+        cones: [],
+        guardian: {}
     };
 
 
@@ -58,9 +59,11 @@ class TeacherPortal extends Component {
             schoolName: this.props.school
         })
             .then(res => {
+                let intro = ["Please select a cone"]
+                
                 
 
-                this.setState({cones: res.data[0].cone})
+                this.setState({cones: intro.concat(res.data[0].cone)})
                 console.log(this.state.cones);
                 // let coneNames = ["Please select a cone"]
                 // let cones = []
@@ -88,6 +91,9 @@ class TeacherPortal extends Component {
             })
             .then(res => {
                 console.log("HERE IS THE FAMILY", res.data);
+                let guardian = res.data[0].guardian.filter(item => item._id === '5b0702392c6cd70b2f93d4d5')[0]
+                this.setState({guardian: guardian}) 
+                console.log("HERE IS THE GUARDIAN", guardian);
             })
             .catch(err => console.log(err));
 
@@ -113,23 +119,33 @@ class TeacherPortal extends Component {
                 <div>
                     <Container>
                         <Row>
-                            <h1> teacher portal called! </h1>
-                            <Col size="md-11"></Col>
-                            <select
-                                onChange={this.handleConeDropdown}
-                                
-                            >
-                                {/* {this.state.coneNames.map(cone => (
-                                    <option value={cone}>{cone}</option>
-                                ))} */}
-                                {this.state.cones.map((cone, index)=> (
-                                    <option value={index} key={cone._id}>{cone.coneName}</option>
-                                ))}
-                            </select>
-                            <Col size="md-1"></Col>
+                            <Col size="md-9"></Col>
+                            <Col size="md-3">
+                                <select
+                                    onChange={this.handleConeDropdown}
+                                    
+                                >
+                                    {this.state.cones.map((cone, index)=> (
+                                        <option value={index} key={cone._id}>{cone.coneName}</option>
+                                    ))}
+                                </select>
+                            </Col>
                         </Row>
                     </Container>
-                    <h1> {this.props.user} is at {this.value} </h1>
+                    <Container>
+                        <Row>
+                            <Col size="md-12">
+                                    <TchrPrtlCrdWrpr
+                                    cardHeading = "Parent"
+                                    fName = {this.state.guardian.fName}
+                                    lName = {this.state.guardian.lName}
+                                    img = {this.state.guardian.img_base64}
+                                    image_heading = "Some Heading"
+                    
+                                    />
+                            </Col>
+                        </Row>
+                    </Container>
                 </div>
                 {/* <div>
                     <Col size="md-8">
