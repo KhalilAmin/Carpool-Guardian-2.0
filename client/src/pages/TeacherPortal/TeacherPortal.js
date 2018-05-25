@@ -16,8 +16,16 @@ class TeacherPortal extends Component {
         coneNames: [],
         schoolNames: [],
         schoolName: "",
-        cones: [],
-        guardian: {}
+        cones: ["Please select a cone"],
+        guardian: {
+            fName: "",
+            lName: "",
+            img: "",
+            email: "",
+            phone: "",
+            family: ""
+        },
+        foundGuardian: false
     };
 
 
@@ -29,22 +37,22 @@ class TeacherPortal extends Component {
         this.loadCones()
     }
 
-    loadSchoolNames = () => {
-        API.getSchool()
-            .then(res => {
+    // loadSchoolNames = () => {
+    //     API.getSchool()
+    //         .then(res => {
 
-                let schoolNames = ["Please select a school"]
-                res.data.forEach(function (school) {
-                    schoolNames.push(school.schoolName)
-                })
-                this.setState({ schoolNames: schoolNames })
-            })
-            .catch(err => console.log(err));
-    }
+    //             let schoolNames = ["Please select a school"]
+    //             res.data.forEach(function (school) {
+    //                 schoolNames.push(school.schoolName)
+    //             })
+    //             this.setState({ schoolNames: schoolNames })
+    //         })
+    //         .catch(err => console.log(err));
+    // }
 
-    handleSelect = selectitem => {
+    // handleSelect = selectitem => {
 
-    }
+    // }
 
     handleInputChange = event => {
         const { name, value } = event.target;
@@ -59,58 +67,51 @@ class TeacherPortal extends Component {
             schoolName: this.props.school
         })
             .then(res => {
-                let intro = ["Please select a cone"]
-                
-                
-
+                let intro = [{coneName: "Please select a cone"}]
                 this.setState({cones: intro.concat(res.data[0].cone)})
-                console.log(this.state.cones);
-                // let coneNames = ["Please select a cone"]
-                // let cones = []
-                // res.data[0].cone.forEach(function (cone) {
-                //     coneNames.push(cone.coneName)
-                //     cones.push(cone)
-                // })
-                // this.setState({ coneNames: coneNames })
-                // this.setState({cones: cones})
             })
             .catch(err => console.log(err));
     }
 
     handleConeDropdown = event => {
         let coneindex = event.target.value;
-        let selectedCone = this.state.cones[coneindex]
 
-        this.setState({selectedCone: selectedCone})
-
-        if (selectedCone.queueData[0]) {
-            console.log(selectedCone.queueData[0].family)
-
-            API.getFamily({
-                familyName: selectedCone.queueData[0].family
-            })
+        API.getSchool({
+            schoolName: this.props.school
+        })
             .then(res => {
-                console.log("HERE IS THE FAMILY", res.data);
-                let guardian = res.data[0].guardian.filter(item => item._id === '5b0702392c6cd70b2f93d4d5')[0]
-                this.setState({guardian: guardian}) 
-                console.log("HERE IS THE GUARDIAN", guardian);
+                let intro = [{coneName: "Please select a cone"}]
+                let cones = intro.concat(res.data[0].cone)
+                let selectedCone = cones[coneindex]
+                this.setState({cones: cones, selectedCone: selectedCone})
+                
+                if (selectedCone.queueData[0]) {
+                    API.getFamily({
+                        familyName: selectedCone.queueData[0].family
+                    })
+                    .then(res => {
+                        let guardian = res.data[0].guardian.filter(item => item._id === selectedCone.queueData[0].guardian_id)[0]
+                        this.setState({foundGuardian: true, guardian: guardian}) 
+                    })
+                    .catch(err => console.log(err));
+                }
+                else {
+                    this.setState({
+                    guardian: {
+                        fName: "",
+                        lName: "",
+                        img: "",
+                        email: "",
+                        phone: "",
+                        family: ""
+                        },
+                    foundGuardian: false
+                    })
+                }
             })
             .catch(err => console.log(err));
-
-
-
-
-
-        }
-        
-
-        // this.setState({ 
-        //     selectedCone: event.target.value 
-        //     driver
-        // })
-
-        //the cone needs to have the family name then we look at the next item in the queue and bring the person based on facetoken and their family
     }
+
 
 
     render() {
@@ -135,14 +136,22 @@ class TeacherPortal extends Component {
                     <Container>
                         <Row>
                             <Col size="md-12">
+                                {this.state.foundGuardian ? (
+                                    <div>
                                     <TchrPrtlCrdWrpr
-                                    cardHeading = "Parent"
-                                    fName = {this.state.guardian.fName}
-                                    lName = {this.state.guardian.lName}
-                                    img = {this.state.guardian.img_base64}
-                                    image_heading = "Some Heading"
-                    
-                                    />
+                                        cardHeading = "Parent"
+                                        fName = {this.state.guardian.fName}
+                                        lName = {this.state.guardian.lName}
+                                        img = {this.state.guardian.img_base64}
+                                        email = {this.state.guardian.email}
+                                        phone = {this.state.guardian.phone}
+                                        family = {this.state.guardian.family}
+                                        image_heading = "Some Heading"
+                                        />
+                                    </div>
+                                    ) : (
+                                        <h3>Waiting for Driver</h3>
+                                )}
                             </Col>
                         </Row>
                     </Container>

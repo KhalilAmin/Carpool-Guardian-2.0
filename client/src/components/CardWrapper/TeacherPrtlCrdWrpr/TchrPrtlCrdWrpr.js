@@ -110,7 +110,7 @@ const TchrPrtlCrdWrpr = props => {
             </div>
             <div class='row'>
               <div class='col-md-4'>
-                < ImageComponent name={props.fName} image_heading={props.image_heading} image={props.img} />
+                < ImageComponent name={props.fName} image_heading={props.image_heading} img={props.img} />
               </div>
               <div class='col-md-1'></div>
               <div class='col-md-7'>
