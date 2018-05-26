@@ -74,4 +74,7 @@ router.route("/addToConeQueue")
 router.route("/teachersignup")
   .post(dbController.addTeacher);
 
+router.route("/removeFromQueue")
+  .post(dbController.removeFromQueue);
+
 module.exports = router;

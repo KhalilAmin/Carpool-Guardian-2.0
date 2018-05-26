@@ -3,6 +3,7 @@ import API from "../../../utils/API";
 import { Col, Row, Container } from "../../../components/Grid";
 import { Input, FormBtn} from "../../../components/Form";
 import AddImageCard from "../AddImageCard"
+import io from "socket.io-client";
 
 
 class DemoCard extends Component {
@@ -10,9 +11,68 @@ class DemoCard extends Component {
     filename: null,
   };
 
+  socket = io('localhost:8080');
+  
+  
   componentDidMount() {
 
   }
+
+  socketSend(data) {
+    this.socket.emit('CONE_UPDATE', data)
+  }
+
+
+//   sendMessage = event => {
+//       event.preventDefault();
+//       console.log("here")
+//       this.socket.emit('SEND_MESSAGE', {
+//           something: "message!!!!!!!!!!"
+//       })
+//   }
+
+  // send = () => {
+  // 	const socket = socketIOClient(this.state)
+
+  // 	socket.emit('change color', 'red')
+  // }
+
+//   componentDidMount() {
+//       axios.get('/auth/user').then(response => {
+//           console.log(response.data)
+//           if (response.data.user) {
+//               console.log('THERE IS A USER')
+//               this.setState({
+//                   loggedIn: true,
+//                   user: response.data.user
+//               })
+
+//               //console.log(this.state);
+//           }
+//           else {
+//               this.setState({
+//                   loggedIn: false,
+//                   //isTeacher: false,
+//                   user: null
+//               })
+//           }
+//       })
+//       // .then(res => {
+//       // 	// console.log(res);
+//       // 	// if (this.state.loggedIn)
+//       // 		<Redirect to={'/Temp'} />
+//       // })
+
+//       this.getMessage();
+//   }
+
+//   getMessage() {
+//       this.socket.on("RECEIVE_MESSAGE", function(data) {
+//           console.log("IT")
+//       })
+
+
+
 
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -139,14 +199,25 @@ class DemoCard extends Component {
                         confidence: this.state.result_confidence,
                         guardian_id: this.state.result_guardian_id,
                         family: this.state.result_family
+                    
+                    
+                    
                     })
-                    console.log("This is the id I need", cones[targetConeIndex]._id, "and the token", this.state.result_face_token);
-                    //API to update the shools last cone - note we had converted target cone to cardinal numbering - subtract 1 to get index
-                    API.updateSchool({
-                        _id: schoolID,
-                        lastConeIndex: targetConeIndex
+                    .then(cone => {
+                        console.log("This is the id I need", cones[targetConeIndex]._id, "and the token", this.state.result_face_token);
+                        //API to update the shools last cone - note we had converted target cone to cardinal numbering - subtract 1 to get index
+                        API.updateSchool({
+                            _id: schoolID,
+                            lastConeIndex: targetConeIndex
+                        })
+                        .then(done => {
+                            console.log("THIS IS THE CONE", cone)
+                            this.socketSend({schoolID: schoolID, coneID: cone.data._id})
+                        })
                     })
+                    
                 }
+                //SHOULDN"T I HAVE AN ELSE HERE FOR IF A FACE TOKEN WASN"T FOUND???
             })
         })
         //I think this is where I'd need to search the DB for the result face token and provide the Family we find
