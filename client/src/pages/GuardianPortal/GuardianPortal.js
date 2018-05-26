@@ -11,7 +11,7 @@ import AddChildCard from "../../components/PatsTempComponents/AddChildCard"
 import AddGuardCard from "../../components/PatsTempComponents/AddGuardCard"
 
 
-class Guardian extends Component {
+class GuardianPortal extends Component {
     
 
     state = {
@@ -35,6 +35,7 @@ class Guardian extends Component {
     }
 
     loadGuardians = () => {
+
         API.getGuardian()
             .then(res => {
                 this.setState({ guardians: res.data })
@@ -77,6 +78,7 @@ class Guardian extends Component {
                 <h1>THIS IS THE GUARDIAN PORTAL</h1>
                 <div>
                     <Container>
+                        <h1> Guardian Page Rendered</h1>
                         {this.state.guardians.map(guardian => (
                             <Row>
                                 <Col size="md-2"></Col>
@@ -172,4 +174,4 @@ class Guardian extends Component {
     }
 }
 
-export default Guardian;
+export default GuardianPortal;
