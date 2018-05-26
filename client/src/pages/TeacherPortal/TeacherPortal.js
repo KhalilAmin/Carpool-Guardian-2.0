@@ -36,7 +36,7 @@ class TeacherPortal extends Component {
     componentDidMount() {
         
         console.log("TeacherPortal.js Componenet Called");
-        console.log("THIS IS THE TEACHER", this.props.school);
+        console.log("THIS IS THE TEACHER", this.props.userData.school);
         this.loadCones()
     }
 
@@ -69,9 +69,9 @@ class TeacherPortal extends Component {
     };
 
     loadCones = event => {
-
+        console.log("SOMEHOW THE SCHOOL NAME IS HERE", this.props.userData.school)
         API.getSchool({
-            schoolName: this.props.school
+            schoolName: this.props.userData.school
         })
             .then(res => {
                 let intro = [{coneName: "Please select a cone"}]
@@ -104,7 +104,7 @@ class TeacherPortal extends Component {
 
     getNextDriver = coneindex => {
         API.getSchool({
-            schoolName: this.props.school
+            schoolName: this.props.userData.school
         })
             .then(res => {
                 let intro = [{coneName: "Please select a cone"}]
