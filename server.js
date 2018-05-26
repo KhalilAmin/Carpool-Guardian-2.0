@@ -36,16 +36,16 @@ app.use(bodyParser.json({ limit: '3mb' }));
 
 // Serve up static assets
 app.use(express.static(path.join(__dirname, "client", "build")))
-//app.use(express.static("client/public"));
+// app.use(express.static("client/public"));
 // Add routes, both API and view
 
-// app.get("*", (req, res) => {  
-//     res.sendFile(path.join(__dirname, "client", "build", "index.html"));
-// });
-
 app.get("*", (req, res) => {  
-    res.sendFile(path.join(__dirname, "client", "public", "index.html"));
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });
+
+// app.get("*", (req, res) => {  
+//     res.sendFile(path.join(__dirname, "client", "public", "index.html"));
+// });
 
 app.use(routes);
 
