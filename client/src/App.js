@@ -55,6 +55,7 @@ class App extends Component {
 		isGuardian: false,
 		isTeacher: false,
 		user: null,
+		userData: res.data[0],
 		teacherIsOpen: false,
 		guardianIsOpen: false,
 		//endpoint: "localhose:8080"
@@ -106,7 +107,7 @@ class App extends Component {
 	}
 
 	getMessage() {
-		this.socket.on("RECEIVE_MESSAGE", function(data) {
+		this.socket.on("RECEIVE_MESSAGE", function (data) {
 			console.log("IT")
 		})
 	}
@@ -205,6 +206,7 @@ class App extends Component {
 									loggedIn: true,
 									user: response.data.user,
 									email: email,
+									userData: res.data[0],
 									password: password
 								})
 								// window.location = '/Temp';
@@ -231,6 +233,7 @@ class App extends Component {
 												loggedIn: true,
 												user: response.data.user,
 												email: email,
+												userData: res.data[0],
 												password: password
 											})
 											// window.location = '/Temp';
@@ -355,25 +358,32 @@ class App extends Component {
 					<Route exact path="/" render={() => (
 						this.state.loggedIn ? (
 							this.state.isTeacher ? (
-								
-								
-									<Redirect to={'/TeacherPortal'} />
-								
+								<div>
+
+									{/* // <Redirect to={'/TeacherPortal'} /> */}
+									<TeacherPortal
+										userData={res.data[0]}
+									/>
+								</div>
 							) : (
 									this.state.isGuardian ? (
-									
-										
-											<Redirect to={'/GuardianPortal'} />
-										
+
+										<div>
+											{/* <Redirect to={'/GuardianPortal'} /> */}
+											<GuardianPortal
+												userData={res.data[0]}
+											/>
+										</div>
+
 									) : (
 											<Redirect to={'/'} />
 										)
 								)
 
-						) 
-						: (
-								// <Redirect to={'/'} />
-								console.log("nothing updated")
+						)
+							: (
+								<Redirect to={'/'} />
+
 
 							)
 					)
