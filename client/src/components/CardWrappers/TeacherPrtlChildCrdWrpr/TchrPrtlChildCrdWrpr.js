@@ -108,21 +108,21 @@ const TchrPrtlChildCrdWrpr = props => {
       {
         PERSONS.map(person =>
 
-          <div class='container'>
+          <div className='container'>
 
-            <div class='row'>
+            <div className='row'>
               <div style={{ display: 'none' }}>{person.cardHeading = "Child"}</div>   {/* this is hidden so cardHeading can be set to "Parent/Guardian" */}
-              <div class='col-md-12'>
+              <div className='col-md-12'>
                 <TchrCardChildHeading cardHeading={person.cardHeading} />      {/*heading is now a variable.  Can be switched to props if desired*/}
               </div>
-              <div class='col-md-1'></div>
-              <div class='col-md-5' >
+              <div className='col-md-1'></div>
+              <div className='col-md-5' >
                 <TchrChildImageCmpnt name={person.fName} image_heading={person.image_heading} image={person.image} school={person.school} />
               </div>
-              <div class='col-md-5'>
+              <div className='col-md-5'>
                 <TchrCardChildInfo fName={person.fName} lName={person.lName} family={person.family} guardian={person.guardian} grade={person.grade} email={person.email} phone={person.phone} date={person.date} />
               </div>
-              <div class='col-md-1'></div>
+              <div className='col-md-1'></div>
             </div>
           </div>
 

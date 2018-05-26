@@ -1,12 +1,29 @@
 import React, { Component } from 'react'
 import "./TchrCardHeading.css";
 
+
+
+
 class CardHeader extends Component {
+    
+    state = {
+        confidenceClass: "confidenceHeadRed"
+    };
+
+    componentDidMount() {
+        if (this.props.confidence >= 85) {
+            this.setState({confidenceClass: "confidenceHeadGreen"})
+        } else if (this.props.confidence >= 60 && this.props.confidence < 85) {
+            this.setState({confidenceClass: "confidenceHeadYellow"})
+        } else {
+            this.setState({confidenceClass: "confidenceHeadRed"})
+        }
+      }
 
     render() {
         return (
             //  Changed HTML (JSX) text from 'Carpool Candidate' to 'this.props.cardHeading' variable
-            <strong><h1 style={{ margin: 'auto', width: '100%', backgroundColor: 'tan', textAlign: 'center', marginTop: '30px', fontSize: '55px' }}>~ {this.props.cardHeading} ~</h1></strong>
+            <strong><h1 className={this.state.confidenceClass}>{this.props.confidence}</h1></strong>
         )
     }
 }
