@@ -102,6 +102,7 @@ module.exports = {
     },
 
     searchFace: function (req, res) {
+        console.log("WE WILL SEARCH THE FACE")
         axios({
         method: "post",
         url: 'https://api-us.faceplusplus.com/facepp/v3/search', 
