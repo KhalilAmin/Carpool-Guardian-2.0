@@ -6,6 +6,8 @@ import TchrPrtlCrdWrpr from "../../components/CardWrapper/TeacherPrtlCrdWrpr/Tch
 import InfoCard from "../../components/PatsTempComponents/InfoCard";
 import ImageCard from "../../components/PatsTempComponents/ImageCard";
 import Dropdown from "../../components/PatsTempComponents/Dropdown";
+import io from "socket.io-client";
+
 
 
 
@@ -25,16 +27,21 @@ class TeacherPortal extends Component {
             phone: "",
             family: ""
         },
-        foundGuardian: false
+        foundGuardian: false,
+        coneindex: 0
     };
 
+    socket = io('localhost:8080');
 
     componentDidMount() {
         
-
         console.log("TeacherPortal.js Componenet Called");
         console.log("THIS IS THE TEACHER", this.props.school);
         this.loadCones()
+    }
+
+    componentWillUpdate() {
+        this.nextDriverTriggered(this.state.coneindex);
     }
 
     // loadSchoolNames = () => {
@@ -75,7 +82,27 @@ class TeacherPortal extends Component {
 
     handleConeDropdown = event => {
         let coneindex = event.target.value;
+        this.setState({coneindex: coneindex})
+        
+        this.getNextDriver(coneindex);
+    }
 
+    nextDriverTriggered = () => {
+        console.log("I GOT TRIGGERED");
+        if (this.state.selectedCone) {
+            console.log("AND I GOT BELOW")
+            console.log(this.state.selectedCone._id)
+            let that = this;
+
+            this.socket.on(this.state.selectedCone._id, function(data) {
+                console.log("I HEARD SOMETHING--------------------------------", that.state.selectedCone._id);
+                
+                that.getNextDriver(that.state.coneindex)
+            })
+        }
+    }
+
+    getNextDriver = coneindex => {
         API.getSchool({
             schoolName: this.props.school
         })
@@ -83,8 +110,11 @@ class TeacherPortal extends Component {
                 let intro = [{coneName: "Please select a cone"}]
                 let cones = intro.concat(res.data[0].cone)
                 let selectedCone = cones[coneindex]
-                this.setState({cones: cones, selectedCone: selectedCone})
+
+                this.setState({cones: cones, selectedCone: selectedCone, schoolId: res.data[0]._id})
                 
+                //With the cone selected and the ID known, we start listening for updates to the cone from the server
+
                 if (selectedCone.queueData[0]) {
                     API.getFamily({
                         familyName: selectedCone.queueData[0].family
@@ -107,11 +137,23 @@ class TeacherPortal extends Component {
                         },
                     foundGuardian: false
                     })
+
+                    //Start listening for a driver coming in
+                    
                 }
             })
             .catch(err => console.log(err));
     }
 
+    advanceDriver = () => {
+        API.removeFromQueue({
+            coneId: this.state.selectedCone._id,
+            guardianId: this.state.guardian._id
+        })
+        .then(res => {
+            this.getNextDriver(this.state.coneindex)
+        })
+    }
 
 
     render() {
@@ -120,7 +162,10 @@ class TeacherPortal extends Component {
                 <div>
                     <Container>
                         <Row>
-                            <Col size="md-9"></Col>
+                            <Col size="md-3">
+                                <button onClick={this.advanceDriver}>Advance Driver</button>
+                            </Col>
+                            <Col size="md-6"></Col>
                             <Col size="md-3">
                                 <select
                                     onChange={this.handleConeDropdown}
@@ -146,9 +191,11 @@ class TeacherPortal extends Component {
                                         email = {this.state.guardian.email}
                                         phone = {this.state.guardian.phone}
                                         family = {this.state.guardian.family}
-                                        image_heading = "Some Heading"
-                                        />
+                                    />
                                     </div>
+
+
+
                                     ) : (
                                         <h3>Waiting for Driver</h3>
                                 )}

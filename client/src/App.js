@@ -27,6 +27,7 @@ import API from "./utils/API";
 import AddGuardCard from "./components/PatsTempComponents/AddGuardCard"
 import AddTeacherCard from "./components/PatsTempComponents/AddTeacherCard"
 import Modal from "./components/Modal";
+import io from "socket.io-client";
 
 
 
@@ -55,8 +56,25 @@ class App extends Component {
 		isTeacher: false,
 		user: null,
 		teacherIsOpen: false,
-		guardianIsOpen: false
+		guardianIsOpen: false,
+		//endpoint: "localhose:8080"
 	}
+
+	socket = io('localhost:8080');
+
+	sendMessage = event => {
+		event.preventDefault();
+		console.log("here")
+		this.socket.emit('SEND_MESSAGE', {
+			something: "message!!!!!!!!!!"
+		})
+	}
+
+	// send = () => {
+	// 	const socket = socketIOClient(this.state)
+
+	// 	socket.emit('change color', 'red')
+	// }
 
 	componentDidMount() {
 		axios.get('/auth/user').then(response => {
@@ -83,6 +101,14 @@ class App extends Component {
 		// 	// if (this.state.loggedIn)
 		// 		<Redirect to={'/Temp'} />
 		// })
+
+		//this.getMessage();
+	}
+
+	getMessage() {
+		this.socket.on("RECEIVE_MESSAGE", function(data) {
+			console.log("IT")
+		})
 	}
 
 	// import GuardianForm from "./components/Form/GuardianForm.js";
@@ -300,8 +326,22 @@ class App extends Component {
 
 
 	render() {
+
+		// const socket = socketIOClient(this.state.endpoint)
+
+		// socket.on('change color', (color) => {
+		// 	document.body.style.backgroundColor = color
+		// })
+
+
 		return (
 			<div className="App">
+
+				{/* <div style={{ textAlign: "center" }}>
+					<button onClick={() => this.send()}>Change Color</button>
+				</div> */}
+
+
 				<h1>Carpool Guardian 2.0</h1>
 				<Header user={this.state.user} />
 				{/* LINKS to our different 'pages' */}
