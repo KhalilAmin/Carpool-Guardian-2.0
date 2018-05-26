@@ -121,6 +121,10 @@ export default {
 
   removeFromQueue: function (data) {
     return axios.post("/api/db/removeFromQueue", data);
-  }
+  },
   
+  getFaceSetDetail: function (data) {
+    return axios.post("/api/db/getFaceSetDetail", data);
+  }
+
 };
