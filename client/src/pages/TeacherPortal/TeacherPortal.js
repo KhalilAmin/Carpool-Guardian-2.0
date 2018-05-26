@@ -103,6 +103,7 @@ class TeacherPortal extends Component {
     }
 
     getNextDriver = coneindex => {
+        console.log("IM GETTING THE NEXT DRIVER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
         API.getSchool({
             schoolName: this.props.userData.school
         })
@@ -116,11 +117,16 @@ class TeacherPortal extends Component {
                 //With the cone selected and the ID known, we start listening for updates to the cone from the server
 
                 if (selectedCone.queueData[0]) {
+                    console.log("HERE IS MY SELECTED CONE!!!!!!!", selectedCone.queueData[0])
                     API.getFamily({
                         familyName: selectedCone.queueData[0].family
                     })
                     .then(res => {
+                        console.log("THIS IS MY GUARDIAN VLUE", res);
+                        
                         let guardian = res.data[0].guardian.filter(item => item._id === selectedCone.queueData[0].guardian_id)[0]
+
+                        
                         this.setState({foundGuardian: true, guardian: guardian}) 
                     })
                     .catch(err => console.log(err));

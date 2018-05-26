@@ -57,7 +57,7 @@ router.route("/getNext")
   .get(dbController.getNext);
 
 router.route("/getFamily")
-  .get(dbController.getFamily);
+  .post(dbController.getFamily);
 
 router.route("/getSchool")
   .post(dbController.getSchool);
