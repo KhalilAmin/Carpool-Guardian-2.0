@@ -77,4 +77,7 @@ router.route("/teachersignup")
 router.route("/removeFromQueue")
   .post(dbController.removeFromQueue);
 
+router.route("/updateSchoolGuardian")
+  .post(dbController.removeFromQueue);
+
 module.exports = router;
