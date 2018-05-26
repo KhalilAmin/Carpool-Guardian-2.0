@@ -6,6 +6,8 @@ import TchrPrtlCrdWrpr from "../../components/CardWrapper/TeacherPrtlCrdWrpr/Tch
 import InfoCard from "../../components/PatsTempComponents/InfoCard";
 import ImageCard from "../../components/PatsTempComponents/ImageCard";
 import Dropdown from "../../components/PatsTempComponents/Dropdown";
+import io from "socket.io-client";
+
 
 
 
@@ -15,33 +17,49 @@ class TeacherPortal extends Component {
         // user: this.props.user,
         coneNames: [],
         schoolNames: [],
-        schoolName: ""
+        schoolName: "",
+        cones: ["Please select a cone"],
+        guardian: {
+            fName: "",
+            lName: "",
+            img: "",
+            email: "",
+            phone: "",
+            family: ""
+        },
+        foundGuardian: false,
+        coneindex: 0
     };
 
+    socket = io('localhost:8080');
 
     componentDidMount() {
+        
         console.log("TeacherPortal.js Componenet Called");
-        console.log(this.props.user);
-        this.loadSchoolNames()
+        console.log("THIS IS THE TEACHER", this.props.school);
+        this.loadCones()
     }
 
-    loadSchoolNames = () => {
-        API.getSchool()
-            .then(res => {
-
-                let schoolNames = ["Please select a school"]
-                res.data.forEach(function (school) {
-                    schoolNames.push(school.schoolName)
-                })
-                this.setState({ schoolNames: schoolNames })
-            })
-            .catch(err => console.log(err));
+    componentWillUpdate() {
+        this.nextDriverTriggered(this.state.coneindex);
     }
 
-    handleSelect = selectitem => {
+    // loadSchoolNames = () => {
+    //     API.getSchool()
+    //         .then(res => {
 
-    }
+    //             let schoolNames = ["Please select a school"]
+    //             res.data.forEach(function (school) {
+    //                 schoolNames.push(school.schoolName)
+    //             })
+    //             this.setState({ schoolNames: schoolNames })
+    //         })
+    //         .catch(err => console.log(err));
+    // }
 
+    // handleSelect = selectitem => {
+
+    // }
 
     handleInputChange = event => {
         const { name, value } = event.target;
@@ -50,30 +68,91 @@ class TeacherPortal extends Component {
         });
     };
 
-    handleSchoolDropdown = event => {
-        let schoolName = event.target.value;
-
-        this.setState({ schoolName: schoolName })
+    loadCones = event => {
 
         API.getSchool({
-            schoolName: schoolName
+            schoolName: this.props.school
         })
             .then(res => {
-                let coneNames = ["Please select a cone"]
-                res.data[0].cone.forEach(function (cone) {
-                    coneNames.push(cone.coneName)
-                })
-                this.setState({ coneNames: coneNames })
+                let intro = [{coneName: "Please select a cone"}]
+                this.setState({cones: intro.concat(res.data[0].cone)})
             })
             .catch(err => console.log(err));
     }
 
     handleConeDropdown = event => {
-        let coneName = event.target.value;
+        let coneindex = event.target.value;
+        this.setState({coneindex: coneindex})
+        
+        this.getNextDriver(coneindex);
+    }
 
-        this.setState({ coneName: coneName })
+    nextDriverTriggered = () => {
+        console.log("I GOT TRIGGERED");
+        if (this.state.selectedCone) {
+            console.log("AND I GOT BELOW")
+            console.log(this.state.selectedCone._id)
+            let that = this;
 
-        //the cone needs to have the family name then we look at the next item in the queue and bring the person based on facetoken and their family
+            this.socket.on(this.state.selectedCone._id, function(data) {
+                console.log("I HEARD SOMETHING--------------------------------", that.state.selectedCone._id);
+                
+                that.getNextDriver(that.state.coneindex)
+            })
+        }
+    }
+
+    getNextDriver = coneindex => {
+        API.getSchool({
+            schoolName: this.props.school
+        })
+            .then(res => {
+                let intro = [{coneName: "Please select a cone"}]
+                let cones = intro.concat(res.data[0].cone)
+                let selectedCone = cones[coneindex]
+
+                this.setState({cones: cones, selectedCone: selectedCone, schoolId: res.data[0]._id})
+                
+                //With the cone selected and the ID known, we start listening for updates to the cone from the server
+
+                if (selectedCone.queueData[0]) {
+                    API.getFamily({
+                        familyName: selectedCone.queueData[0].family
+                    })
+                    .then(res => {
+                        let guardian = res.data[0].guardian.filter(item => item._id === selectedCone.queueData[0].guardian_id)[0]
+                        this.setState({foundGuardian: true, guardian: guardian}) 
+                    })
+                    .catch(err => console.log(err));
+                }
+                else {
+                    this.setState({
+                    guardian: {
+                        fName: "",
+                        lName: "",
+                        img: "",
+                        email: "",
+                        phone: "",
+                        family: ""
+                        },
+                    foundGuardian: false
+                    })
+
+                    //Start listening for a driver coming in
+                    
+                }
+            })
+            .catch(err => console.log(err));
+    }
+
+    advanceDriver = () => {
+        API.removeFromQueue({
+            coneId: this.state.selectedCone._id,
+            guardianId: this.state.guardian._id
+        })
+        .then(res => {
+            this.getNextDriver(this.state.coneindex)
+        })
     }
 
 
@@ -83,20 +162,46 @@ class TeacherPortal extends Component {
                 <div>
                     <Container>
                         <Row>
-                            <h1> teacher portal called! </h1>
-                            <Col size="md-11"></Col>
-                            <select
-                                onChange={this.handleConeDropdown}
-                                value={this.state.cone}
-                            >
-                                {this.state.coneNames.map(cone => (
-                                    <option value={cone}>{cone}</option>
-                                ))}
-                            </select>
-                            <Col size="md-1"></Col>
+                            <Col size="md-3">
+                                <button onClick={this.advanceDriver}>Advance Driver</button>
+                            </Col>
+                            <Col size="md-6"></Col>
+                            <Col size="md-3">
+                                <select
+                                    onChange={this.handleConeDropdown}
+                                    
+                                >
+                                    {this.state.cones.map((cone, index)=> (
+                                        <option value={index} key={cone._id}>{cone.coneName}</option>
+                                    ))}
+                                </select>
+                            </Col>
                         </Row>
                     </Container>
-                    <h1> {this.props.user} is at {this.value} </h1>
+                    <Container>
+                        <Row>
+                            <Col size="md-12">
+                                {this.state.foundGuardian ? (
+                                    <div>
+                                    <TchrPrtlCrdWrpr
+                                        cardHeading = "Parent"
+                                        fName = {this.state.guardian.fName}
+                                        lName = {this.state.guardian.lName}
+                                        img = {this.state.guardian.img_base64}
+                                        email = {this.state.guardian.email}
+                                        phone = {this.state.guardian.phone}
+                                        family = {this.state.guardian.family}
+                                    />
+                                    </div>
+
+
+
+                                    ) : (
+                                        <h3>Waiting for Driver</h3>
+                                )}
+                            </Col>
+                        </Row>
+                    </Container>
                 </div>
                 {/* <div>
                     <Col size="md-8">

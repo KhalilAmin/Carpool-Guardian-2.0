@@ -3,7 +3,7 @@ import API from "../../../utils/API";
 import { Col, Row, Container } from "../../../components/Grid";
 import { Input, FormBtn} from "../../../components/Form";
 import AddImageCard from "../AddImageCard"
-
+import "./addGuardCard.css";
 
 class AddGuardCard extends Component {
   state = {
@@ -43,25 +43,25 @@ class AddGuardCard extends Component {
   handleAddGuard = event => {
     event.preventDefault();
     //create face token
-    // API.detectFace({
-    //     image_base64: this.state.image_base64
-    // })
-    // .then(res => this.setState({face_token: res.data}))
-    // .then(res => {
+    API.detectFace({
+        image_base64: this.state.image_base64
+    })
+    .then(res => this.setState({face_token: res.data}))
+    .then(res => {
         API.addGuardian({
             familyName: this.state.familyName,
             guardian: {
                 fName: this.state.fName,
                 lName: this.state.lName,
                 password: this.state.password,
-                //img_base64: this.state.image_base64,
+                img_base64: this.state.image_base64,
                 email: this.state.email,
                 phone: this.state.phone,
                 family: this.state.familyName,
-                face_token: "023lwe023lse0sel3"
+                face_token: this.state.face_token
             }
         })
-    // })
+    })
   };
 
   render() {

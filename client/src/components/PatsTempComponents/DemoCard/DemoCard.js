@@ -3,6 +3,7 @@ import API from "../../../utils/API";
 import { Col, Row, Container } from "../../../components/Grid";
 import { Input, FormBtn} from "../../../components/Form";
 import AddImageCard from "../AddImageCard"
+import io from "socket.io-client";
 
 
 class DemoCard extends Component {
@@ -10,9 +11,68 @@ class DemoCard extends Component {
     filename: null,
   };
 
+  socket = io('localhost:8080');
+  
+  
   componentDidMount() {
 
   }
+
+  socketSend(data) {
+    this.socket.emit('CONE_UPDATE', data)
+  }
+
+
+//   sendMessage = event => {
+//       event.preventDefault();
+//       console.log("here")
+//       this.socket.emit('SEND_MESSAGE', {
+//           something: "message!!!!!!!!!!"
+//       })
+//   }
+
+  // send = () => {
+  // 	const socket = socketIOClient(this.state)
+
+  // 	socket.emit('change color', 'red')
+  // }
+
+//   componentDidMount() {
+//       axios.get('/auth/user').then(response => {
+//           console.log(response.data)
+//           if (response.data.user) {
+//               console.log('THERE IS A USER')
+//               this.setState({
+//                   loggedIn: true,
+//                   user: response.data.user
+//               })
+
+//               //console.log(this.state);
+//           }
+//           else {
+//               this.setState({
+//                   loggedIn: false,
+//                   //isTeacher: false,
+//                   user: null
+//               })
+//           }
+//       })
+//       // .then(res => {
+//       // 	// console.log(res);
+//       // 	// if (this.state.loggedIn)
+//       // 		<Redirect to={'/Temp'} />
+//       // })
+
+//       this.getMessage();
+//   }
+
+//   getMessage() {
+//       this.socket.on("RECEIVE_MESSAGE", function(data) {
+//           console.log("IT")
+//       })
+
+
+
 
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -53,88 +113,116 @@ class DemoCard extends Component {
   handleAddDriver = event => {
     console.log("Got here");
     console.log(this.state.schoolName);
+    //First we need to get this school from the database
     API.getSchool({
         schoolName: this.state.schoolName
     })
-    .then(res => {
+    .then(schoolresult => {
         let lastOccupiedConeIndex = -1;
         let targetConeIndex = 0
-        let cones = res.data[0].cone;
-        let lastConeIndex = res.data[0].lastConeIndex;
-        let schoolID = res.data[0]._id;
-        let faceSetToken = res.data[0].faceSetToken
+        let cones = schoolresult.data[0].cone;
+        let lastConeIndex = schoolresult.data[0].lastConeIndex;
+        let schoolID = schoolresult.data[0]._id;
+        let faceSetToken = schoolresult.data[0].faceSetToken
 
+        //Next we compare this face image with other faces in this schools' faceset
         API.searchFace({
             image_base64: this.state.image_base64,
             faceset_token: faceSetToken
         })
-        .then(res => {
 
-            console.log(res.data.face_token);
-            console.log(res.data.confidence)
+        //The API will return the matched face_token - we need to figure out which guardian cooresponds to that in the DB
+        .then(faceresult => {
 
-            this.setState({ 
-                result_face_token: res.data.face_token,
-                result_confidence: res.data.confidence
+            API.getGuardian({
+                face_token: faceresult.data.face_token
+            })
+            .then(guardianresult => {
+                console.log(guardianresult);
+
+                console.log("TOKEN RESULT", faceresult.data.face_token);
+                console.log("CONFIDENCE RESULT", faceresult.data.confidence)
+                console.log("GUARDIAN RESULT", guardianresult.data[0]._id)
+                console.log("FAMILY RESULT", guardianresult.data[0].family)
+
+                //Once we know the guardian we can set the token, the confidence, and that guardian's details into the queue
+                this.setState({ 
+                    result_face_token: faceresult.data.face_token,
+                    result_confidence: faceresult.data.confidence,
+                    result_guardian_id: guardianresult.data[0]._id,
+                    result_family: guardianresult.data[0].family
                 });
+
+                if (this.state.result_face_token) {
+                    //What is the last occupied cone
+
+                    // let cone1 = []
+                    // let cone2 = ['a']
+                    // let cone3 = []
+                    // let cone4 = ['a']
+                    // let cones = [cone1, cone2, cone3, cone4]
+                    // let lastOccupiedConeIndex = -1
+                    // let targetConeIndex = 0
+                    // let lastConeIndex = 0
+
+
+                    if (!lastConeIndex) {
+                        lastConeIndex = 0
+                    }
+
+
+                    console.log("The last cone index", lastConeIndex);
+                    //What is the last occupied cone
+                    for (let i = cones.length - 1; i > -1; i--) {
+                        console.log("CONES", cones);
+                        console.log("QUEUE DATA", i, cones[i].queueData.length)
+                        if (cones[i].queueData.length > 0) {
+                            console.log("I HAVE A CONE THAT IS GREATER THAN 0", i)
+                            lastOccupiedConeIndex = i;
+                            break
+                        }
+                    }
+                    //Target either the next unoccupied cone, or the next cone in queue
+                    if (lastOccupiedConeIndex + 1 === cones.length) {
+                        console.log("There is a queue")
+                        targetConeIndex = (lastConeIndex + 1) % cones.length
+                    } else {
+
+                        targetConeIndex = lastOccupiedConeIndex + 1
+                    }
+                    console.log("Target Cone Index", targetConeIndex);
+                    // //API to add the driver token to the cone's queue
+                    console.log(this.state.result_confidence)
+                    API.addToConeQueue({
+                        _id: cones[targetConeIndex]._id,
+                        face_token: this.state.result_face_token,
+                        confidence: this.state.result_confidence,
+                        guardian_id: this.state.result_guardian_id,
+                        family: this.state.result_family
+                    
+                    
+                    
+                    })
+                    .then(cone => {
+                        console.log("This is the id I need", cones[targetConeIndex]._id, "and the token", this.state.result_face_token);
+                        //API to update the shools last cone - note we had converted target cone to cardinal numbering - subtract 1 to get index
+                        API.updateSchool({
+                            _id: schoolID,
+                            lastConeIndex: targetConeIndex
+                        })
+                        .then(done => {
+                            console.log("THIS IS THE CONE", cone)
+                            this.socketSend({schoolID: schoolID, coneID: cone.data._id})
+                        })
+                    })
+                    
+                }
+                //SHOULDN"T I HAVE AN ELSE HERE FOR IF A FACE TOKEN WASN"T FOUND???
+            })
         })
         //I think this is where I'd need to search the DB for the result face token and provide the Family we find
         /////////////////////////////////////
-        .then(res => {
-            
-            if (this.state.result_face_token) {
-                //What is the last occupied cone
-
-                // let cone1 = []
-                // let cone2 = ['a']
-                // let cone3 = []
-                // let cone4 = ['a']
-                // let cones = [cone1, cone2, cone3, cone4]
-                // let lastOccupiedConeIndex = -1
-                // let targetConeIndex = 0
-                // let lastConeIndex = 0
-
-
-                if (!lastConeIndex) {
-                    lastConeIndex = 0
-                }
-
-
-                console.log("The last cone index", lastConeIndex);
-                //What is the last occupied cone
-                for (let i = cones.length - 1; i > -1; i--) {
-                    console.log("CONES", cones);
-                    console.log("QUEUE DATA", i, cones[i].queueData.length)
-                    if (cones[i].queueData.length > 0) {
-                        console.log("I HAVE A CONE THAT IS GREATER THAN 0", i)
-                        lastOccupiedConeIndex = i;
-                        break
-                    }
-                }
-                //Target either the next unoccupied cone, or the next cone in queue
-                if (lastOccupiedConeIndex + 1 === cones.length) {
-                    console.log("There is a queue")
-                    targetConeIndex = (lastConeIndex + 1) % cones.length
-                } else {
-
-                    targetConeIndex = lastOccupiedConeIndex + 1
-                }
-                console.log("Target Cone Index", targetConeIndex);
-                // //API to add the driver token to the cone's queue
-                console.log(this.state.result_confidence)
-                API.addToConeQueue({
-                    _id: cones[targetConeIndex]._id,
-                    face_token: this.state.result_face_token,
-                    confidence: this.state.result_confidence
-                })
-                console.log("This is the id I need", cones[targetConeIndex]._id, "and the token", this.state.result_face_token);
-                //API to update the shools last cone - note we had converted target cone to cardinal numbering - subtract 1 to get index
-                API.updateSchool({
-                    _id: schoolID,
-                    lastConeIndex: targetConeIndex
-                })
-            }
-        })
+       
     })
   };
 

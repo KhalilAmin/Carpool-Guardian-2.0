@@ -9,7 +9,6 @@ module.exports = {
   //     .catch(err => res.status(422).json(err));
   // },
   getGuardian: function(req, res) {
-    console.log("IN GUARD", req.body);
     db.models.Guardian
       .find(req.body)
       .then(dbModel => res.json(dbModel))
@@ -32,7 +31,6 @@ module.exports = {
   },
 
   addTeacher: function(req, res) {
-    console.log(req);
     const newTeacher = new db.models.Teacher(req.body.teacher)
 
     newTeacher.save((err, dbTeacher) => {
@@ -45,7 +43,6 @@ module.exports = {
   },
 
   getTeacher: function(req, res) {
-    console.log("IN TEACHER", req.body);
     db.models.Teacher.find(req.body)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
@@ -54,6 +51,8 @@ module.exports = {
   getFamily: function(req, res) {
     db.models.Family
       .find(req.body)
+      .populate("guardian")
+      .populate("child")
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
@@ -68,7 +67,6 @@ module.exports = {
       .create(req.body)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
-      console.log(res);
   },
   addQueue: function(req, res) {
     db.models.Family
@@ -83,11 +81,8 @@ module.exports = {
         db.models.Family
           .find({familyName: req.body.familyName})
           .then(dbModel => {
-            console.log(dbModel);
             if (dbModel.length < 1) {
               //Family doesn't exist - need to create it
-              console.log("CREATE THE FAMILY", req.body.familyName)
-              console.log("dbGuardian", dbGuardian)
               db.models.Family.create({familyName: req.body.familyName})
               .then(dbModel => {
                 db.models.Family.findOneAndUpdate({familyName: req.body.familyName}, {$push: {guardian: dbGuardian._id}}, {new: true })
@@ -96,8 +91,6 @@ module.exports = {
               })
               .catch(err => res.status(422).json(err));
             } else {
-              console.log("ALREADY HAVE A FAMILY")
-              console.log("dbGuardian", dbGuardian)
               //The family does exist push to it
               db.models.Family.findOneAndUpdate({familyName: req.body.familyName}, {$push: {guardian: dbGuardian._id}}, {new: true })
               .then(dbModel => res.json(dbModel))
@@ -105,7 +98,7 @@ module.exports = {
             }
           
           })
-          .catch(err => console.log(err))
+          .catch(err => res.status(422).json(err))
 
     })
   },
@@ -158,6 +151,21 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+  // addCone: function(req, res) {
+  //   console.log("CONE", db.models.Cone)
+  //   console.log("SCHOOL", db.models.School)
+  //   console.log("req", req.body.cone)
+  //   console.log("reqschool", req.body.schoolName)
+
+  //   db.models.Cone.create(req.body.cone)
+  //     .then(function(dbCone) {
+  //         db.models.School.findOneAndUpdate({schoolName: req.body.schoolName}, {$push: {cone: dbCone._id}}, {new: true })
+  //         .then(dbModel => res.json(dbModel))
+  //         .catch(err => res.status(422).json(err))
+  //     })
+  //     .then(dbModel => res.json(dbModel))
+  //     .catch(err => res.status(422).json(err));
+  // },
   addCone: function(req, res) {
     db.models.Cone.create(req.body.cone)
       .then(function(dbCone) {
@@ -166,11 +174,18 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+
   addToConeQueue: function(req, res) {
-    console.log("BODY", req.body._id, req.body.face_token, req.body.confidence);
     db.models.Cone
-      .findOneAndUpdate({_id: req.body._id}, {$push: {queueData: {face_token: req.body.face_token, confidence: req.body.confidence}}}, {new: true})
+      .findOneAndUpdate({_id: req.body._id}, {$push: {queueData: {face_token: req.body.face_token, confidence: req.body.confidence, guardian_id: req.body.guardian_id, family: req.body.family}}}, {new: true})
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+
+  removeFromQueue: function(req, res) {
+    db.models.Cone
+      .findOneAndUpdate({_id: req.body.coneId}, {$pull: {queueData: {guardian_id: req.body.guardianId}}})
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  }
 };

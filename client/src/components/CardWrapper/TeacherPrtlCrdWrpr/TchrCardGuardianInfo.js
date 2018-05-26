@@ -18,8 +18,6 @@ class CardGuardianInfo extends Component {
               <strong>Email:</strong> {this.props.email}</p>
             <p>
               <strong>Phone:</strong> {this.props.phone}</p>
-            <p>
-              <strong>Date:</strong> {this.props.date}</p>
           </div>
 
           <footer class="w3-container w3-blue">
