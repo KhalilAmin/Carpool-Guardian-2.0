@@ -27,19 +27,21 @@ class GuardianPortal extends Component {
 
 
     componentDidMount() {
-        console.log("Guardian.js Componenet Called");
-        console.log(this.props.userData);
-        this.loadGuardians();
+        this.loadGuardians(this.props.userData.family);
         // this.loadFamily();
         // this.loadChildren();
     }
 
-    loadGuardians = () => {
-
-        API.getGuardian()
+    loadGuardians = familyName => {
+        console.log("Get Families called");
+        console.log(familyName);
+        API.getFamily({
+            familyName: familyName
+        })
             .then(res => {
-                this.setState({ guardians: res.data })
-                console.log(this.state.guardians)
+                this.setState({ guardians: res.data });
+                console.log(familyName);
+                console.log(res.data);
             }
             )
             .catch(err => console.log(err));
@@ -48,7 +50,9 @@ class GuardianPortal extends Component {
 
 
     loadChildren = () => {
-        API.getChildren()
+        API.getChildren({
+            familyName: this.props.userData.family
+        })
             .then(res => {
                 this.setState({ children: res.data })
                 console.log(this.state.children)
