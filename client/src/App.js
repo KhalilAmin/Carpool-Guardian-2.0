@@ -16,7 +16,7 @@ import Home from './pages/Home'
 // import Login from "./pages/Login"
 import Demo from "./pages/Demo"
 import Parent from "./pages/Parent"
-import Guardian from "./pages/GuardianPortal"
+import GuardianPortal from "./pages/GuardianPortal"
 import Temp from "./pages/Temp";
 import Nav from "./components/Nav";
 import School from "./pages/School";
