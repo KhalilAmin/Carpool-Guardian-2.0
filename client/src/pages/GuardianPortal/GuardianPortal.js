@@ -12,11 +12,11 @@ import AddGuardCard from "../../components/PatsTempComponents/AddGuardCard"
 
 
 class GuardianPortal extends Component {
-    
+
 
     state = {
         // user: this.props.user,
-        familyid:"",
+        familyObject: "",
         children: [],
         temp: [],
         guardians: [],
@@ -27,35 +27,41 @@ class GuardianPortal extends Component {
 
 
     componentDidMount() {
-        console.log("Guardian.js Componenet Called");
-        console.log(this.props.userData);
-        this.loadGuardians();
-        // this.loadFamily();
-        // this.loadChildren();
+        this.loadGuardians(this.props.userData.family);
+        this.loadChildren(this.props.userData.family);
     }
 
-    loadGuardians = () => {
+    loadGuardians = familyName => {
+        console.log("Load Guardians Called");
+        console.log("family Name: ", familyName);
 
-        API.getGuardian()
+        API.getFamily({
+            familyName: familyName
+        })
             .then(res => {
-                this.setState({ guardians: res.data })
-                console.log(this.state.guardians)
+                this.setState({ 
+                    guardians: res.data[0].guardian,
+                    familyObject: res.data[0]
+                });
+                console.log("res.data: ",res.data[0].child.length);
+                console.log("family object: ",this.state.familyObject);
             }
             )
             .catch(err => console.log(err));
     }
 
-
-
-    loadChildren = () => {
-        API.getChildren()
+    loadChildren = familyName => {
+        console.log("Load Children Called");
+        API.getFamily({
+            familyName: familyName
+        })
             .then(res => {
-                this.setState({ children: res.data })
-                console.log(this.state.children)
+                this.setState({ children: res.data[0].child });
             }
             )
             .catch(err => console.log(err));
     }
+
 
 
     handleInputChange = event => {
@@ -75,13 +81,14 @@ class GuardianPortal extends Component {
     render() {
         return (
             <div>
-                <h1>THIS IS THE GUARDIAN PORTAL</h1>
                 <div>
                     <Container>
-                        <h1> Guardian Page Rendered</h1>
+                    <div className="guardian-header">
+                            <h1>This is the Guardian Section</h1>
+                        </div>
                         {this.state.guardians.map(guardian => (
                             <Row>
-                                <Col size="md-2"></Col>
+                                {/* <Col size="md-2"></Col> */}
                                 <Col size="md-8">
                                     <div className="panel panel-default" style={{ height: "250px" }}>
                                         <div className="panel-heading">
@@ -89,29 +96,31 @@ class GuardianPortal extends Component {
                                         </div>
                                         <div className="panel-body">
                                             <CardWrapper key={guardian._id}>
-                                                <ImageCard
-                                                    name='{guardian.fName} {guardian.lName}'
-                                                    img={"data:image/png;base64," + guardian.img_base64}
-
-                                                />
-
-                                                <InfoCardG
-                                                    id={guardian._id}
-                                                    fName={guardian.fName}
-                                                    lName={guardian.lName}
-                                                    phone={guardian.phone}
-                                                    email={guardian.email}
-                                                />
+                                                <Col size="md-8">
+                                                    <ImageCard
+                                                        name='{guardian.fName} {guardian.lName}'
+                                                        img={"data:image/png;base64," + guardian.img_base64}
+                                                    />
+                                                </Col>
+                                                <Col size="md-4">
+                                                    <InfoCardG
+                                                        // id={guardian._id}
+                                                        fName={guardian.fName}
+                                                        lName={guardian.lName}
+                                                        phone={guardian.phone}
+                                                        email={guardian.email}
+                                                    />
+                                                </Col>
                                             </CardWrapper>
                                         </div>
                                     </div>
                                 </Col>
-                                <Col size="md-2"></Col>
+                                {/* <Col size="md-2"></Col> */}
                             </Row>
                         ))}
 
                     </Container>
-                    <div className="App">
+                    {/* <div className="App">
                         <button onClick={this.toggleModal}>
                             Open the modal
                 </button>
@@ -120,14 +129,17 @@ class GuardianPortal extends Component {
                             onClose={this.toggleModal}>
                             <AddGuardCard />
                         </Modal>
-                    </div>
+                    </div> */}
                 </div>
                 {/* Children Container */}
                 <div>
                     <Container>
+                    <div className="child-header">
+                            <h1>This is the Child Section</h1>
+                        </div>
                         {this.state.children.map(child => (
                             <Row>
-                                <Col size="md-2"></Col>
+                                {/* <Col size="md-2"></Col> */}
                                 <Col size="md-8">
                                     <div className="panel panel-default" style={{ height: "250px" }}>
                                         <div className="panel-heading">
@@ -135,37 +147,43 @@ class GuardianPortal extends Component {
                                         </div>
                                         <div className="panel-body">
                                             <CardWrapper key={child._id}>
-                                                <ImageCard
-                                                    name='{child.fName} {child.lName}'
-                                                    img={"data:image/png;base64," + child.img_base64}
+                                                <Col size="md-8">
+                                                    <ImageCard
+                                                        name='{child.fName} {child.lName}'
+                                                        img={"data:image/png;base64," + child.img_base64}
 
-                                                />
-
-                                                <InfoCardC
-                                                    fName={child.fName}
-                                                    lName={child.lName}
-                                                    grade={child.grade}
-                                                    phone={child.phone}
-                                                    email={child.email}
-                                                    school={child.school}
-                                                />
+                                                    />
+                                                </Col>
+                                                <Col size="md-4">
+                                                    <InfoCardC
+                                                        fName={child.fName}
+                                                        lName={child.lName}
+                                                        grade={child.grade}
+                                                        phone={child.phone}
+                                                        email={child.email}
+                                                        school={child.school}
+                                                    />
+                                                </Col>
                                             </CardWrapper>
                                         </div>
                                     </div>
                                 </Col>
-                                <Col size="md-2"></Col>
+                                {/* <Col size="md-2"></Col> */}
                             </Row>
                         ))}
 
                     </Container>
                     <div className="App">
                         <button onClick={this.toggleModal}>
-                            Open the modal
-                </button>
+                            Add Child
+                        </button>
 
                         <Modal show={this.state.isOpen}
                             onClose={this.toggleModal}>
-                            <AddChildCard />
+                            <AddChildCard
+                                familyName={this.props.userData.family}
+                                familyObject= {this.state.familyObject}
+                                />
                         </Modal>
                     </div>
                 </div>
