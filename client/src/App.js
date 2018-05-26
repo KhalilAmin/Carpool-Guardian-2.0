@@ -252,6 +252,8 @@ class App extends Component {
 	}
 
 
+	
+
 	// _login = logininfo => {
 
 	// 	console.log("LOGININFO", logininfo);
@@ -415,6 +417,7 @@ class App extends Component {
 						) : (
 								<Redirect to={'/'} />
 							)
+
 					)
 					}
 					/>
@@ -423,6 +426,7 @@ class App extends Component {
 				<div className="App">
 					<button onClick={this.toggleTeacherModal}>
 						SignUp as Teacher
+
 						</button>
 
 					<Modal show={this.state.teacherIsOpen}
