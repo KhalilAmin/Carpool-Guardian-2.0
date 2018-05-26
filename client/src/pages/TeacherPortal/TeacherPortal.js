@@ -28,6 +28,7 @@ class TeacherPortal extends Component {
             family: ""
         },
         foundGuardian: false,
+        confidence: 0,
         coneindex: 0
     };
 
@@ -127,7 +128,10 @@ class TeacherPortal extends Component {
                         let guardian = res.data[0].guardian.filter(item => item._id === selectedCone.queueData[0].guardian_id)[0]
 
                         
-                        this.setState({foundGuardian: true, guardian: guardian}) 
+                        this.setState({foundGuardian: true, guardian: guardian, confidence: selectedCone.queueData[0].confidence}) 
+
+
+                        console.log("CONFIDENCE", selectedCone.queueData[0].confidence)
                     })
                     .catch(err => console.log(err));
                 }
@@ -141,7 +145,8 @@ class TeacherPortal extends Component {
                         phone: "",
                         family: ""
                         },
-                    foundGuardian: false
+                    foundGuardian: false,
+                    confidence: ""
                     })
 
                     //Start listening for a driver coming in
@@ -190,13 +195,14 @@ class TeacherPortal extends Component {
                                 {this.state.foundGuardian ? (
                                     <div>
                                     <TchrPrtlCrdWrpr
-                                        cardHeading = "Parent"
                                         fName = {this.state.guardian.fName}
                                         lName = {this.state.guardian.lName}
                                         img = {this.state.guardian.img_base64}
                                         email = {this.state.guardian.email}
                                         phone = {this.state.guardian.phone}
                                         family = {this.state.guardian.family}
+                                        confidence = {this.state.confidence}
+
                                     />
                                     </div>
 
