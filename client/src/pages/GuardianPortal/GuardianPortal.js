@@ -28,7 +28,7 @@ class GuardianPortal extends Component {
 
     componentDidMount() {
         console.log("Guardian.js Componenet Called");
-        console.log(this.props.user);
+        console.log(this.props.userData);
         this.loadGuardians();
         // this.loadFamily();
         // this.loadChildren();
