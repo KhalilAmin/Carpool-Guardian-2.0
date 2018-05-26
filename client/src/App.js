@@ -205,7 +205,8 @@ class App extends Component {
 									loggedIn: true,
 									user: response.data.user,
 									email: email,
-									password: password
+									password: password,
+									userData: res.data[0]
 								})
 								// window.location = '/Temp';
 
@@ -218,6 +219,8 @@ class App extends Component {
 						.then(res => {
 							if (res.data.length > 0) {
 								//THE USER IS A TEACHER
+								console.log("THIS IS THE RES FOR TEACHER", res.data[0])
+
 								this.setState({ isTeacher: true })
 								axios.post('/auth/teacherlogin', {
 									email,
@@ -231,7 +234,8 @@ class App extends Component {
 												loggedIn: true,
 												user: response.data.user,
 												email: email,
-												password: password
+												password: password,
+												userData: res.data[0]
 											})
 											// window.location = '/Temp';
 
@@ -353,32 +357,33 @@ class App extends Component {
 
 				<Switch>
 					<Route exact path="/" render={() => (
-						this.state.loggedIn ? (
-							this.state.isTeacher ? (
-								
-								
-									<Redirect to={'/TeacherPortal'} />
-								
-							) : (
-									this.state.isGuardian ? (
-									
-										
-											<Redirect to={'/GuardianPortal'} />
-										
-									) : (
-											<Redirect to={'/'} />
-										)
-								)
-
-						) 
-						: (
-								// <Redirect to={'/'} />
-								console.log("nothing updated")
-
-							)
-					)
-					}
-					/>
+ 						this.state.loggedIn ? (
+ 							this.state.isTeacher ? (
+ 								<div>
+ 									{/* <Redirect to={'/TeacherPortal'} /> */}
+									<TeacherPortal
+									userData = {this.state.userData}
+									/>
+ 								</div>
+ 							) : (
+ 									this.state.isGuardian ? (
+ 										<div> 
+ 											{/* <Redirect to={'/GuardianPortal'} /> */}
+											 <GuardianPortal
+											 userData = {this.state.userData}/>
+ 										</div>
+ 									) : (
+ 											<Redirect to={'/'} />
+ 										)
+ 								)
+ 
+ 						) : (
+ 								<Redirect to={'/'} />
+ 
+ 							)
+ 						)
+ 						}
+ 						/>
 					<Route exact path="/login" render={() => <Login _login={this._login} />} />
 					<Route exact path="/teacherlogin" render={() => <TeacherLogin _teacherlogin={this._teacherlogin} />} />
 					<Route exact path="/teacherSignup" component={teacherSignup} />
@@ -393,18 +398,6 @@ class App extends Component {
 					)
 					}
 					/>
-					{/* <Route exact path="/TeacherPortal" component={() => (
-						this.state.loggedIn ? (
-							<TeacherPortal
-								school={this.state.user.school}
-								fName={this.state.user.fName}
-								lName={this.state.user.lName}
-								email={this.state.user.email}
-							/>
-						) : (
-								<Redirect to={'/'} />
-							)
-					) */}
 					}
 					/>
 					<Route exact path="/Parent" component={() => (

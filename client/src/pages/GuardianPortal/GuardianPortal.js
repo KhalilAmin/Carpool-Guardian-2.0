@@ -75,7 +75,7 @@ class GuardianPortal extends Component {
     render() {
         return (
             <div>
-                {/* Guardian Container */}
+                <h1>THIS IS THE GUARDIAN PORTAL</h1>
                 <div>
                     <Container>
                         <h1> Guardian Page Rendered</h1>
