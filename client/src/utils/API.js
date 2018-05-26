@@ -124,7 +124,8 @@ export default {
   },
   
   getFaceSetDetail: function (data) {
-    return axios.post("/api/db/getFaceSetDetail", data);
+    console.log(data);
+    return axios.post("/api/face/getFaceSetDetail", data);
   }
 
 };
