@@ -117,6 +117,10 @@ export default {
 
   addDriver: function (data) {
     return axios.post("/api/driver/addDriver", data);
+  },
+
+  removeFromQueue: function (data) {
+    return axios.post("/api/db/removeFromQueue", data);
   }
   
 };

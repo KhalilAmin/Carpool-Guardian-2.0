@@ -16,7 +16,7 @@ import Home from './pages/Home'
 // import Login from "./pages/Login"
 import Demo from "./pages/Demo"
 import Parent from "./pages/Parent"
-import Guardian from "./pages/GuardianPortal"
+import GuardianPortal from "./pages/GuardianPortal"
 import Temp from "./pages/Temp";
 import Nav from "./components/Nav";
 import School from "./pages/School";
@@ -27,6 +27,7 @@ import API from "./utils/API";
 import AddGuardCard from "./components/PatsTempComponents/AddGuardCard"
 import AddTeacherCard from "./components/PatsTempComponents/AddTeacherCard"
 import Modal from "./components/Modal";
+import io from "socket.io-client";
 
 
 
@@ -55,8 +56,25 @@ class App extends Component {
 		isTeacher: false,
 		user: null,
 		teacherIsOpen: false,
-		guardianIsOpen: false
+		guardianIsOpen: false,
+		//endpoint: "localhose:8080"
 	}
+
+	socket = io('localhost:8080');
+
+	sendMessage = event => {
+		event.preventDefault();
+		console.log("here")
+		this.socket.emit('SEND_MESSAGE', {
+			something: "message!!!!!!!!!!"
+		})
+	}
+
+	// send = () => {
+	// 	const socket = socketIOClient(this.state)
+
+	// 	socket.emit('change color', 'red')
+	// }
 
 	componentDidMount() {
 		axios.get('/auth/user').then(response => {
@@ -83,6 +101,14 @@ class App extends Component {
 		// 	// if (this.state.loggedIn)
 		// 		<Redirect to={'/Temp'} />
 		// })
+
+		//this.getMessage();
+	}
+
+	getMessage() {
+		this.socket.on("RECEIVE_MESSAGE", function(data) {
+			console.log("IT")
+		})
 	}
 
 	// import GuardianForm from "./components/Form/GuardianForm.js";
@@ -179,7 +205,8 @@ class App extends Component {
 									loggedIn: true,
 									user: response.data.user,
 									email: email,
-									password: password
+									password: password,
+									userData: res.data[0]
 								})
 								// window.location = '/Temp';
 
@@ -192,6 +219,8 @@ class App extends Component {
 						.then(res => {
 							if (res.data.length > 0) {
 								//THE USER IS A TEACHER
+								console.log("THIS IS THE RES FOR TEACHER", res.data[0])
+
 								this.setState({ isTeacher: true })
 								axios.post('/auth/teacherlogin', {
 									email,
@@ -205,7 +234,8 @@ class App extends Component {
 												loggedIn: true,
 												user: response.data.user,
 												email: email,
-												password: password
+												password: password,
+												userData: res.data[0]
 											})
 											// window.location = '/Temp';
 
@@ -302,8 +332,22 @@ class App extends Component {
 
 
 	render() {
+
+		// const socket = socketIOClient(this.state.endpoint)
+
+		// socket.on('change color', (color) => {
+		// 	document.body.style.backgroundColor = color
+		// })
+
+
 		return (
 			<div className="App">
+
+				{/* <div style={{ textAlign: "center" }}>
+					<button onClick={() => this.send()}>Change Color</button>
+				</div> */}
+
+
 				<h1>Carpool Guardian 2.0</h1>
 				<Header user={this.state.user} />
 				{/* LINKS to our different 'pages' */}
@@ -315,79 +359,74 @@ class App extends Component {
 
 				<Switch>
 					<Route exact path="/" render={() => (
+ 						this.state.loggedIn ? (
+ 							this.state.isTeacher ? (
+ 								<div>
+ 									{/* <Redirect to={'/TeacherPortal'} /> */}
+									<TeacherPortal
+									userData = {this.state.userData}
+									/>
+ 								</div>
+ 							) : (
+ 									this.state.isGuardian ? (
+ 										<div> 
+ 											{/* <Redirect to={'/GuardianPortal'} /> */}
+											 <GuardianPortal
+											 userData = {this.state.userData}/>
+ 										</div>
+ 									) : (
+ 											<Redirect to={'/'} />
+ 										)
+ 								)
+ 
+ 						) : (
+ 								<Redirect to={'/'} />
+ 
+ 							)
+ 						)
+ 						}
+ 						/>
+					<Route exact path="/login" render={() => <Login _login={this._login} />} />
+					<Route exact path="/teacherlogin" render={() => <TeacherLogin _teacherlogin={this._teacherlogin} />} />
+					<Route exact path="/teacherSignup" component={teacherSignup} />
+					<Route exact path="/guardianSignup" component={guardianSignup} />
+					<Route exact path="/School" component={School} />
+					<Route exact path="/Demo" component={() => (
 						this.state.loggedIn ? (
-							this.state.isTeacher ? (
-								<div>
-
-									<Redirect to={'/TeacherPortal'} />
-									<h1>RIKKY</h1>
-									{/* <Redirect to={'/TeacherPortal'}/> */}
-								</div>
-							) : (
-									this.state.isGuardian ? (
-										<div>
-											<h1>IKKY</h1>
-											<Redirect to={'/GuardianPortal'} />
-										</div>
-									) : (
-											<Redirect to={'/'} />
-										)
-								)
-
+							<Demo />
 						) : (
 								<Redirect to={'/'} />
-
 							)
-						)
-						}
-						/>
-						<Route exact path="/login" render={() => <Login _login={this._login} />} />
-						<Route exact path="/teacherlogin" render={() => <TeacherLogin _teacherlogin={this._teacherlogin} />} />
-						<Route exact path="/teacherSignup" component={teacherSignup} />
-						<Route exact path="/schools" component={School} />
-						<Route exact path="/guardianSignup" component={guardianSignup} />
-						<Route exact path="/School" component={School} />
-						<Route exact path="/Demo" component={() => (
-							this.state.loggedIn ? (
-								<Demo />
-							) : (
-									<Redirect to={'/'} />
-								)
-						)
-						}
-						/>
-						<Route exact path="/TeacherPortal" component={() => (
-							this.state.loggedIn ? (
-								<TeacherPortal />
-							) : (
-									<Redirect to={'/'} />
-								)
-						)
-						}
-						/>
-						<Route exact path="/Parent" component={() => (
-							this.state.loggedIn ? (
-								<Parent />
-							) : (
-									<Redirect to={'/'} />
-								)
-						)
-						}
-						/>
-						<Route exact path="/Temp" component={() => (
-							this.state.loggedIn ? (
-								<Temp />
-							) : (
-									<Redirect to={'/'} />
-								)
-						)
-						}
-						/>
-						
-					</Switch>
-					<div className="App">
-						<button onClick={this.toggleTeacherModal}>
-							SignUp as Teacher
+					)
+					}
+					/>
+					}
+					/>
+					<Route exact path="/Parent" component={() => (
+						this.state.loggedIn ? (
+							<Parent />
+						) : (
+								<Redirect to={'/'} />
+							)
+					)
+					}
+					/>
+					<Route exact path="/Temp" component={() => (
+						this.state.loggedIn ? (
+							<Temp />
+						) : (
+								<Redirect to={'/'} />
+							)
+
+					)
+					}
+					/>
+
+				</Switch>
+				<div className="App">
+					<button onClick={this.toggleTeacherModal}>
+						SignUp as Teacher
+
 						</button>
 
 					<Modal show={this.state.teacherIsOpen}

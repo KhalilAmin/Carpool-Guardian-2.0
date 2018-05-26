@@ -65,7 +65,8 @@ class AddSchoolCard extends Component {
                 API.addCone({
                     schoolName: this.state.schoolName,
                     cone: {
-                      coneName: this.state.schoolName + "Cone" + (i + 1) 
+                      coneName: this.state.schoolName + "Cone" + (i + 1),
+                      schoolName: this.state.schoolName
                     }
                 })
             }

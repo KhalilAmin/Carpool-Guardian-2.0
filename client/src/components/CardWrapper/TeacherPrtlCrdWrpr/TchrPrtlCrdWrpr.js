@@ -9,7 +9,7 @@ const moment = require('moment');
 
 const TchrPrtlCrdWrpr = props => {
   // make this array = to the incoming data from the database
-  let PERSONS = [
+  let PERSON = [
     {
       id: '00',
       fName: 'Ivelise The Incradible',
@@ -95,39 +95,29 @@ const TchrPrtlCrdWrpr = props => {
       date: moment().format('MM-DD-YYYY  HH:mm:ss')
     }
   ];
+
+  console.log(props)
   return (
     < div className="" style={{ backgroundColor: 'lightblue', margin: 'auto' }
     }>
 
-      {
-        PERSONS.map(person =>
-
-          <div class='container'>
+      {   <div class='container'>
             <div class='row'>
-              <div style={{ display: 'none' }}>{person.cardHeading = "Parent / Guardian"}</div>   {/* this is hidden so cardHeading can be set to "Parent/Guardian" */}
+              <div style={{ display: 'none' }}>{props.cardHeading}</div>   {/* this is hidden so cardHeading can be set to "Parent/Guardian" */}
               <div class='col-md-12'>
-                <TchrCardHeading cardHeading={person.cardHeading} />      {/*heading is now a variable.  Can be switched to props if desired*/}
+                <TchrCardHeading cardHeading={props.cardHeading} />      {/*heading is now a variable.  Can be switched to props if desired*/}
               </div>
             </div>
             <div class='row'>
               <div class='col-md-4'>
-                < ImageComponent name={person.fName} image_heading={person.image_heading} image={person.image} />
+                < ImageComponent name={props.fName} img={props.img} />
               </div>
               <div class='col-md-1'></div>
               <div class='col-md-7'>
-                <TchrCardGuardianInfo fName={person.fName} lName={person.lName} email={person.email} phone={person.phone} family={person.family} credentials={person.credentials} bio={person.bio} date={person.date} />
+                <TchrCardGuardianInfo fName={props.fName} lName={props.lName} email={props.email} phone={props.phone} family={props.family} />
               </div>
             </div>
           </div>
-
-
-
-
-
-
-
-
-        )
       }
     </div >
   );
