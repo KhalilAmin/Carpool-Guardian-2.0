@@ -16,7 +16,7 @@ import Home from './pages/Home'
 // import Login from "./pages/Login"
 import Demo from "./pages/Demo"
 import Parent from "./pages/Parent"
-import Guardian from "./pages/GuardianPortal"
+import GuardianPortal from "./pages/GuardianPortal"
 import Temp from "./pages/Temp";
 import Nav from "./components/Nav";
 import School from "./pages/School";
@@ -355,81 +355,81 @@ class App extends Component {
 					<Route exact path="/" render={() => (
 						this.state.loggedIn ? (
 							this.state.isTeacher ? (
-								<div>
-
+								
+								
 									<Redirect to={'/TeacherPortal'} />
-									<h1>RIKKY</h1>
-									{/* <Redirect to={'/TeacherPortal'}/> */}
-								</div>
+								
 							) : (
 									this.state.isGuardian ? (
-										<div>
-											<h1>IKKY</h1>
+									
+										
 											<Redirect to={'/GuardianPortal'} />
-										</div>
+										
 									) : (
 											<Redirect to={'/'} />
 										)
 								)
 
-						) : (
-								<Redirect to={'/'} />
+						) 
+						: (
+								// <Redirect to={'/'} />
+								console.log("nothing updated")
 
 							)
-						)
-						}
-						/>
-						<Route exact path="/login" render={() => <Login _login={this._login} />} />
-						<Route exact path="/teacherlogin" render={() => <TeacherLogin _teacherlogin={this._teacherlogin} />} />
-						<Route exact path="/teacherSignup" component={teacherSignup} />
-						<Route exact path="/guardianSignup" component={guardianSignup} />
-						<Route exact path="/School" component={School} />
-						<Route exact path="/Demo" component={() => (
-							this.state.loggedIn ? (
-								<Demo />
-							) : (
-									<Redirect to={'/'} />
-								)
-						)
-						}
-						/>
-						<Route exact path="/TeacherPortal" component={() => (
-							this.state.loggedIn ? (
-								<TeacherPortal 
-									school= {this.state.user.school}
-									fName = {this.state.user.fName}
-									lName = {this.state.user.lName}
-									email = {this.state.user.email}
-								/>
-							) : (
-									<Redirect to={'/'} />
-								)
-						)
-						}
-						/>
-						<Route exact path="/Parent" component={() => (
-							this.state.loggedIn ? (
-								<Parent />
-							) : (
-									<Redirect to={'/'} />
-								)
-						)
-						}
-						/>
-						<Route exact path="/Temp" component={() => (
-							this.state.loggedIn ? (
-								<Temp />
-							) : (
-									<Redirect to={'/'} />
-								)
-						)
-						}
-						/>
-						
-					</Switch>
-					<div className="App">
-						<button onClick={this.toggleTeacherModal}>
-							SignUp as Teacher
+					)
+					}
+					/>
+					<Route exact path="/login" render={() => <Login _login={this._login} />} />
+					<Route exact path="/teacherlogin" render={() => <TeacherLogin _teacherlogin={this._teacherlogin} />} />
+					<Route exact path="/teacherSignup" component={teacherSignup} />
+					<Route exact path="/guardianSignup" component={guardianSignup} />
+					<Route exact path="/School" component={School} />
+					<Route exact path="/Demo" component={() => (
+						this.state.loggedIn ? (
+							<Demo />
+						) : (
+								<Redirect to={'/'} />
+							)
+					)
+					}
+					/>
+					{/* <Route exact path="/TeacherPortal" component={() => (
+						this.state.loggedIn ? (
+							<TeacherPortal
+								school={this.state.user.school}
+								fName={this.state.user.fName}
+								lName={this.state.user.lName}
+								email={this.state.user.email}
+							/>
+						) : (
+								<Redirect to={'/'} />
+							)
+					) */}
+					}
+					/>
+					<Route exact path="/Parent" component={() => (
+						this.state.loggedIn ? (
+							<Parent />
+						) : (
+								<Redirect to={'/'} />
+							)
+					)
+					}
+					/>
+					<Route exact path="/Temp" component={() => (
+						this.state.loggedIn ? (
+							<Temp />
+						) : (
+								<Redirect to={'/'} />
+							)
+					)
+					}
+					/>
+
+				</Switch>
+				<div className="App">
+					<button onClick={this.toggleTeacherModal}>
+						SignUp as Teacher
 						</button>
 
 					<Modal show={this.state.teacherIsOpen}
