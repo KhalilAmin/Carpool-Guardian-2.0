@@ -102,6 +102,7 @@ module.exports = {
     },
 
     searchFace: function (req, res) {
+        console.log("WE WILL SEARCH THE FACE")
         axios({
         method: "post",
         url: 'https://api-us.faceplusplus.com/facepp/v3/search', 
@@ -111,6 +112,25 @@ module.exports = {
                 image_base64: req.body.image_base64,
                 faceset_token: req.body.faceset_token,
                 return_result_count: 1
+            })
+        })
+        .then(function (response) {
+            console.log(response);
+            res.send(response.data.results[0])
+        })
+        .catch(function (error) {
+            console.log(error);
+        });    
+    },
+
+    getFaceSetDetail: function (req, res) {
+        axios({
+        method: "post",
+        url: 'https://api-us.faceplusplus.com/facepp/v3/faceset/getdetail', 
+            data: qs.stringify({
+                api_key: api_key,
+                api_secret: api_secret,
+                faceset_token: req.body.faceset_token,
             })
         })
         .then(function (response) {

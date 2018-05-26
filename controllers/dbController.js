@@ -49,14 +49,12 @@ module.exports = {
   },
 
   getFamily: function(req, res) {
-    console.log("THIS IS THE REQ BODY FOR FAMILY", req.body);
 
     db.models.Family
       .find(req.body)
       .populate("guardian")
       .populate("child")
       .then(dbModel => {
-        console.log("THIS IS THE DB MODEL FOR FAMILY", dbModel);
         res.json(dbModel)
       })
       .catch(err => res.status(422).json(err));

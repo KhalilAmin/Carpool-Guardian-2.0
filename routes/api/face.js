@@ -21,4 +21,7 @@ router.route("/addFace")
 router.route("/searchFace")
   .post(faceController.searchFace);
 
+router.route("/getFaceSetDetail")
+  .post(faceController.getFaceSetDetail);
+
 module.exports = router;
