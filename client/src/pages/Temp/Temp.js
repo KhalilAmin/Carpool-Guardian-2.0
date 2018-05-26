@@ -21,6 +21,7 @@ class Temp extends Component {
     search_faceset_token: "",
     result_face_token: "",
     result_confidence: 0,
+    detail_faceset_token: "",
     
   };
 
@@ -127,6 +128,20 @@ class Temp extends Component {
           result_confidence: res.data.confidence
           });
       })
+  }
+
+  handleGetFaceSetDetail = event => {
+    event.preventDefault();
+
+    API.getFaceSetDetail({
+      faceset_token: this.state.detail_faceset_token
+    })
+    .then(res => {
+      console.log("DETAIL RETURNS THIS", res.data);
+      this.setState({
+        result_faceset_detail: res.data
+      })
+    })
   }
 
   handleAddFamily = event => {
@@ -360,6 +375,38 @@ class Temp extends Component {
                 </div>
             </div>
           </Col>
+        </Row>
+        <Row>
+          <Col size="md-4">
+              <div className="panel panel-default" style={{height:"250px"}}>
+                <div className="panel-heading">
+                  <h3 className="panel-title">FaceSet Detail</h3>
+                </div>
+                <div className="panel-body">
+                  <div>
+                    {this.state.result_faceset_detail ? (
+                      <small>Face Set Detail: {this.state.result_faceset_detail}</small>
+                    ) : (
+                      <div>
+                        <div className="form-group">              
+                          <Input className="form-control"
+                          value={this.state.detail_faceset_token}
+                          onChange={this.handleInputChange}
+                          name="detail_faceset_token"
+                          placeholder="Enter faceset token to be detailed"
+                          />
+                        </div>
+                        <FormBtn
+                          onClick={this.handleGetFaceSetDetail}
+                        >
+                          FaceSet Detail
+                        </FormBtn>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </Col>
         </Row>
       </Container>
      );
