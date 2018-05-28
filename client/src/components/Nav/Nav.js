@@ -31,7 +31,7 @@ const Nav = props => {
 						</Link>
 					</li>
 					<li className="nav-item">
-						<Link to="/schools" className="nav-link">
+						<Link to="/Schools" className="nav-link">
 							Schools
 						</Link>
 					</li>
@@ -82,11 +82,11 @@ const Nav = props => {
 							Teacher Login
 						</Link>
 					</li> */}
-					<li className="nav-item">
-						<Link to="/schools" className="nav-link">
+					{/* <li className="nav-item">
+						<Link to="/Schools" className="nav-link">
 							Schools
 						</Link>
-					</li>
+					</li> */}
 					{/* <li className="nav-item">
 						<Link to="/guardianSignup" className="nav-link">
 							Guardian Signup
