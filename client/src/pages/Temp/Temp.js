@@ -140,9 +140,9 @@ class Temp extends Component {
       faceset_token: this.state.detail_faceset_token
     })
     .then(res => {
-      console.log("DETAIL RETURNS THIS", res.data.face_tokens);
+      console.log("DETAIL RETURNS THIS", res.data);
       this.setState({
-        result_faceset_detail: res.data.face_tokens
+        result_faceset_detail: res.data
       })
     })
   }

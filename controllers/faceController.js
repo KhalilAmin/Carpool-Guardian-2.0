@@ -135,7 +135,7 @@ module.exports = {
             })
         })
         .then(function (response) {
-            res.send(response.data)
+            res.send(response.data.face_tokens)
         })
         .catch(function (error) {
             console.log(error);
