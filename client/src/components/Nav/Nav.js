@@ -31,7 +31,7 @@ const Nav = props => {
 						</Link>
 					</li>
 					<li className="nav-item">
-						<Link to="/Schools" className="nav-link">
+						<Link to="/School" className="nav-link">
 							Schools
 						</Link>
 					</li>
@@ -41,22 +41,6 @@ const Nav = props => {
 							Logout
 						</Link>
 					</li>
-					{/* <li className="nav-item">
-						<Link to="/Demo" className="nav-link">
-							Demo
-						</Link>
-					</li>
-					<li className="nav-item">
-						<Link to="/Temp" className="nav-link">
-							Temp
-						</Link>
-					</li>
-					<li className="nav-item">
-						<Link to="/School" className="nav-link">
-							School
-						</Link>
-					</li>
-					 */}
 				</ul>
 			</nav>
 		)
@@ -69,29 +53,6 @@ const Nav = props => {
 							Login
 						</Link>
 					</li>
-					{/* <li className="nav-item">
-						<Link to="/Demo" className="nav-link">
-							Demo
-							<button>
-								Login
-							</button>
-						</Link>
-					</li>
-					{/* <li className="nav-item">
-						<Link to="/teacherlogin" className="nav-link">
-							Teacher Login
-						</Link>
-					</li> */}
-					{/* <li className="nav-item">
-						<Link to="/Schools" className="nav-link">
-							Schools
-						</Link>
-					</li> */}
-					{/* <li className="nav-item">
-						<Link to="/guardianSignup" className="nav-link">
-							Guardian Signup
-						</Link>
-					</li> */}
 				</ul>
 			</nav>
 		)

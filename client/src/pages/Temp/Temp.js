@@ -22,6 +22,9 @@ class Temp extends Component {
     result_face_token: "",
     result_confidence: 0,
     detail_faceset_token: "",
+    remove_faceset_token: "",
+    remove_face_token: "",
+    removed_face_token: ""
     
   };
 
@@ -143,6 +146,23 @@ class Temp extends Component {
       })
     })
   }
+
+  handleRemoveFaceToken = event => {
+    event.preventDefault();
+
+    API.removeFaceToken({
+
+      faceset_token: this.state.remove_faceset_token,
+      face_token: this.state.remove_face_token
+    })
+    .then(res => {
+      console.log("REMOVE RETURNS THIS", res.data);
+      this.setState({
+        removed_faceset_token: res.data.faceset_token
+      })
+    })
+  }
+
 
   handleAddFamily = event => {
     event.preventDefault();
@@ -407,6 +427,44 @@ class Temp extends Component {
                 </div>
               </div>
             </Col>
+            <Col size="md-4">
+            <div className="panel panel-default" style={{height:"250px"}}>
+              <div className="panel-heading">
+                <h3 className="panel-title">Remove Face</h3>
+              </div>
+              <div className="panel-body">
+                <div>
+                  {this.state.removed_face_token > 0 ? (
+                    <small>Face Removed: {this.state.removed_faceset_token}</small>
+                  ) : (
+                    <div>
+                      <div className="form-group">              
+                        <Input className="form-control"
+                        value={this.state.remove_faceset_token}
+                        onChange={this.handleInputChange}
+                        name="remove_faceset_token"
+                        placeholder="Enter faceset_token"
+                        />
+                        <small className="form-text text-muted">This is the token of the faceset that you created.</small>
+                        <Input className="form-control"
+                          value={this.state.remove_face_token}
+                          onChange={this.handleInputChange}
+                          name="remove_face_token"
+                          placeholder="Enter face_token"
+                        />
+                        <small className="form-text text-muted">This is the token of the face.</small>
+                      </div>
+                      <FormBtn
+                        onClick={this.handleRemoveFaceToken}
+                      >
+                        Remove Face
+                      </FormBtn>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </Col>
         </Row>
       </Container>
      );

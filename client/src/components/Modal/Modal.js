@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Button from '@material-ui/core/Button';
 
 class Modal extends React.Component {
   render() {
@@ -35,9 +36,9 @@ class Modal extends React.Component {
           {this.props.children}
 
           <div className="footer">
-            <button onClick={this.props.onClose}>
+            <Button onClick={this.props.onClose} variant="raised" color="primary">
               Close
-            </button>
+            </Button>
           </div>
         </div>
       </div>
