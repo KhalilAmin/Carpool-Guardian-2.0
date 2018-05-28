@@ -24,4 +24,7 @@ router.route("/searchFace")
 router.route("/getFaceSetDetail")
   .post(faceController.getFaceSetDetail);
 
+router.route("/removeFaceToken")  
+  .post(faceController.removeFaceToken);
+
 module.exports = router;

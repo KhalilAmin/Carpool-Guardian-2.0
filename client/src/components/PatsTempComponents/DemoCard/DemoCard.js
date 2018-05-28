@@ -125,7 +125,7 @@ class DemoCard extends Component {
         let schoolID = schoolresult.data[0]._id;
         let faceSetToken = schoolresult.data[0].faceSetToken
 
-        console.log("DEMO: School returned -", schoolresult.schoolName)
+        console.log("DEMO: School returned -", schoolresult.data[0].schoolName)
         //Next we compare this face image with other faces in this schools' faceset
         API.searchFace({
             image_base64: this.state.image_base64,

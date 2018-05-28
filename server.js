@@ -66,3 +66,5 @@ const server = app.listen(PORT, function () {
 	  })
   })
   
+  //PUT THIS INTO package.json to go back to local
+  //"start": "concurrently \"nodemon server.js\" \"npm run client\"",
