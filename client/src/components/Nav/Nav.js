@@ -34,18 +34,22 @@ const Nav = props => {
 				</ul>
 			</nav>
 		)
+	} else if (props.loggedIn) {
+		return (
+			<nav className="navbar">
+				<ul className="nav">
+				<li>
+						<Link to="#" className="nav-link" onClick={props._logout}>
+							Logout
+						</Link>
+					</li>
+				</ul>
+			</nav>
+			
+		)
 	} else {
 		return (
-			// <nav className="navbar">
-			// 	<ul className="nav">
-			// 	<li>
-			// 			<Link to="#" className="nav-link" onClick={props._logout}>
-			// 				Logout
-			// 			</Link>
-			// 		</li>
-			// 	</ul>
-			// </nav>
-			<h1> Welcome to Hell!!!</h1>
+			<h1>Derp Derp MFer's </h1>
 		)
 	}
 }

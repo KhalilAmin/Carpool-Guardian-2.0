@@ -37,7 +37,7 @@ class App extends Component {
 		isTeacher: false,
 		user: null,
 		teacherIsOpen: false,
-		guardianIsOpen: false,
+		guardianIsOpen: false
 		//endpoint: "localhose:8080"
 	}
 
@@ -83,17 +83,17 @@ class App extends Component {
 	}
 
 
-	toggleTeacherModal = () => {
-		this.setState({
-			teacherIsOpen: !this.state.teacherIsOpen
-		});
-	}
+	// toggleTeacherModal = () => {
+	// 	this.setState({
+	// 		teacherIsOpen: !this.state.teacherIsOpen
+	// 	});
+	// }
 
-	toggleGuardianModal = () => {
-		this.setState({
-			guardianIsOpen: !this.state.guardianIsOpen
-		});
-	}
+	// toggleGuardianModal = () => {
+	// 	this.setState({
+	// 		guardianIsOpen: !this.state.guardianIsOpen
+	// 	});
+	// }
 
 
 	_logout = event => {
@@ -267,7 +267,7 @@ class App extends Component {
 					/>
 
 				</Switch>
-				<div className="App">
+				{/* <div className="App">
 					<button onClick={this.toggleTeacherModal}>
 						SignUp as Teacher
 						</button>
@@ -286,7 +286,7 @@ class App extends Component {
 						onClose={this.toggleGuardianModal}>
 						<AddGuardCard />
 					</Modal>
-				</div>
+				</div> */}
 
 			</div>
 		)
