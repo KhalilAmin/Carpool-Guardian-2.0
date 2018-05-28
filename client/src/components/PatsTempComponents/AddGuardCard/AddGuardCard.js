@@ -177,7 +177,6 @@ class AddGuardCard extends Component {
                                     value={this.state.familyName}
                                     onChange={this.handleInputChange}
                                     name="familyName"
-                                    pattern="/\d{3}-\d{3}-\d{4}/"
                                     label="Enter Family"
                                     placeholder="Family"
                                 />
@@ -195,7 +194,6 @@ class AddGuardCard extends Component {
                                     onChange={this.handleInputChange}
                                     name="password"
                                     type="password"
-                                    pattern="/\d{3}-\d{3}-\d{4}/"
                                     label="Enter Password"
                                     placeholder="Password"
                                 />
@@ -213,7 +211,6 @@ class AddGuardCard extends Component {
                                     onChange={this.handleInputChange}
                                     name="confirm"
                                     type="password"
-                                    pattern="/\d{3}-\d{3}-\d{4}/"
                                     label="Confirm Password"
                                     placeholder="Confirm Password"
                                 />

@@ -128,7 +128,6 @@ class AddTeacherCard extends Component {
                                     type="password"
                                     label="Enter Teacher Password"
                                     placeholder="Password"
-                                    pattern="/\d{3}-\d{3}-\d{4}/"
                                 />
                             </Grid>
                         </Grid>
@@ -144,7 +143,6 @@ class AddTeacherCard extends Component {
                                     onChange={this.handleInputChange}
                                     name="confirm"
                                     type="password"
-                                    pattern="/\d{3}-\d{3}-\d{4}/"
                                     label="Confirm Password"
                                     placeholder="Confirm Password"
                                 />
