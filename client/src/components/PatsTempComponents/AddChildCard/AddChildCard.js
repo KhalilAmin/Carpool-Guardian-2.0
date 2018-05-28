@@ -9,7 +9,7 @@ import Person from '@material-ui/icons/Person';
 import Email from '@material-ui/icons/Email';
 import Phone from '@material-ui/icons/Phone';
 import LocalLibrary from '@material-ui/icons/LocalLibrary';
-
+import Security from '@material-ui/icons/Security';
 
 class AddChildCard extends Component {
     state = {
@@ -205,7 +205,7 @@ class AddChildCard extends Component {
 
                         <Grid container spacing={8} alignItems="flex-end">
                             <Grid item>
-                                <Security />
+                                <Security/>
                             </Grid>
                             <Grid item sm={10}>
                                 <Input
