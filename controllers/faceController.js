@@ -124,6 +124,7 @@ module.exports = {
     },
 
     getFaceSetDetail: function (req, res) {
+        console.log("getFaceDetailed API called", req);
         axios({
         method: "post",
         url: 'https://api-us.faceplusplus.com/facepp/v3/faceset/getdetail', 
@@ -134,6 +135,7 @@ module.exports = {
             })
         })
         .then(function (response) {
+            console.log("getFaceDetailed then");
             res.send(response.data.face_tokens)
         })
         .catch(function (error) {
