@@ -52,15 +52,15 @@ class AddChildCard extends Component {
         for (let i = 0; i < this.props.familyObject.guardian.length; i++) {
             faceTokenCompare.push(this.props.familyObject.guardian[i].face_token);
         };
+        console.log("faceTokenCompare = ", faceTokenCompare );
         //check to see if the school exists and if so pull back faceSetToken
         API.getSchool({
             schoolName: this.state.schoolName
         })
             .then(schoolresult => {
-                console.log("School Exists")
-                console.log(schoolresult.data[0].faceSetToken)
+                console.log("School Exists ",schoolresult.data[0].faceSetToken)
                 let faceSetToken = schoolresult.data[0].faceSetToken;
-                this.callFaceDetail(faceSetToken)
+                this.callFaceDetail(faceSetToken,faceTokenCompare )
             })
             .catch(err => this.setState({
                 error: true,
@@ -68,41 +68,36 @@ class AddChildCard extends Component {
             }))
     };
 
-    callFaceDetail = faceSetToken => {
-        console.log("get FaceSetDetailCalled");
+    callFaceDetail = (faceSetToken, faceTokenCompare) => {
+        console.log("get FaceSetDetailCalled", faceSetToken);
+        console.log("get faceTokenCompare", faceTokenCompare);
         API.getFaceSetDetail({
-            faceset_token: this.faceSetToken
+            faceset_token: faceSetToken
         })
             .then(faceSetResult => {
-                console.log(faceSetResult.data)
-                let addToFaceSet = String;
+                console.log("face Detail result: ", faceSetResult.data)
+                let addToFaceSet = "";
                 //loop over face tokens
-                for (let x = 0; x < this.faceTokenCompare.length; x++) {
+                console.log("faceTokenCompare.length = ", faceTokenCompare.length );
+                for (let x = 0; x < faceTokenCompare.length; x++) {
+                    console.log("entering for loop of face details");
+                    console.log(faceSetResult.data.indexOf(faceTokenCompare[x]));
                     // check to see if tockens are in the faceSet
-                    if (faceSetResult.indexOf(this.faceTokenCompare[x]) === -1) {
+                    if (faceSetResult.data.indexOf(faceTokenCompare[x]) === -1) {
+                        console.log("index of faceset: ", faceSetResult.data.indexOf(faceTokenCompare[x]))
                         if (addToFaceSet.length === 0) {
-                            addToFaceSet = this.faceTokenCompare[x];
+                            addToFaceSet = faceTokenCompare[x];
+                            console.log("faceSet to add 1: ", addToFaceSet);
                         } else {
-                            addToFaceSet += ',', this.faceTokenCompare[x];
+                            addToFaceSet += ','+ faceTokenCompare[x];
+                            console.log("faceSet to add +: ", addToFaceSet);
                         }
-                        console.log("faceSet to add", addToFaceSet);
+                        
                         //add new list of missing faces to face setID of school
-                        API.addFace({
-                            faceset_token: this.state.add_faceset_token,
-                            face_token: this.state.addToFaceSet
-                        })
-                            .then(res => {
-                                console.log("face set added: ", res.data);
-                                this.setState({ face_added: res.data.face_added })
-                            })
-                            .catch(err => this.setState({
-                                error: true,
-                                errorCode: err
-                            }))
-                    }
+                    } 
                 }
                 //finally add child to db
-                this.addChildToDb();
+                this.addface(faceSetToken, addToFaceSet);
 
             })
             .catch(err => this.setState({
@@ -110,6 +105,23 @@ class AddChildCard extends Component {
                 errorCode: err
             }))
     };
+
+    addface = (faceSetToken, addToFaceSet) => {
+        console.log("add face called");
+        API.addFace({
+            faceset_token: faceSetToken,
+            face_token: addToFaceSet
+        })
+            .then(res => {
+                console.log("face set added: ", res.data);
+                this.setState({ face_added: res.data.face_added })
+                this.addChildToDb();
+            })
+            .catch(err => this.setState({
+                error: true,
+                errorCode: err
+            }))
+    }
 
     addChildToDb = event => {
         API.addChild({
