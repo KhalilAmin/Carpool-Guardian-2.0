@@ -124,8 +124,11 @@ export default {
   },
   
   getFaceSetDetail: function (data) {
-    console.log(data);
     return axios.post("/api/face/getFaceSetDetail", data);
+  },
+
+  removeFaceToken: function (data) {
+    return axios.post("/api/face/removeFaceToken", data);
   }
 
 };
