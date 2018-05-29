@@ -57,7 +57,8 @@ class AddChildCard extends Component {
         for (let i = 0; i < this.props.familyObject.guardian.length; i++) {
             faceTokenCompare.push(this.props.familyObject.guardian[i].face_token);
         };
-        console.log("faceTokenCompare = ", faceTokenCompare);
+        console.log("faceTokenCompare = ", faceTokenCompare );
+        console.log("HERE IS THE SCHOOLNAME AFTER GET SCHOOL", this.state.schoolName)
         //check to see if the school exists and if so pull back faceSetToken
         API.getSchool({
             schoolName: this.state.schoolName
@@ -140,6 +141,9 @@ class AddChildCard extends Component {
                 grade: this.state.grade,
                 schoolName: this.state.schoolName,
             }
+        })
+        .then(res => {
+            this.props.loadChildren(this.props.familyName);
         })
     };
 
@@ -263,7 +267,6 @@ class AddChildCard extends Component {
                                     onChange={this.handleInputChange}
                                     name="phone"
                                     pattern="/\d{3}-\d{3}-\d{4}/"
-                                    type="number"
                                     label="Enter Phone Number"
                                     placeholder="Phone Number"
                                 />

@@ -183,6 +183,7 @@ class GuardianPortal extends Component {
                             <AddChildCard
                                 familyName={this.props.userData.family}
                                 familyObject= {this.state.familyObject}
+                                loadChildren={this.loadChildren}
                                 />
                         </Modal>
                     </div>

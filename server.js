@@ -39,12 +39,10 @@ app.use(bodyParser.json({ limit: '3mb' }));
 app.use(express.static("client/public"));
 // Add routes, both API and view
 
-//SERVER
 // app.get("*", (req, res) => {  
 //     res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 // });
 
-//SELF SERVE
 app.get("*", (req, res) => {  
     res.sendFile(path.join(__dirname, "client", "public", "index.html"));
 });

@@ -71,6 +71,9 @@ class AddSchoolCard extends Component {
                 })
             }
         })
+        .then (res => {
+            this.props.loadSchools();
+        })
     })
   };
 
