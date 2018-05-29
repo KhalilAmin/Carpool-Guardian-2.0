@@ -1,7 +1,7 @@
 import React from "react";
 import { Redirect, Route, Link } from 'react-router-dom'
 import "./nav.css";
-
+var kidsMom = require('./kidsMom.jpg')
 
 
 const Nav = props => {
@@ -48,7 +48,9 @@ const Nav = props => {
 		)
 	} else {
 		return (
-			<h1>Derp Derp MFer's </h1>
+			// <h1>Derp Derp MFer's </h1>
+			
+			<img src={ kidsMom } />
 		)
 	}
 }
