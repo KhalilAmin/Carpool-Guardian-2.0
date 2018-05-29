@@ -1,10 +1,5 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
-
-// import React, { Component } from "react";
-import { Col, Row, Container } from "../../components/Grid";
-import API from "../../utils/API";
-import { Input, FormBtn} from "../../components/Form";
 import "./login.css";
 
 class Login extends Component {
@@ -41,7 +36,6 @@ class Login extends Component {
 		
 		if (this.state.loggedIn) {
 			return <Redirect to="/Temp" />
-			console.log(this.state)
 		} else {
 			return (
 				<div className="Login">
