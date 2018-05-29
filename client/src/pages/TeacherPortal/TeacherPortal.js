@@ -1,10 +1,7 @@
 import React, { Component } from "react";
 import API from "../../utils/API";
 import { Col, Row, Container } from "../../components/Grid";
-import Modal from "../../components/Modal";
-import InfoCard from "../../components/PatsTempComponents/InfoCard";
 import ImageCard from "../../components/PatsTempComponents/ImageCard";
-import Dropdown from "../../components/PatsTempComponents/Dropdown";
 import CardWrapper from "../../components/PatsTempComponents/CardWrapper";
 import InfoCardG from "../../components/PatsTempComponents/InfoCardG";
 import InfoCardC from "../../components/PatsTempComponents/InfoCardC";

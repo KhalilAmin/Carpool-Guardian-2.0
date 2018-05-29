@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect, Route, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import "./nav.css";
 var kidsMom = require('./kidsMom.jpg')
 

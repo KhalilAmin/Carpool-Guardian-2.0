@@ -50,7 +50,7 @@ export default class TopBar extends React.Component {
     render() {
         return (
             <div>
-                <Navbar color="faded" light expand="md">
+                <Navbar  color="faded" light expand="md">
                     <NavbarBrand href="/" className="navText">Carpool Guardian 2.0</NavbarBrand>
                     <NavbarToggler onClick={this.toggle} />
                     <Collapse isOpen={this.state.isOpen} navbar>
