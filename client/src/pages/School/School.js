@@ -12,7 +12,8 @@ class School extends Component {
 
     state = {
         schools: [],
-        isOpen: false
+        isOpen: false,
+        refresh: false
     };
 
 
@@ -23,7 +24,7 @@ class School extends Component {
   loadSchools = () => {
       API.getSchool()
         .then(res => {
-            this.setState( {schools: res.data})
+            this.setState( {schools: res.data, refresh: false})
             console.log(this.state.schools)
         }
         )
@@ -82,12 +83,12 @@ class School extends Component {
             </Container>
             <div className="App">
                 <button onClick={this.toggleModal}>
-                Open the modal
+                Add School
                 </button>
 
                 <Modal show={this.state.isOpen}
                 onClose={this.toggleModal}>
-                    <AddSchoolCard/>
+                    <AddSchoolCard loadSchools={this.loadSchools}/>
                 </Modal>
             </div>
         </div>

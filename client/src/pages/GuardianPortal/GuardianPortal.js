@@ -179,10 +179,15 @@ class GuardianPortal extends Component {
                         </button>
 
                         <Modal show={this.state.isOpen}
-                            onClose={this.toggleModal}>
+                            // onClose={this.toggleModal}
+                            >
+
                             <AddChildCard
                                 familyName={this.props.userData.family}
                                 familyObject= {this.state.familyObject}
+                                loadChildren= {this.loadChildren}
+                                toggleModal= {this.toggleModal}
+
                                 />
                         </Modal>
                     </div>

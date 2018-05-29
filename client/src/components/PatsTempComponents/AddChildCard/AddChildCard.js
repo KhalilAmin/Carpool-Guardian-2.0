@@ -53,6 +53,7 @@ class AddChildCard extends Component {
             faceTokenCompare.push(this.props.familyObject.guardian[i].face_token);
         };
         console.log("faceTokenCompare = ", faceTokenCompare );
+        console.log("HERE IS THE SCHOOLNAME AFTER GET SCHOOL", this.state.schoolName)
         //check to see if the school exists and if so pull back faceSetToken
         API.getSchool({
             schoolName: this.state.schoolName
@@ -135,6 +136,10 @@ class AddChildCard extends Component {
                 grade: this.state.grade,
                 schoolName: this.state.schoolName,
             }
+        })
+        .then(res => {
+            this.props.loadChildren(this.props.familyName);
+            this.props.toggleModal()
         })
     };
 
