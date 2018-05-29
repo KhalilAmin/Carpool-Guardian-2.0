@@ -160,7 +160,6 @@ class AddGuardCard extends Component {
                                     onChange={this.handleInputChange}
                                     name="phone"
                                     pattern="/\d{3}-\d{3}-\d{4}/"
-                                    type="number"
                                     label="Enter Phone Number"
                                     placeholder="Phone Number"
                                 />
