@@ -35,7 +35,7 @@ app.use(bodyParser.urlencoded({ extended: true, limit: '3mb', parameterLimit: 30
 app.use(bodyParser.json({ limit: '3mb' }));
 
 // Serve up static assets
-//app.use(express.static(path.join(__dirname, "client", "build")))
+// app.use(express.static(path.join(__dirname, "client", "build")))
 app.use(express.static("client/public"));
 // Add routes, both API and view
 
@@ -66,3 +66,5 @@ const server = app.listen(PORT, function () {
 	  })
   })
   
+  //PUT THIS INTO package.json to go back to local
+  //"start": "concurrently \"nodemon server.js\" \"npm run client\"",

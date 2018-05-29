@@ -51,7 +51,7 @@ export default {
   // Gets all chillren tied to a family (parent Portal) and 
   // get all children tied to a specific Guardian on pickup for a specific cone 
   getFamily: function (data) {
-    return axios.get("/api/db/getFamily", data);
+    return axios.post("/api/db/getFamily", data);
   },
   getChildren: function (data) {
     return axios.get("/api/db/getChildren", data);
@@ -121,6 +121,14 @@ export default {
 
   removeFromQueue: function (data) {
     return axios.post("/api/db/removeFromQueue", data);
-  }
+  },
   
+  getFaceSetDetail: function (data) {
+    return axios.post("/api/face/getFaceSetDetail", data);
+  },
+
+  removeFaceToken: function (data) {
+    return axios.post("/api/face/removeFaceToken", data);
+  }
+
 };

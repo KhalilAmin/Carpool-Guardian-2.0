@@ -6,6 +6,8 @@ import TchrPrtlCrdWrpr from "../../components/CardWrapper/TeacherPrtlCrdWrpr/Tch
 import InfoCard from "../../components/PatsTempComponents/InfoCard";
 import ImageCard from "../../components/PatsTempComponents/ImageCard";
 import Dropdown from "../../components/PatsTempComponents/Dropdown";
+import CardWrapper from "../../components/PatsTempComponents/CardWrapper";
+import InfoCardC from "../../components/PatsTempComponents/InfoCardC";
 import io from "socket.io-client";
 
 
@@ -27,7 +29,16 @@ class TeacherPortal extends Component {
             phone: "",
             family: ""
         },
+        children: {
+            fName: "",
+            lName: "",
+            grade: "",
+            phone: "",
+            email: "",
+            school: ""
+        },
         foundGuardian: false,
+        confidence: 0,
         coneindex: 0
     };
 
@@ -36,7 +47,7 @@ class TeacherPortal extends Component {
     componentDidMount() {
         
         console.log("TeacherPortal.js Componenet Called");
-        console.log("THIS IS THE TEACHER", this.props.school);
+        console.log("THIS IS THE TEACHER", this.props.userData.school);
         this.loadCones()
     }
 
@@ -69,9 +80,9 @@ class TeacherPortal extends Component {
     };
 
     loadCones = event => {
-
+        console.log("SOMEHOW THE SCHOOL NAME IS HERE", this.props.userData.school)
         API.getSchool({
-            schoolName: this.props.school
+            schoolName: this.props.userData.school
         })
             .then(res => {
                 let intro = [{coneName: "Please select a cone"}]
@@ -103,8 +114,9 @@ class TeacherPortal extends Component {
     }
 
     getNextDriver = coneindex => {
+        console.log("IM GETTING THE NEXT DRIVER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
         API.getSchool({
-            schoolName: this.props.school
+            schoolName: this.props.userData.school
         })
             .then(res => {
                 let intro = [{coneName: "Please select a cone"}]
@@ -120,8 +132,8 @@ class TeacherPortal extends Component {
                         familyName: selectedCone.queueData[0].family
                     })
                     .then(res => {
-                        let guardian = res.data[0].guardian.filter(item => item._id === selectedCone.queueData[0].guardian_id)[0]
-                        this.setState({foundGuardian: true, guardian: guardian}) 
+                        let guardian = res.data[0].guardian.filter(item => item._id === selectedCone.queueData[0].guardian_id)[0]                 
+                        this.setState({foundGuardian: true, guardian: guardian, confidence: selectedCone.queueData[0].confidence, foundChildren: true, children: res.data[0].child}) 
                     })
                     .catch(err => console.log(err));
                 }
@@ -135,7 +147,17 @@ class TeacherPortal extends Component {
                         phone: "",
                         family: ""
                         },
-                    foundGuardian: false
+                    foundGuardian: false,
+                    confidence: "",
+                    children: {
+                        fName: "",
+                        lName: "",
+                        grade: "",
+                        phone: "",
+                        email: "",
+                        school: ""
+                        },
+                    foundChildren: false
                     })
 
                     //Start listening for a driver coming in
@@ -154,7 +176,6 @@ class TeacherPortal extends Component {
             this.getNextDriver(this.state.coneindex)
         })
     }
-
 
     render() {
         return (
@@ -184,13 +205,14 @@ class TeacherPortal extends Component {
                                 {this.state.foundGuardian ? (
                                     <div>
                                     <TchrPrtlCrdWrpr
-                                        cardHeading = "Parent"
                                         fName = {this.state.guardian.fName}
                                         lName = {this.state.guardian.lName}
                                         img = {this.state.guardian.img_base64}
                                         email = {this.state.guardian.email}
                                         phone = {this.state.guardian.phone}
                                         family = {this.state.guardian.family}
+                                        confidence = {this.state.confidence}
+
                                     />
                                     </div>
 
@@ -202,18 +224,49 @@ class TeacherPortal extends Component {
                             </Col>
                         </Row>
                     </Container>
+                    <Container>
+                        {this.state.foundChildren ? (
+                            this.state.children.map(child => (
+                                <Row>
+                                    {/* <Col size="md-2"></Col> */}
+                                    <Col size="md-8">
+                                        <div className="panel panel-default" style={{ height: "250px" }}>
+                                            <div className="panel-heading">
+                                                <h3 className="panel-title">{child.fName} {child.lName}</h3>
+                                            </div>
+                                            <div className="panel-body">
+                                                <CardWrapper key={child._id}>
+                                                    <Col size="md-8">
+                                                        <ImageCard
+                                                            name='{child.fName} {child.lName}'
+                                                            img={"data:image/png;base64," + child.img_base64}
+
+                                                        />
+                                                    </Col>
+                                                    <Col size="md-4">
+                                                        <InfoCardC
+                                                            fName={child.fName}
+                                                            lName={child.lName}
+                                                            grade={child.grade}
+                                                            phone={child.phone}
+                                                            email={child.email}
+                                                            school={child.school}
+                                                        />
+                                                    </Col>
+                                                </CardWrapper>
+                                            </div>
+                                        </div>
+                                    </Col>
+                                </Row>
+                            )
+                        )
+                        ) : (
+                                <div></div>
+                            )
+                        }
+
+                    </Container>
                 </div>
-                {/* <div>
-                    <Col size="md-8">
-                        <div className="panel panel-default" style={{ height: "250px" }}>
-                            <div className="panel-heading">
-                                <h3 className="panel-title">{school.schoolName}</h3>
-                            </div>
-                            <div className="panel-body">
-                            </div>
-                        </div>
-                    </Col>
-                </div> */}
             </div>
         )
     };

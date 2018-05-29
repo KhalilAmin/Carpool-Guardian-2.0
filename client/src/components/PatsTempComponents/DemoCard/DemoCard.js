@@ -125,20 +125,21 @@ class DemoCard extends Component {
         let schoolID = schoolresult.data[0]._id;
         let faceSetToken = schoolresult.data[0].faceSetToken
 
+        console.log("DEMO: School returned -", schoolresult.data[0].schoolName)
         //Next we compare this face image with other faces in this schools' faceset
         API.searchFace({
             image_base64: this.state.image_base64,
             faceset_token: faceSetToken
         })
-
         //The API will return the matched face_token - we need to figure out which guardian cooresponds to that in the DB
         .then(faceresult => {
-
+            console.log("DEMO: SearchFace returned -", faceresult.data.face_token)
             API.getGuardian({
                 face_token: faceresult.data.face_token
             })
             .then(guardianresult => {
-                console.log(guardianresult);
+                console.log("DEMO: getGuardian returned -", guardianresult.data)
+           
 
                 console.log("TOKEN RESULT", faceresult.data.face_token);
                 console.log("CONFIDENCE RESULT", faceresult.data.confidence)

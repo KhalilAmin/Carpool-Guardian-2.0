@@ -140,7 +140,8 @@ class App extends Component {
 									loggedIn: true,
 									user: response.data.user,
 									email: email,
-									password: password
+									password: password,
+									userData: res.data[0]
 								})
 								// window.location = '/Temp';
 
@@ -153,6 +154,8 @@ class App extends Component {
 						.then(res => {
 							if (res.data.length > 0) {
 								//THE USER IS A TEACHER
+								console.log("THIS IS THE RES FOR TEACHER", res.data[0])
+
 								this.setState({ isTeacher: true })
 								axios.post('/auth/teacherlogin', {
 									email,
@@ -166,7 +169,8 @@ class App extends Component {
 												loggedIn: true,
 												user: response.data.user,
 												email: email,
-												password: password
+												password: password,
+												userData: res.data[0]
 											})
 											// window.location = '/Temp';
 
@@ -237,7 +241,7 @@ class App extends Component {
 					<Route exact path="/School" component={School} />
 					<Route exact path="/Demo" component={() => (
 						this.state.loggedIn ? (
-							<Demo />
+							<School />
 						) : (
 								<Redirect to={'/'} />
 							)
@@ -262,6 +266,7 @@ class App extends Component {
 						) : (
 								<Redirect to={'/'} />
 							)
+
 					)
 					}
 					/>

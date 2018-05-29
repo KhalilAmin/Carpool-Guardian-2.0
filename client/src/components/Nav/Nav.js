@@ -20,7 +20,7 @@ const Nav = props => {
 						</Link>
 					</li>
 					<li className="nav-item">
-						<Link to="/schools" className="nav-link">
+						<Link to="/School" className="nav-link">
 							Schools
 						</Link>
 					</li>
@@ -30,7 +30,6 @@ const Nav = props => {
 							Logout
 						</Link>
 					</li>
-
 				</ul>
 			</nav>
 		)

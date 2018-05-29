@@ -49,16 +49,23 @@ module.exports = {
   },
 
   getFamily: function(req, res) {
+
     db.models.Family
       .find(req.body)
       .populate("guardian")
       .populate("child")
-      .then(dbModel => res.json(dbModel))
+      .then(dbModel => {
+        res.json(dbModel)
+      })
       .catch(err => res.status(422).json(err));
   },
+
   addChild: function(req, res) {
-    db.models.Family.guardian.child
-      .create(req.body)
+    console.log("THis is my child: ", req.body);
+    db.models.Child.create(req.body.child)
+      .then(function(dbChild) {
+        return db.models.Family.findOneAndUpdate({familyName: req.body.familyName}, {$push: {child: dbChild._id}}, {new: true });
+      })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },

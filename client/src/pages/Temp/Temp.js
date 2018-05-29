@@ -21,6 +21,10 @@ class Temp extends Component {
     search_faceset_token: "",
     result_face_token: "",
     result_confidence: 0,
+    detail_faceset_token: "",
+    remove_faceset_token: "",
+    remove_face_token: "",
+    removed_face_token: ""
     
   };
 
@@ -128,6 +132,37 @@ class Temp extends Component {
           });
       })
   }
+
+  handleGetFaceSetDetail = event => {
+    event.preventDefault();
+
+    API.getFaceSetDetail({
+      faceset_token: this.state.detail_faceset_token
+    })
+    .then(res => {
+      console.log("DETAIL RETURNS THIS", res.data);
+      this.setState({
+        result_faceset_detail: res.data
+      })
+    })
+  }
+
+  handleRemoveFaceToken = event => {
+    event.preventDefault();
+
+    API.removeFaceToken({
+
+      faceset_token: this.state.remove_faceset_token,
+      face_token: this.state.remove_face_token
+    })
+    .then(res => {
+      console.log("REMOVE RETURNS THIS", res.data);
+      this.setState({
+        removed_faceset_token: res.data.faceset_token
+      })
+    })
+  }
+
 
   handleAddFamily = event => {
     event.preventDefault();
@@ -358,6 +393,76 @@ class Temp extends Component {
                     <small>Face Result Token: Confidence: </small>
                   )}
                 </div>
+            </div>
+          </Col>
+        </Row>
+        <Row>
+          <Col size="md-4">
+              <div className="panel panel-default" style={{height:"250px"}}>
+                <div className="panel-heading">
+                  <h3 className="panel-title">FaceSet Detail</h3>
+                </div>
+                <div className="panel-body">
+                  <div>
+                    {this.state.result_faceset_detail ? (
+                      <small>Face Set Detail: {this.state.result_faceset_detail}</small>
+                    ) : (
+                      <div>
+                        <div className="form-group">              
+                          <Input className="form-control"
+                          value={this.state.detail_faceset_token}
+                          onChange={this.handleInputChange}
+                          name="detail_faceset_token"
+                          placeholder="Enter faceset token to be detailed"
+                          />
+                        </div>
+                        <FormBtn
+                          onClick={this.handleGetFaceSetDetail}
+                        >
+                          FaceSet Detail
+                        </FormBtn>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </Col>
+            <Col size="md-4">
+            <div className="panel panel-default" style={{height:"250px"}}>
+              <div className="panel-heading">
+                <h3 className="panel-title">Remove Face</h3>
+              </div>
+              <div className="panel-body">
+                <div>
+                  {this.state.removed_face_token > 0 ? (
+                    <small>Face Removed: {this.state.removed_faceset_token}</small>
+                  ) : (
+                    <div>
+                      <div className="form-group">              
+                        <Input className="form-control"
+                        value={this.state.remove_faceset_token}
+                        onChange={this.handleInputChange}
+                        name="remove_faceset_token"
+                        placeholder="Enter faceset_token"
+                        />
+                        <small className="form-text text-muted">This is the token of the faceset that you created.</small>
+                        <Input className="form-control"
+                          value={this.state.remove_face_token}
+                          onChange={this.handleInputChange}
+                          name="remove_face_token"
+                          placeholder="Enter face_token"
+                        />
+                        <small className="form-text text-muted">This is the token of the face.</small>
+                      </div>
+                      <FormBtn
+                        onClick={this.handleRemoveFaceToken}
+                      >
+                        Remove Face
+                      </FormBtn>
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
           </Col>
         </Row>

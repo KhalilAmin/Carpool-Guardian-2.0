@@ -57,7 +57,7 @@ router.route("/getNext")
   .get(dbController.getNext);
 
 router.route("/getFamily")
-  .get(dbController.getFamily);
+  .post(dbController.getFamily);
 
 router.route("/getSchool")
   .post(dbController.getSchool);
@@ -75,6 +75,9 @@ router.route("/teachersignup")
   .post(dbController.addTeacher);
 
 router.route("/removeFromQueue")
+  .post(dbController.removeFromQueue);
+
+router.route("/updateSchoolGuardian")
   .post(dbController.removeFromQueue);
 
 module.exports = router;
