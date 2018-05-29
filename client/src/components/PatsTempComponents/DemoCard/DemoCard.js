@@ -11,7 +11,7 @@ class DemoCard extends Component {
     filename: null,
   };
 
-  socket = io('localhost:8080');
+  socket = io.connect(window.location.hostname);
   
   
   componentDidMount() {
@@ -118,6 +118,9 @@ class DemoCard extends Component {
         schoolName: this.state.schoolName
     })
     .then(schoolresult => {
+        console.log("THIS IS THE SCHOOL RESULT", schoolresult.data);
+
+
         let lastOccupiedConeIndex = -1;
         let targetConeIndex = 0
         let cones = schoolresult.data[0].cone;
