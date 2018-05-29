@@ -82,13 +82,9 @@ class GuardianPortal extends Component {
                         </div>
                         {this.state.guardians.map(guardian => (
                             <Row>
-<<<<<<< HEAD
-                                <Col size="md-8">
-=======
 
                                 {/* <Col> */}
                                 <Col size="md-12">
->>>>>>> c90e9ff957f6595e82d6f400dd7e45c155a7079c
                                     <div className="panel panel-default" style={{ height: "250px" }}>
                                         <div className="panel-heading">
                                             <h3 className="panel-title">{guardian.fName} {guardian.lName}</h3>
