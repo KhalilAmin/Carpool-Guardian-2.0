@@ -196,15 +196,20 @@ class App extends Component {
 				<Header user={this.state.user} />
 
 				<Switch>
+
+					<Route exact path="/login" render={() => <Login _login={this._login} />} />
+
 					<Route exact path="/" render={() => (
 						this.state.loggedIn ? (
 							this.state.isTeacher ? (
-								// <TeacherPortal />
-								<Redirect to={'/TeacherPortal'} />
+								<div>
+									<TeacherPortal userData={this.state.userData} />
+								</div>
 							) : (
 									this.state.isGuardian ? (
-										// <GuardianPortal />
-										<Redirect to={'/GuardianPortal'} />
+										<div>
+											<GuardianPortal userData={this.state.userData} />
+										</div>
 									) : (
 											<Redirect to={'/'} />
 										)
@@ -217,12 +222,7 @@ class App extends Component {
 					)
 					}
 					/>
-					{/* <Route exact path="/login" component={<Login _login={this._login} />} /> */}
-					<Route exact path="/login" render={() => <Login _login={this._login} />} />
-					{/* <Route exact path="/teacherlogin" render={() => <TeacherLogin _teacherlogin={this._teacherlogin} />} /> */}
-					{/* <Route exact path="/teacherSignup" component={teacherSignup} loggedIn={this.state.loggedIn} isTeacher={this.state.isTeacher} /> */}
-					{/* <Route exact path="/guardianSignup" component={guardianSignup} loggedIn={this.state.loggedIn} isTeacher={this.state.isTeacher} /> */}
-					<Route exact path="/School" component={School} />
+
 					<Route exact path="/Demo" component={() => (
 						this.state.loggedIn ? (
 							<School />
@@ -235,15 +235,16 @@ class App extends Component {
 
 
 					/>
-					<Route exact path="/Parent" component={() => (
+					<Route exact path="/School" component={() => (
 						this.state.loggedIn ? (
-							<Parent />
+							<School />
 						) : (
 								<Redirect to={'/'} />
 							)
 					)
 					}
 					/>
+
 					<Route exact path="/Temp" component={() => (
 						this.state.loggedIn ? (
 							<Temp />

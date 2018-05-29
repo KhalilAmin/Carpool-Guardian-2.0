@@ -36,23 +36,23 @@ app.use(bodyParser.json({ limit: '3mb' }));
 
 // Serve up static assets
 //UNCOMMENT ME FOR DEPLOYMENT
-app.use(express.static(path.join(__dirname, "client", "build")))
+// app.use(express.static(path.join(__dirname, "client", "build")))
 //UNCOMMENT ME FOR LOCAL
-// app.use(express.static("client/public"));
+app.use(express.static("client/public"));
 
 
 
 // Add routes, both API and view
 
 //UNCOMMENT ME FOR DEPLOYMENT
-app.get("*", (req, res) => {  
-    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
-});
+// app.get("*", (req, res) => {  
+//     res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+// });
 
 //UNCOMMENT ME FOR LOCAL
-// app.get("*", (req, res) => {  
-//     res.sendFile(path.join(__dirname, "client", "public", "index.html"));
-// });
+app.get("*", (req, res) => {  
+    res.sendFile(path.join(__dirname, "client", "public", "index.html"));
+});
 
 app.use(routes);
 
@@ -74,4 +74,4 @@ const server = app.listen(PORT, function () {
   })
   
   //PUT THIS INTO package.json to go back to local
-  //"start": "concurrently \"nodemon server.js\" \"npm run client\"",
+//   "start": "concurrently \"nodemon server.js\" \"npm run client\"",

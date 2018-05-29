@@ -39,7 +39,7 @@ const Nav = props => {
 				<ul className="nav">
 				<li>
 						<Link to="#" className="nav-link" onClick={props._logout}>
-							Logout
+							<h2>Logout</h2>
 						</Link>
 					</li>
 				</ul>
