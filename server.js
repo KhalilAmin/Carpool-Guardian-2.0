@@ -36,9 +36,9 @@ app.use(bodyParser.json({ limit: '3mb' }));
 
 // Serve up static assets
 //UNCOMMENT ME FOR DEPLOYMENT
-app.use(express.static(path.join(__dirname, "client", "build")))
+// app.use(express.static(path.join(__dirname, "client", "build")))
 //UNCOMMENT ME FOR LOCAL
-// app.use(express.static("client/public"));
+app.use(express.static("client/public"));
 
 
 
@@ -74,4 +74,4 @@ const server = app.listen(PORT, function () {
   })
   
   //PUT THIS INTO package.json to go back to local
-  //"start": "concurrently \"nodemon server.js\" \"npm run client\"",
+//   "start": "concurrently \"nodemon server.js\" \"npm run client\"",

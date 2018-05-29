@@ -3,6 +3,13 @@ import axios from 'axios'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import './App.css'
 import Login from './pages/Login'
+<<<<<<< HEAD
+=======
+// import TeacherLogin from './pages/teacherLogin'
+// import guardianSignup from './pages/guardianSignup'
+// import teacherSignup from './pages/teacherSignup'
+// import TeacherSignUp from './components/PatsTempComponents/TeacherSignUp'
+>>>>>>> c90e9ff957f6595e82d6f400dd7e45c155a7079c
 import Header from './components/Header'
 import Demo from "./pages/Demo"
 import GuardianPortal from "./pages/GuardianPortal"
@@ -67,6 +74,13 @@ class App extends Component {
 		})
 	}
 
+<<<<<<< HEAD
+=======
+
+
+
+
+>>>>>>> c90e9ff957f6595e82d6f400dd7e45c155a7079c
 	_logout = event => {
 		event.preventDefault()
 		console.log('logging out')
@@ -173,27 +187,39 @@ class App extends Component {
 				<Header user={this.state.user} />
 
 				<Switch>
+
+					<Route exact path="/login" render={() => <Login _login={this._login} />} />
+
 					<Route exact path="/" render={() => (
 						this.state.loggedIn ? (
 							this.state.isTeacher ? (
 								<div>
+<<<<<<< HEAD
 									{/* <Redirect to={'/TeacherPortal'} /> */}
 									<TeacherPortal
 										userData={this.state.userData}
 									/>
+=======
+									<TeacherPortal userData={this.state.userData} />
+>>>>>>> c90e9ff957f6595e82d6f400dd7e45c155a7079c
 								</div>
 							) : (
 									this.state.isGuardian ? (
 										<div>
+<<<<<<< HEAD
 											{/* <Redirect to={'/GuardianPortal'} /> */}
 											<GuardianPortal
 												userData={this.state.userData} />
+=======
+											<GuardianPortal userData={this.state.userData} />
+>>>>>>> c90e9ff957f6595e82d6f400dd7e45c155a7079c
 										</div>
 									) : (
 											<Redirect to={'/'} />
 										)
 								)
 
+<<<<<<< HEAD
 						) : (
 								<Redirect to={'/'} />
 
@@ -206,11 +232,16 @@ class App extends Component {
 						this.state.loggedIn ? (
 							<School />
 						) : (
+=======
+						)
+							: (
+>>>>>>> c90e9ff957f6595e82d6f400dd7e45c155a7079c
 								<Redirect to={'/'} />
 							)
 					)
 					}
 					/>
+
 					<Route exact path="/Demo" component={() => (
 						this.state.loggedIn ? (
 							<Demo />
@@ -220,15 +251,27 @@ class App extends Component {
 					)
 					}
 					/>
+<<<<<<< HEAD
 					{/* <Route exact path="/Parent" component={() => (
+=======
+
+
+					/>
+					<Route exact path="/School" component={() => (
+>>>>>>> c90e9ff957f6595e82d6f400dd7e45c155a7079c
 						this.state.loggedIn ? (
-							<Parent />
+							<School />
 						) : (
 								<Redirect to={'/'} />
 							)
 					)
 					}
+<<<<<<< HEAD
 					/> */}
+=======
+					/>
+
+>>>>>>> c90e9ff957f6595e82d6f400dd7e45c155a7079c
 					<Route exact path="/Temp" component={() => (
 						this.state.loggedIn ? (
 							<Temp />
@@ -241,27 +284,6 @@ class App extends Component {
 					/>
 
 				</Switch>
-				{/* <div className="App">
-					<button onClick={this.toggleTeacherModal}>
-						SignUp as Teacher
-						</button>
-
-					<Modal show={this.state.teacherIsOpen}
-						onClose={this.toggleTeacherModal}>
-						<AddTeacherCard />
-					</Modal>
-				</div>
-				<div className="App">
-					<button onClick={this.toggleGuardianModal}>
-						SignUp as Parent
-						</button>
-
-					<Modal show={this.state.guardianIsOpen}
-						onClose={this.toggleGuardianModal}>
-						<AddGuardCard />
-					</Modal>
-				</div> */}
-
 			</div>
 		)
 	}

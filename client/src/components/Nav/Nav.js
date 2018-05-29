@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from 'react-router-dom'
 import "./nav.css";
-
+var kidsMom = require('./kidsMom.jpg')
 
 
 const Nav = props => {
@@ -39,7 +39,7 @@ const Nav = props => {
 				<ul className="nav">
 				<li>
 						<Link to="#" className="nav-link" onClick={props._logout}>
-							Logout
+							<h2>Logout</h2>
 						</Link>
 					</li>
 				</ul>
@@ -48,7 +48,9 @@ const Nav = props => {
 		)
 	} else {
 		return (
-			<h1>Derp Derp MFer's </h1>
+			// <h1>Derp Derp MFer's </h1>
+			
+			<img src={ kidsMom } />
 		)
 	}
 }
