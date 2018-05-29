@@ -15,7 +15,7 @@ class DemoCard extends Component {
   
 
   componentDidMount() {
-
+    console.log("IM IN THE DEMO COMPONENT");
   }
 
   socketSend(data) {
