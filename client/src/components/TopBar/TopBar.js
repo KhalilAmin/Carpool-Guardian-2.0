@@ -72,10 +72,10 @@ export default class TopBar extends React.Component {
                                     <DropdownItem onClick={this.toggleGuardianModal}>
                                         Guardian Signup
                   </DropdownItem>
-                                    <DropdownItem divider />
+                                    {/* <DropdownItem divider />
                                     <DropdownItem>
                                         Reset
-                  </DropdownItem>
+                  </DropdownItem> */}
                                 </DropdownMenu>
                             </UncontrolledDropdown>
                         </Nav>
