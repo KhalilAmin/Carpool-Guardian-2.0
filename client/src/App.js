@@ -225,7 +225,7 @@ class App extends Component {
 
 					<Route exact path="/Demo" component={() => (
 						this.state.loggedIn ? (
-							<School />
+							<Demo />
 						) : (
 								<Redirect to={'/'} />
 							)
