@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import API from "../../utils/API";
 import { Col, Row, Container } from "../../components/Grid";
 import Modal from "../../components/Modal";
-import TchrPrtlCrdWrpr from "../../components/CardWrapper/TeacherPrtlCrdWrpr/TchrPrtlCrdWrpr";
 import InfoCard from "../../components/PatsTempComponents/InfoCard";
 import ImageCard from "../../components/PatsTempComponents/ImageCard";
 import Dropdown from "../../components/PatsTempComponents/Dropdown";
 import CardWrapper from "../../components/PatsTempComponents/CardWrapper";
+import InfoCardG from "../../components/PatsTempComponents/InfoCardG";
 import InfoCardC from "../../components/PatsTempComponents/InfoCardC";
 import io from "socket.io-client";
 
@@ -46,9 +46,9 @@ class TeacherPortal extends Component {
 
     componentDidMount() {
         
-        console.log("TeacherPortal.js Componenet Called");
-        console.log("THIS IS THE TEACHER", this.props.userData.school);
+        console.log("DID I EVEN GET HERE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
         this.loadCones()
+
     }
 
     componentWillUpdate() {
@@ -122,7 +122,7 @@ class TeacherPortal extends Component {
                 let intro = [{coneName: "Please select a cone"}]
                 let cones = intro.concat(res.data[0].cone)
                 let selectedCone = cones[coneindex]
-
+                
                 this.setState({cones: cones, selectedCone: selectedCone, schoolId: res.data[0]._id})
                 
                 //With the cone selected and the ID known, we start listening for updates to the cone from the server
@@ -133,7 +133,8 @@ class TeacherPortal extends Component {
                     })
                     .then(res => {
                         let guardian = res.data[0].guardian.filter(item => item._id === selectedCone.queueData[0].guardian_id)[0]                 
-                        this.setState({foundGuardian: true, guardian: guardian, confidence: selectedCone.queueData[0].confidence, foundChildren: true, children: res.data[0].child}) 
+                        this.setState({foundGuardian: true, guardian: guardian, confidence: selectedCone.queueData[0].confidence, foundChildren: true, children: res.data[0].child})
+                        this.checkConfidence(selectedCone.queueData[0].confidence); 
                     })
                     .catch(err => console.log(err));
                 }
@@ -177,6 +178,16 @@ class TeacherPortal extends Component {
         })
     }
 
+    checkConfidence = (confidence) => {
+        if (confidence >= 85) {
+            this.setState({confidenceClass: "panel panel-success"})
+        } else if (confidence >= 60 && this.props.confidence < 85) {
+            this.setState({confidenceClass: "panel panel-warning"})
+        } else {
+            this.setState({confidenceClass: "panel panel-danger"})
+        }
+    }
+
     render() {
         return (
             <div>
@@ -200,29 +211,42 @@ class TeacherPortal extends Component {
                         </Row>
                     </Container>
                     <Container>
-                        <Row>
-                            <Col size="md-12">
-                                {this.state.foundGuardian ? (
-                                    <div>
-                                    <TchrPrtlCrdWrpr
-                                        fName = {this.state.guardian.fName}
-                                        lName = {this.state.guardian.lName}
-                                        img = {this.state.guardian.img_base64}
-                                        email = {this.state.guardian.email}
-                                        phone = {this.state.guardian.phone}
-                                        family = {this.state.guardian.family}
-                                        confidence = {this.state.confidence}
+                        {this.state.foundGuardian ? (
+                            <Row>
+                                <Col size="md-8">
 
-                                    />
+                                    <div className={this.state.confidenceClass} style={{ height: "250px" }}>
+                                        <div className="panel-heading">
+                                            <h3 className="panel-title">{this.state.guardian.fName} {this.state.guardian.lName} -- {this.state.confidence} </h3>
+                                        </div>
+                                        <div className="panel-body">
+                                            <CardWrapper>
+                                                <Col size="md-8">
+                                                    <ImageCard
+                                                        name='{this.state.guardian.fName} {this.state.guardian.lName}'
+                                                        img={"data:image/png;base64," + this.state.guardian.img_base64}
+
+                                                    />
+                                                </Col>
+                                                <Col size="md-4">
+                                                    <InfoCardG
+                                                        fName={this.state.guardian.fName}
+                                                        lName={this.state.guardian.lName}
+                                                        family = {this.state.guardian.family}
+                                                        phone={this.state.guardian.phone}
+                                                        email={this.state.guardian.email}
+                                                        confidence = {this.state.confidence}
+                                                    />
+                                                </Col>
+                                            </CardWrapper>
+                                        </div>
                                     </div>
-
-
-
-                                    ) : (
-                                        <h3>Waiting for Driver</h3>
-                                )}
-                            </Col>
-                        </Row>
+                                </Col>
+                            </Row>
+                        ) : (
+                            <h3>Waiting for Driver</h3>
+                        )
+                    }
                     </Container>
                     <Container>
                         {this.state.foundChildren ? (
