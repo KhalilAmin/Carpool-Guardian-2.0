@@ -108,7 +108,6 @@ class AddTeacherCard extends Component {
                                     onChange={this.handleInputChange}
                                     name="teacherPhone"
                                     pattern="/\d{3}-\d{3}-\d{4}/"
-                                    type="number"
                                     label="Enter Teacher Phone Number"
                                     placeholder="Phone Number"
                                 />
