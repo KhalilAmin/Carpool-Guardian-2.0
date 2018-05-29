@@ -11,7 +11,7 @@ class DemoCard extends Component {
     filename: null,
   };
 
-  socket = io.connect(window.location.hostname);
+  socket = io();
   
   
   componentDidMount() {
