@@ -12,7 +12,8 @@ class teacherSignup extends Component {
             school: '',
 			password: '',
 			confirmPassword: '',
-			redirectTo: null
+			isTeacher: ''
+			// redirectTo: null
 		}
 		this.handleSubmit = this.handleSubmit.bind(this)
 		this.handleChange = this.handleChange.bind(this)
@@ -39,7 +40,7 @@ class teacherSignup extends Component {
 				if (!response.data.errmsg) {
 					console.log('youre good')
 					this.setState({
-						redirectTo: '/Temp'
+						isTeacher: true
 					})
 				} else {
 					console.log('duplicate')
@@ -47,8 +48,8 @@ class teacherSignup extends Component {
 			})
 	}
 	render() {
-		if (this.state.redirectTo) {
-			return <Redirect to={{ pathname: this.state.redirectTo }} />
+		if (this.state.isTeacher && this.state.loggedIn) {
+			return <Redirect to={'/TeacherPortal' } />
 		}
 		return (
 			<div className="teacherSignup">
