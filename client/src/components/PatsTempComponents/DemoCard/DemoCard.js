@@ -11,9 +11,9 @@ class DemoCard extends Component {
     filename: null,
   };
 
-  socket = io();
+  socket = io.connect('https://carpool-guardian.herokuapp.com/');
   
-  
+
   componentDidMount() {
 
   }
