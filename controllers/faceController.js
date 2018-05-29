@@ -21,6 +21,7 @@ module.exports = {
             res.send(response.data.faceset_token);
         })
         .catch(function (error) {
+            res.status(422).json(error);
             console.log(error);
         });    
     },
@@ -39,6 +40,7 @@ module.exports = {
             res.send(response.data.facesets);
         })
         .catch(function (error) {
+            res.status(422).json(error);
             console.log(error);
         });    
     },
@@ -59,12 +61,13 @@ module.exports = {
             res.send(response.data.faceset_token);
         })
         .catch(function (error) {
+            res.status(422).json(error);
             console.log(error);
         });    
     },
 
     detectFace: function (req, res) {
-
+        
         axios({
         method: "post",
         url: 'https://api-us.faceplusplus.com/facepp/v3/detect', 
@@ -78,6 +81,7 @@ module.exports = {
             res.send(response.data.faces[0].face_token);
         })
         .catch(function (error) {
+            res.status(422).json(error);
             console.log(error);
         });    
     },
@@ -97,6 +101,7 @@ module.exports = {
             res.send(response.data);
         })
         .catch(function (error) {
+            res.status(422).json(error);
             console.log(error);
         });    
     },
@@ -119,6 +124,7 @@ module.exports = {
             res.send(response.data.results[0])
         })
         .catch(function (error) {
+            res.status(422).json(error);
             console.log(error);
         });    
     },
@@ -138,6 +144,7 @@ module.exports = {
             res.send(response.data.face_tokens)
         })
         .catch(function (error) {
+            res.status(422).json(error);
             console.log(error);
         });    
     },
@@ -159,6 +166,7 @@ module.exports = {
             res.send(response.data)
         })
         .catch(function (error) {
+            res.status(422).json(error);
             console.log(error);
         });    
     },
