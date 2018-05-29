@@ -39,12 +39,12 @@ class GuardianPortal extends Component {
             familyName: familyName
         })
             .then(res => {
-                this.setState({ 
+                this.setState({
                     guardians: res.data[0].guardian,
                     familyObject: res.data[0]
                 });
-                console.log("res.data: ",res.data[0].child.length);
-                console.log("family object: ",this.state.familyObject);
+                console.log("res.data: ", res.data[0].child.length);
+                console.log("family object: ", this.state.familyObject);
             }
             )
             .catch(err => console.log(err));
@@ -83,13 +83,14 @@ class GuardianPortal extends Component {
             <div>
                 <div>
                     <Container>
-                    <div className="guardian-header">
-                            <h1>This is the Guardian Section</h1>
+                        <div className="guardian-header">
+                            <h1>Guardian Information</h1>
                         </div>
                         {this.state.guardians.map(guardian => (
                             <Row>
-                                {/* <Col size="md-2"></Col> */}
-                                <Col size="md-8">
+
+                                {/* <Col> */}
+                                <Col size="md-12">
                                     <div className="panel panel-default" style={{ height: "250px" }}>
                                         <div className="panel-heading">
                                             <h3 className="panel-title">{guardian.fName} {guardian.lName}</h3>
@@ -134,13 +135,12 @@ class GuardianPortal extends Component {
                 {/* Children Container */}
                 <div>
                     <Container>
-                    <div className="child-header">
-                            <h1>This is the Child Section</h1>
+                        <div className="child-header">
+                            <h1>Child Information</h1>
                         </div>
                         {this.state.children.map(child => (
                             <Row>
-                                {/* <Col size="md-2"></Col> */}
-                                <Col size="md-8">
+                                <Col size="md-12">
                                     <div className="panel panel-default" style={{ height: "250px" }}>
                                         <div className="panel-heading">
                                             <h3 className="panel-title">{child.fName} {child.lName}</h3>
@@ -182,9 +182,9 @@ class GuardianPortal extends Component {
                             onClose={this.toggleModal}>
                             <AddChildCard
                                 familyName={this.props.userData.family}
-                                familyObject= {this.state.familyObject}
+                                familyObject={this.state.familyObject}
                                 loadChildren={this.loadChildren}
-                                />
+                            />
                         </Modal>
                     </div>
                 </div>
