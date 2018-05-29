@@ -11,7 +11,7 @@ class DemoCard extends Component {
     filename: null,
   };
 
-  socket = io('localhost:8080');
+  socket = io('localhost:' + process.env.PORT);
   
   
   componentDidMount() {
