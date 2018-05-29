@@ -5,9 +5,6 @@ const InfoCardG = props => {
     return (
         <div className="guardianInfoCard">
           <ul>
-          <li>
-              <strong>ID:</strong> {props.id}
-            </li>
             <li>
               <strong>Name:</strong> {props.fName} {props.lName}
             </li>
