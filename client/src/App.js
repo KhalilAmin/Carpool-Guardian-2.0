@@ -1,30 +1,19 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { BrowserRouter as Router, Switch, Route, Link, Redirect } from 'react-router-dom'
+import { Switch, Route, Redirect } from 'react-router-dom'
 import './App.css'
 import Login from './pages/Login'
-// import TeacherLogin from './pages/teacherLogin'
-// import guardianSignup from './pages/guardianSignup'
-// import teacherSignup from './pages/teacherSignup'
-// import TeacherSignUp from './components/PatsTempComponents/TeacherSignUp'
 import Header from './components/Header'
-import Home from './pages/Home'
 import Demo from "./pages/Demo"
-import Parent from "./pages/Parent"
 import GuardianPortal from "./pages/GuardianPortal"
 import Temp from "./pages/Temp";
 import Nav from "./components/Nav";
 import School from "./pages/School";
-import CardHeading from "./components/CardHeading";
-import CardWrapper from "./components/CardWrapper";
 import TeacherPortal from "./pages/TeacherPortal";
 import API from "./utils/API";
-import AddGuardCard from "./components/PatsTempComponents/AddGuardCard"
-import AddTeacherCard from "./components/PatsTempComponents/AddTeacherCard"
-import Modal from "./components/Modal";
 import io from "socket.io-client";
-// import TopButton from "./components/TopButton";
 import TopBar from "./components/TopBar";
+
 
 
 
@@ -41,17 +30,15 @@ class App extends Component {
 		//endpoint: "localhose:8080"
 	}
 
-	socket = io('localhost:8080');
+	// socket = io('localhost:8080');
 
-	sendMessage = event => {
-		event.preventDefault();
-		console.log("here")
-		this.socket.emit('SEND_MESSAGE', {
-			something: "message!!!!!!!!!!"
-		})
-	}
-
-
+	// sendMessage = event => {
+	// 	event.preventDefault();
+	// 	console.log("here")
+	// 	this.socket.emit('SEND_MESSAGE', {
+	// 		something: "message!!!!!!!!!!"
+	// 	})
+	// }
 
 	componentDidMount() {
 		axios.get('/auth/user').then(response => {
@@ -63,12 +50,10 @@ class App extends Component {
 					user: response.data.user
 				})
 
-				//console.log(this.state);
 			}
 			else {
 				this.setState({
 					loggedIn: false,
-					//isTeacher: false,
 					user: null
 				})
 			}
@@ -81,10 +66,6 @@ class App extends Component {
 			console.log("IT")
 		})
 	}
-
-
-
-
 
 	_logout = event => {
 		event.preventDefault()
@@ -183,14 +164,10 @@ class App extends Component {
 
 
 	render() {
-
-
-
-
 		return (
 			<div className="App">
 				<TopBar />
-				<h1>Carpool Guardian 2.0</h1>
+				{/* <h1>Carpool Guardian 2.0</h1> */}
 				{/* <Header user={this.state.user} /> */}
 				<Nav _logout={this._logout} isTeacher={this.state.isTeacher} loggedIn={this.state.loggedIn} />
 				<Header user={this.state.user} />
@@ -203,20 +180,35 @@ class App extends Component {
 						this.state.loggedIn ? (
 							this.state.isTeacher ? (
 								<div>
-									<TeacherPortal userData={this.state.userData} />
+									{/* <Redirect to={'/TeacherPortal'} /> */}
+									<TeacherPortal
+										userData={this.state.userData}
+									/>
 								</div>
 							) : (
 									this.state.isGuardian ? (
 										<div>
-											<GuardianPortal userData={this.state.userData} />
+											{/* <Redirect to={'/GuardianPortal'} /> */}
+											<GuardianPortal
+												userData={this.state.userData} />
 										</div>
 									) : (
 											<Redirect to={'/'} />
 										)
 								)
 
-						)
-							: (
+						) : (
+								<Redirect to={'/'} />
+
+							)
+					)
+					}
+					/>
+					<Route exact path="/login" render={() => <Login _login={this._login} />} />
+					<Route exact path="/School" component={() => (
+						this.state.loggedIn ? (
+							<School />
+						) : (
 								<Redirect to={'/'} />
 							)
 					)
@@ -232,10 +224,7 @@ class App extends Component {
 					)
 					}
 					/>
-
-
-					/>
-					<Route exact path="/School" component={() => (
+					{/* <Route exact path="/Parent" component={() => (
 						this.state.loggedIn ? (
 							<School />
 						) : (
@@ -243,8 +232,7 @@ class App extends Component {
 							)
 					)
 					}
-					/>
-
+					/> */}
 					<Route exact path="/Temp" component={() => (
 						this.state.loggedIn ? (
 							<Temp />

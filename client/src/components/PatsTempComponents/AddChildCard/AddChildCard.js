@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import API from "../../../utils/API";
-import { Col, Row, Container } from "../../../components/Grid";
+import { Container } from "../../../components/Grid";
 import { Input, FormBtn } from "../../../components/Form";
 import AddImageCard from "../AddImageCard"
-import { EHOSTUNREACH } from "constants";
 import Grid from '@material-ui/core/Grid';
 import Person from '@material-ui/icons/Person';
 import Email from '@material-ui/icons/Email';

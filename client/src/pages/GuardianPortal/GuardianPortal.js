@@ -6,16 +6,12 @@ import CardWrapper from "../../components/PatsTempComponents/CardWrapper";
 import InfoCardC from "../../components/PatsTempComponents/InfoCardC";
 import InfoCardG from "../../components/PatsTempComponents/InfoCardG";
 import ImageCard from "../../components/PatsTempComponents/ImageCard";
-// import AddTempCard from "../../components/PatsTempComponents/AddTempCard"
 import AddChildCard from "../../components/PatsTempComponents/AddChildCard"
-import AddGuardCard from "../../components/PatsTempComponents/AddGuardCard"
-
 
 class GuardianPortal extends Component {
 
 
     state = {
-        // user: this.props.user,
         familyObject: "",
         children: [],
         temp: [],
@@ -61,8 +57,6 @@ class GuardianPortal extends Component {
             )
             .catch(err => console.log(err));
     }
-
-
 
     handleInputChange = event => {
         console.log("handle input change called");
@@ -116,21 +110,11 @@ class GuardianPortal extends Component {
                                         </div>
                                     </div>
                                 </Col>
-                                {/* <Col size="md-2"></Col> */}
                             </Row>
                         ))}
 
                     </Container>
-                    {/* <div className="App">
-                        <button onClick={this.toggleModal}>
-                            Open the modal
-                </button>
 
-                        <Modal show={this.state.isOpen}
-                            onClose={this.toggleModal}>
-                            <AddGuardCard />
-                        </Modal>
-                    </div> */}
                 </div>
                 {/* Children Container */}
                 <div>
