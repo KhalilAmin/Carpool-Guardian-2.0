@@ -120,7 +120,6 @@ module.exports = {
             })
         })
         .then(function (response) {
-            console.log(response);
             res.send(response.data.results[0])
         })
         .catch(function (error) {
@@ -150,7 +149,6 @@ module.exports = {
     },
 
     removeFaceToken: function (req, res) {
-        console.log("REM",req.body);
 
         axios({
         method: "post",
