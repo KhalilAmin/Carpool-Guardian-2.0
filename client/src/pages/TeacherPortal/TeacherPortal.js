@@ -39,7 +39,7 @@ class TeacherPortal extends Component {
         coneindex: 0
     };
 
-    socket = io();
+    socket = io.connect();
 
     componentDidMount() {
         
