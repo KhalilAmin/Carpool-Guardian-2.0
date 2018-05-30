@@ -2,7 +2,6 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:8080",
   "dependencies": {
     "bootstrap": "^4.1.1",
     "mdbreact": "^4.4.0",
