@@ -11,7 +11,7 @@ class DemoCard extends Component {
     filename: null,
   };
 
-  //socket = io.connect();
+  socket = io.connect();
   
 
   componentDidMount() {
@@ -19,7 +19,7 @@ class DemoCard extends Component {
   }
 
   socketSend(data) {
-    //this.socket.emit('CONE_UPDATE', data)
+    this.socket.emit('CONE_UPDATE', data)
   }
 
 
