@@ -50,7 +50,7 @@ const Nav = props => {
 		return (
 			// <h1>Derp Derp MFer's </h1>
 			
-			<img src={ kidsMom } />
+			<img src={ kidsMom } alt="green car"/>
 		)
 	}
 }

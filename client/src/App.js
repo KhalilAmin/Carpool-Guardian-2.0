@@ -11,7 +11,6 @@ import Nav from "./components/Nav";
 import School from "./pages/School";
 import TeacherPortal from "./pages/TeacherPortal";
 import API from "./utils/API";
-import io from "socket.io-client";
 import TopBar from "./components/TopBar";
 
 
