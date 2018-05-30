@@ -193,7 +193,7 @@ class App extends Component {
 					)
 					}
 					/>
-					<Route exact path="/login" render={() => <Login _login={this._login} />} />
+					{/* <Route exact path="/login" render={() => <Login _login={this._login} />} /> */}
 					<Route exact path="/School" component={() => (
 						this.state.loggedIn ? (
 							<School />
