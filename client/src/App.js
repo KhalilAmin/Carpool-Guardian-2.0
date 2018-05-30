@@ -30,15 +30,15 @@ class App extends Component {
 		//endpoint: "localhose:8080"
 	}
 
-	socket = io('localhost:8080');
+	// socket = io('localhost:8080');
 
-	sendMessage = event => {
-		event.preventDefault();
-		console.log("here")
-		this.socket.emit('SEND_MESSAGE', {
-			something: "message!!!!!!!!!!"
-		})
-	}
+	// sendMessage = event => {
+	// 	event.preventDefault();
+	// 	console.log("here")
+	// 	this.socket.emit('SEND_MESSAGE', {
+	// 		something: "message!!!!!!!!!!"
+	// 	})
+	// }
 
 	componentDidMount() {
 		axios.get('/auth/user').then(response => {
