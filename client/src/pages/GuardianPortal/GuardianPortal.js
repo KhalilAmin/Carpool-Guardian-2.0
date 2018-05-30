@@ -7,6 +7,7 @@ import InfoCardC from "../../components/PatsTempComponents/InfoCardC";
 import InfoCardG from "../../components/PatsTempComponents/InfoCardG";
 import ImageCard from "../../components/PatsTempComponents/ImageCard";
 import AddChildCard from "../../components/PatsTempComponents/AddChildCard"
+import { FormBtn } from "../../components/Form/index";
 
 class GuardianPortal extends Component {
 
@@ -158,9 +159,9 @@ class GuardianPortal extends Component {
 
                     </Container>
                     <div className="App">
-                        <button onClick={this.toggleModal}>
+                        <FormBtn onClick={this.toggleModal} variant="raised" color="primary">
                             Add Child
-                        </button>
+                        </FormBtn>
 
                         <Modal show={this.state.isOpen}
                             onClose={this.toggleModal}>

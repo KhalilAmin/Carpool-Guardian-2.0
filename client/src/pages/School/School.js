@@ -5,7 +5,8 @@ import Modal from "../../components/Modal";
 import CardWrapper from "../../components/PatsTempComponents/CardWrapper";
 import InfoCard from "../../components/PatsTempComponents/InfoCard";
 import ImageCard from "../../components/PatsTempComponents/ImageCard";
-import AddSchoolCard from "../../components/PatsTempComponents/AddSchoolCard"
+import AddSchoolCard from "../../components/PatsTempComponents/AddSchoolCard";
+import Button from '@material-ui/core/Button';
 
 
 class School extends Component {
@@ -82,9 +83,14 @@ class School extends Component {
   
             </Container>
             <div className="App">
-                <button onClick={this.toggleModal}>
+                <Button 
+                onClick={this.toggleModal}
+                variant="raised" 
+                color="primary"
+                style={{marginTop:30}}
+                >
                 Add School
-                </button>
+                </Button>
 
                 <Modal show={this.state.isOpen}
                 onClose={this.toggleModal}>
