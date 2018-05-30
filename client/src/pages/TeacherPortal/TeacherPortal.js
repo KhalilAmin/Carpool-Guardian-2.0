@@ -102,7 +102,7 @@ class TeacherPortal extends Component {
             console.log("AND I GOT BELOW")
             console.log(this.state.selectedCone._id)
             let that = this;
-
+            this.socket.removeAllListeners();
             this.socket.on(this.state.selectedCone._id, function(data) {
                 console.log("I HEARD SOMETHING--------------------------------", that.state.selectedCone._id);
                 
