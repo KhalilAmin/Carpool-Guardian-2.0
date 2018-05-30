@@ -11,7 +11,6 @@ import Nav from "./components/Nav";
 import School from "./pages/School";
 import TeacherPortal from "./pages/TeacherPortal";
 import API from "./utils/API";
-import io from "socket.io-client";
 import TopBar from "./components/TopBar";
 
 
@@ -27,18 +26,7 @@ class App extends Component {
 		user: null,
 		teacherIsOpen: false,
 		guardianIsOpen: false
-		//endpoint: "localhose:8080"
 	}
-
-	// socket = io('localhost:8080');
-
-	// sendMessage = event => {
-	// 	event.preventDefault();
-	// 	console.log("here")
-	// 	this.socket.emit('SEND_MESSAGE', {
-	// 		something: "message!!!!!!!!!!"
-	// 	})
-	// }
 
 	componentDidMount() {
 		axios.get('/auth/user').then(response => {
@@ -204,7 +192,7 @@ class App extends Component {
 					)
 					}
 					/>
-					<Route exact path="/login" render={() => <Login _login={this._login} />} />
+					{/* <Route exact path="/login" render={() => <Login _login={this._login} />} /> */}
 					<Route exact path="/School" component={() => (
 						this.state.loggedIn ? (
 							<School />

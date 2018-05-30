@@ -40,7 +40,7 @@ class TeacherPortal extends Component {
         coneindex: 0
     };
 
-    socket = io('localhost:8080');
+    socket = io.connect();
 
     componentDidMount() {
         
@@ -179,7 +179,7 @@ class TeacherPortal extends Component {
     checkConfidence = (confidence) => {
         if (confidence >= 85) {
             this.setState({confidenceClass: "panel panel-success"})
-        } else if (confidence >= 60 && this.props.confidence < 85) {
+        } else if (confidence >= 60 && confidence < 85) {
             this.setState({confidenceClass: "panel panel-warning"})
         } else {
             this.setState({confidenceClass: "panel panel-danger"})
