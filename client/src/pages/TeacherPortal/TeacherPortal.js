@@ -6,6 +6,7 @@ import CardWrapper from "../../components/PatsTempComponents/CardWrapper";
 import InfoCardG from "../../components/PatsTempComponents/InfoCardG";
 import InfoCardC from "../../components/PatsTempComponents/InfoCardC";
 import io from "socket.io-client";
+import Button from '@material-ui/core/Button';
 
 
 
@@ -192,7 +193,12 @@ class TeacherPortal extends Component {
                     <Container>
                         <Row>
                             <Col size="md-3">
-                                <button onClick={this.advanceDriver}>Advance Driver</button>
+                                <Button 
+                                color="primary"
+                                variant="raised"
+                                onClick={this.advanceDriver}>
+                                Advance Driver
+                                </Button>
                             </Col>
                             <Col size="md-6"></Col>
                             <Col size="md-3">
